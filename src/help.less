@@ -1,0 +1,21 @@
+@appprimary: rgb(60, 141, 188);
+
+:host {
+  cursor: pointer;
+  .help-icon {
+    color: lightgray;
+    &:hover {
+      color: @appprimary;
+    }
+  }
+  .popover-container{
+    min-width: 150px;
+    line-height: 20px;
+    font-size: 16px;
+    display: flex;
+    flex-grow: 1;
+    .see-also-item {
+      padding-left: 20px;
+    }
+  }
+}

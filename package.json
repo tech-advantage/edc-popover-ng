@@ -1,0 +1,43 @@
+{
+  "name": "edc-popover-ng",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "ngc -p tsconfig.json",
+    "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
+    "test": "tsc && karma start",
+    "prepublish": "tsc",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tech-advantage/edc-popover-ng"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tech-advantage/edc-popover-ng/issues"
+  },
+  "main": "./dist/index.js",
+  "dependencies": {
+    "edc-web-publishing-js": "git+https://github.com/tech-advantage/edc-web-publishing-js#51cdba29625044760b700b566752c31fe10b7cb8",
+    "font-awesome": "4.7.0",
+    "lodash": "4.17.4",
+    "ng2-bootstrap": "1.4.0",
+    "bootstrap": "4.0.0-alpha.6"
+  },
+  "devDependencies": {
+    "@angular/common": "^2.0.0",
+    "@angular/compiler": "2.4.5",
+    "@angular/compiler-cli": "2.4.5",
+    "@angular/core": "2.0.0",
+    "@angular/platform-browser": "2.4.5",
+    "@angular/platform-server": "2.4.5",
+    "@types/es6-shim": "0.31.32",
+    "@types/jasmine": "2.5.40",
+    "@types/lodash": "4.14.39",
+    "codelyzer": "3.0.0-beta.3",
+    "rxjs": "5.2.0",
+    "tslint": "4.5.1",
+    "typescript": "2.2.1",
+    "zone.js": "0.7.2"
+  }
+}

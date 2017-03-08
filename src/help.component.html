@@ -1,0 +1,30 @@
+<!-- Popover template -->
+<template #popTemplate>
+  <div class="popover-container" (click)="$event.stopPropagation()">
+    <div class="see-also">
+      <div>
+        <h5><strong><span>{{localHelp.title}}</span></strong></h5>
+        <ul class="list-unstyled see-also-list">
+          <li *ngFor="let article of localHelp.seeAlso" class="see-also-item" (click)="goToArticle()">
+            <a href="#">-{{article}}</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h5><strong><span>text2</span></strong></h5>
+        <ul class="list-unstyled see-also-list">
+          <li *ngFor="let link of localHelp.links" class="see-also-item" (click)="goToArticle()">
+            <a href="#">-{{link}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- app-help template -->
+<i class="fa fa-question-circle-o help-icon"
+   [ngbPopover]="popTemplate"
+   (click)="$event.stopPropagation()"
+   data-placement="bottom">
+</i>
