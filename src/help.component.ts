@@ -10,6 +10,7 @@ export class HelpComponent implements OnInit {
   localHelp: any;
   @Input() key: string;
   @Input() subKey: string;
+  @Input() placement: string;
 
   constructor(private helpService: HelpService) {}
 

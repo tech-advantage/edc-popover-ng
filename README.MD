@@ -10,6 +10,11 @@ The only required dependencies are:
 
 ## Importing the help component
 
+> EDIT : not published on NPM yet, for now you should use : 
+> ```bash
+> "edc-popover-ng": "git+https://github.com/tech-advantage/edc-popover-ng#{commitId}",
+> ```
+
 You can import your library with NPM in any Angular application by running:
 
 ```bash
@@ -60,14 +65,14 @@ import { HelpModule } from 'edc-popover-ng';
 export class AppModule { }
 ```
 
-Once the library is imported, you can use its Help component in your Angular application:
+Once the library is imported, you can use the Help component in your Angular application:
 
 ```xml
 <!-- You can now use your library component in app.component.html -->
 <h1>
   {{title}}
+  <edc-help [key]="key" [subKey]="subkey" [placement]="bottom"></edc-help>
 </h1>
-<edc-help key="fr.my.key" subKey="theSubKey"></edc-help>
 ```
 
 ## License

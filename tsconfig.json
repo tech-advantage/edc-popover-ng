@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
-    "lib": ["es6", "dom"],
+    "module": "commonjs",
+    "target": "ES5",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowUnusedLabels": false,
