@@ -22,6 +22,14 @@ with YARN, use:
 $ yarn add edc-popover-ng
 ```
 
+## Add Bootstrap and FontAwesome styles
+
+In your main style file (e.g. _style.less_) :
+
+- @import "~bootstrap/dist/css/bootstrap.css";
+- @import "~font-awesome/less/font-awesome.less";
+
+
 ## Consuming the help component
 
 
