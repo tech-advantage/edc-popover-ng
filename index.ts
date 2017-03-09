@@ -2,13 +2,15 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HelpComponent } from './src/help.component';
 import { HelpService } from './src/help.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export * from './src/help.component';
 export * from './src/help.service';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    NgbModule.forRoot()
   ],
   declarations: [
     HelpComponent

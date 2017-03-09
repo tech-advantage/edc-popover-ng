@@ -21,14 +21,14 @@
     "edc-web-publishing-js": "git+https://github.com/tech-advantage/edc-web-publishing-js#51cdba29625044760b700b566752c31fe10b7cb8",
     "font-awesome": "4.7.0",
     "lodash": "4.17.4",
-    "ng2-bootstrap": "1.4.0",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.20",
     "bootstrap": "4.0.0-alpha.6"
   },
   "devDependencies": {
-    "@angular/common": "^2.0.0",
+    "@angular/common": "2.4.5",
     "@angular/compiler": "2.4.5",
     "@angular/compiler-cli": "2.4.5",
-    "@angular/core": "2.0.0",
+    "@angular/core": "2.4.5",
     "@angular/platform-browser": "2.4.5",
     "@angular/platform-server": "2.4.5",
     "@types/es6-shim": "0.31.32",
