@@ -1,28 +1,31 @@
 # edc-popover-ng
 
-## Installation
+## Dependencies
 
-To install this library with NPM, run:
+The only required dependencies are:
+
+- Angular (requires Angular version 2 or higher, tested with 2.4.5)
+- Bootstrap CSS (tested with 4.0.0-alpha.6)
+
+
+## Importing the help component
+
+You can import your library with NPM in any Angular application by running:
 
 ```bash
 $ npm install edc-popover-ng --save
 ```
 
-To install this library with YARN, run:
+with YARN, use:
 
 ```bash
 $ yarn add edc-popover-ng
 ```
 
-## Consuming the library
+## Consuming the help component
 
-You can import your library in any Angular application by running:
 
-```bash
-$ npm install edc-popover-ng
-```
-
-and then from your Angular `AppModule`:
+From your Angular `AppModule`:
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -57,20 +60,6 @@ Once the library is imported, you can use its Help component in your Angular app
   {{title}}
 </h1>
 <edc-help key="fr.my.key" subKey="theSubKey"></edc-help>
-```
-
-## Development
-
-To generate all `*.js`, `*.js.map` and `*.d.ts` files:
-
-```bash
-$ npm run tsc
-```
-
-To lint all `*.ts` files:
-
-```bash
-$ npm run lint
 ```
 
 ## License
