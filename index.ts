@@ -15,6 +15,9 @@ export * from './src/help.service';
   declarations: [
     HelpComponent
   ],
+  providers: [
+    HelpService
+  ],
   exports: [
     HelpComponent
   ]

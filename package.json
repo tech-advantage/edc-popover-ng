@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/tech-advantage/edc-popover-ng"
   },
-  "license": "MIT",
+  "license": "EPL-1.0",
   "bugs": {
     "url": "https://github.com/tech-advantage/edc-popover-ng/issues"
   },
@@ -21,8 +21,7 @@
     "edc-web-publishing-js": "git+https://github.com/tech-advantage/edc-web-publishing-js#51cdba29625044760b700b566752c31fe10b7cb8",
     "font-awesome": "4.7.0",
     "lodash": "4.17.4",
-    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.20",
-    "bootstrap": "4.0.0-alpha.6"
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.20"
   },
   "devDependencies": {
     "@angular/common": "2.4.5",
