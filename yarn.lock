@@ -244,9 +244,9 @@ duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
 
-"edc-web-publishing-js@git+https://github.com/tech-advantage/edc-web-publishing-js#51cdba29625044760b700b566752c31fe10b7cb8":
+"edc-web-publishing-js@git+https://github.com/tech-advantage/edc-web-publishing-js#1e85500a001dd1f5ee2801bb4befaa805b02d59a":
   version "0.0.0"
-  resolved "git+https://github.com/tech-advantage/edc-web-publishing-js#51cdba29625044760b700b566752c31fe10b7cb8"
+  resolved "git+https://github.com/tech-advantage/edc-web-publishing-js#1e85500a001dd1f5ee2801bb4befaa805b02d59a"
   dependencies:
     axios "^0.15.3"
     es6-promise "^4.0.5"

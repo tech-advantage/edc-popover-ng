@@ -18,7 +18,7 @@
   },
   "main": "./dist/index.js",
   "dependencies": {
-    "edc-web-publishing-js": "git+https://github.com/tech-advantage/edc-web-publishing-js#51cdba29625044760b700b566752c31fe10b7cb8",
+    "edc-web-publishing-js": "git+https://github.com/tech-advantage/edc-web-publishing-js#1e85500a001dd1f5ee2801bb4befaa805b02d59a",
     "font-awesome": "4.7.0",
     "lodash": "4.17.4",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.20"
