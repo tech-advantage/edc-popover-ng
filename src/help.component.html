@@ -1,20 +1,21 @@
 <!-- Popover template -->
 <template #popTemplate>
   <div class="popover-container" (click)="$event.stopPropagation()">
+    <article>{{ helper.description }}</article>
     <div class="see-also">
-      <div>
-        <h5><strong><span>{{localHelp.title}}</span></strong></h5>
+      <div *ngIf="helper.articles.length">
+        <h5><strong><span> Need more...</span></strong></h5>
         <ul class="list-unstyled see-also-list">
-          <li *ngFor="let article of localHelp.seeAlso" class="see-also-item" (click)="goToArticle()">
-            <a href="#">-{{article}}</a>
+          <li *ngFor="let article of helper.articles; let key = index" class="see-also-item" (click)="goToArticle(key)">
+            <a href="#">-{{article.label}}</a>
           </li>
         </ul>
       </div>
-      <div>
-        <h5><strong><span>text2</span></strong></h5>
+      <div *ngIf="helper.links.length">
+        <h5><strong><span>Links</span></strong></h5>
         <ul class="list-unstyled see-also-list">
-          <li *ngFor="let link of localHelp.links" class="see-also-item" (click)="goToArticle()">
-            <a href="#">-{{link}}</a>
+          <li *ngFor="let link of helper.links" class="see-also-item" (click)="goToLink(link)">
+            <a href="#">-{{link.label}}</a>
           </li>
         </ul>
       </div>
@@ -25,6 +26,9 @@
 <!-- app-help template -->
 <i class="fa fa-question-circle-o help-icon"
    [ngbPopover]="popTemplate"
+   [popoverTitle]="helper.label"
    (click)="$event.stopPropagation()"
-   data-placement="{{placement}}">
+   #p="ngbPopover"
+   (document:click)="p.close()"
+   data-placement="{{ placement ? placement : 'bottom' }}">
 </i>
