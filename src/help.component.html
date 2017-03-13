@@ -1,21 +1,21 @@
 <!-- Popover template -->
 <template #popTemplate>
   <div class="popover-container" (click)="$event.stopPropagation()">
-    <article>{{ helper.description }}</article>
+    <article class="popover-article">{{ helper?.description }}</article>
     <div class="see-also">
-      <div *ngIf="helper.articles.length">
-        <h5><strong><span> Need more...</span></strong></h5>
+      <div *ngIf="helper?.articles.length">
+        <h6><strong><span> Need more...</span></strong></h6>
         <ul class="list-unstyled see-also-list">
           <li *ngFor="let article of helper.articles; let key = index" class="see-also-item" (click)="goToArticle(key)">
-            <a href="#">-{{article.label}}</a>
+            <div class="link">-{{article.label}}</div>
           </li>
         </ul>
       </div>
-      <div *ngIf="helper.links.length">
-        <h5><strong><span>Links</span></strong></h5>
+      <div *ngIf="helper?.links.length">
+        <h6><strong><span>Links</span></strong></h6>
         <ul class="list-unstyled see-also-list">
           <li *ngFor="let link of helper.links" class="see-also-item" (click)="goToLink(link)">
-            <a href="#">-{{link.label}}</a>
+            <div class="link">-{{link.label}}</div>
           </li>
         </ul>
       </div>
@@ -26,7 +26,7 @@
 <!-- app-help template -->
 <i class="fa fa-question-circle-o help-icon"
    [ngbPopover]="popTemplate"
-   [popoverTitle]="helper.label"
+   [popoverTitle]="helper?.label"
    (click)="$event.stopPropagation()"
    #p="ngbPopover"
    (document:click)="p.close()"
