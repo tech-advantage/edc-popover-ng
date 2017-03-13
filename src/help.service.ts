@@ -11,7 +11,7 @@ export class HelpService {
     this.edcClient = new EdcClient('/doc/');
   }
 
-  getHelp(primaryKey: string, subKey:string): Promise<Helper> {
+  getHelp(primaryKey: string, subKey: string): Promise<Helper> {
     return this.edcClient.getHelper(primaryKey, subKey);
   }
 }
