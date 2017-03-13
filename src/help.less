@@ -11,15 +11,24 @@
     }
   }
 
-  .popover-container{
+  .popover-container {
     min-width: 150px;
     line-height: 20px;
-    font-size: 16px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    .popover-article {
+      font-size: 14px;
+      padding-bottom: 10px;
+    }
     .see-also-item {
+      font-size: 15px;
       padding-left: 20px;
+
+      .article-link {
+        color: #0275d8;
+        text-decoration: underline;
+      }
     }
   }
 }
