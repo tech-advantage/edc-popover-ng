@@ -7,7 +7,7 @@
         <h6><strong><span> Need more...</span></strong></h6>
         <ul class="list-unstyled see-also-list">
           <li *ngFor="let article of helper.articles; let key = index" class="see-also-item" (click)="goToArticle(key)">
-            <div class="link">-{{article.label}}</div>
+            <div class="article-link">-{{article.label}}</div>
           </li>
         </ul>
       </div>
@@ -15,7 +15,7 @@
         <h6><strong><span>Links</span></strong></h6>
         <ul class="list-unstyled see-also-list">
           <li *ngFor="let link of helper.links" class="see-also-item" (click)="goToLink(link)">
-            <div class="link">-{{link.label}}</div>
+            <div class="article-link">-{{link.label}}</div>
           </li>
         </ul>
       </div>
