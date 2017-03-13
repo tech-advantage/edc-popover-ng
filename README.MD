@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tech-advantage/edc-popover-ng.svg?branch=master)](https://travis-ci.org/tech-advantage/edc-popover-ng)
+
 # edc-popover-ng
 
 ## Dependencies
