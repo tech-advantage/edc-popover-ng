@@ -4,6 +4,9 @@ cache: yarn
 
 sudo: false
 
+addons:
+  firefox: "49.0"
+
 notifications:
   email: false
 
