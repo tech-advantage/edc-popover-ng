@@ -1,31 +1,40 @@
-# Node
-node_modules/*
-npm-debug.log
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
 /dist
 /tmp
 
-# TypeScript
-*.js
-*.map
-*.d.ts
+# dependencies
+/node_modules
 
-# JetBrains
-.idea
+# IDEs and editors
+/.idea
 .project
-.settings
+.classpath
+.c9/
+*.launch
+.settings/
 
-# VS Code
+# IDE - VSCode
 .vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-# Windows
-Thumbs.db
-Desktop.ini
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
 
-# Mac
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+#System Files
 .DS_Store
-**/.DS_Store
-
-# Ngc generated files
-**/*.ngfactory.ts
+Thumbs.db
