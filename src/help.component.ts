@@ -18,7 +18,7 @@ export class HelpComponent implements OnInit {
   @Input() placement: string;
   @Input() dark: boolean;
 
-  // for closing popover when focus los
+  // for closing popover on focus out
   @HostListener('document:click')
   onDocumentClick() {
     this.popover.close();
@@ -42,6 +42,10 @@ export class HelpComponent implements OnInit {
   goToLink(link: Link) {
     const url = `/help/doc/${link.id}`;
     this.open(url);
+  }
+
+  getPlacement() {
+    return this.placement ? this.placement : 'bottom';
   }
 
   private open(url: string) {

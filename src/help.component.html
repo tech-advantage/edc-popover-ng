@@ -29,6 +29,6 @@
    [popoverTitle]="helper?.label"
    (click)="$event.stopPropagation()"
    #popover="ngbPopover"
-   data-placement="{{ placement ? placement : 'bottom' }}"
+   [placement]="getPlacement()"
    [ngClass]="{'on-dark': dark}">
 </i>
