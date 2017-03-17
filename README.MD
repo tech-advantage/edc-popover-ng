@@ -79,4 +79,4 @@ Once the library is imported, you can use the Help component in your Angular app
 
 ## License
 
-Eclipse Public License - v 1.0 © [TECH'advantage](mailto:contact@tech-advantage.com)
+MIT [TECH'advantage](mailto:contact@tech-advantage.com)
