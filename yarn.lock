@@ -390,7 +390,7 @@ aws4@^1.2.1:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
-axios@^0.15.3:
+axios@0.15.3:
   version "0.15.3"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.15.3.tgz#2c9d638b2e191a08ea1d6cc988eadd6ba5bdc053"
   dependencies:
@@ -1390,13 +1390,13 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-"edc-web-publishing-js@git+https://github.com/tech-advantage/edc-web-publishing-js#1e85500a001dd1f5ee2801bb4befaa805b02d59a":
-  version "0.0.0"
-  resolved "git+https://github.com/tech-advantage/edc-web-publishing-js#1e85500a001dd1f5ee2801bb4befaa805b02d59a"
+edc-web-publishing-js@^1.0.2-0:
+  version "1.0.2-0"
+  resolved "https://registry.yarnpkg.com/edc-web-publishing-js/-/edc-web-publishing-js-1.0.2-0.tgz#777493f56cce684e3ca940f46a5fa7f4a2b9f1d0"
   dependencies:
-    axios "^0.15.3"
-    es6-promise "^4.0.5"
-    lodash "^4.17.4"
+    axios "0.15.3"
+    es6-promise "4.0.5"
+    lodash "4.17.4"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -1507,9 +1507,9 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
-es6-promise@^4.0.5:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.1.0.tgz#dda03ca8f9f89bc597e689842929de7ba8cebdf0"
+es6-promise@4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.0.5.tgz#7882f30adde5b240ccfa7f7d78c548330951ae42"
 
 escape-html@~1.0.3:
   version "1.0.3"

@@ -24,7 +24,7 @@
     "@angular/platform-browser": "^2.4.0",
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.20",
-    "edc-web-publishing-js": "git+https://github.com/tech-advantage/edc-web-publishing-js#1e85500a001dd1f5ee2801bb4befaa805b02d59a",
+    "edc-web-publishing-js": "^1.0.2-0",
     "font-awesome": "4.7.0",
     "lodash": "4.17.4"
   },
