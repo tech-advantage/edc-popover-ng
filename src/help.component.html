@@ -28,7 +28,7 @@
    [ngbPopover]="popTemplate"
    [popoverTitle]="helper?.label"
    (click)="$event.stopPropagation()"
-   #p="ngbPopover"
-   (document:click)="p.close()"
-   data-placement="{{ placement ? placement : 'bottom' }}">
+   #popover="ngbPopover"
+   [placement]="getPlacement()"
+   [ngClass]="{'on-dark': dark}">
 </i>
