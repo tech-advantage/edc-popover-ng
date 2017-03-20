@@ -1,6 +1,6 @@
 {
   "name": "edc-popover-ng",
-  "version": "0.1.0",
+  "version": "1.0.2",
   "description": "Angular Help Component for edc - TECH'advantage",
   "angular-cli": {},
   "scripts": {
@@ -8,7 +8,8 @@
     "build": "tsc",
     "test": "ng test --single-run",
     "test-auto": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "edc-publish": "npm run lint && npm run test && npm run build && npm publish"
   },
   "repository": {
     "type": "git",
