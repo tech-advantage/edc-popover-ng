@@ -9,7 +9,7 @@
     "test": "ng test --single-run",
     "test-auto": "ng test",
     "lint": "ng lint",
-    "edc-publish": "npm run lint && npm run test && npm publish"
+    "edc-publish": "npm run lint && npm run test && npm run build && npm publish"
   },
   "repository": {
     "type": "git",
