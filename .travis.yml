@@ -2,10 +2,10 @@ language: node_js
 
 cache: yarn
 
-sudo: required
+sudo: false
 
 addons:
-  firefox: latest
+  firefox: "49.0"
 
 notifications:
   email: false
