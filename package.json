@@ -8,7 +8,8 @@
     "build": "tsc",
     "test": "ng test --single-run",
     "test-auto": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "prepublish": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
