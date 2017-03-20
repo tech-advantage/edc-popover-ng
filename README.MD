@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/tech-advantage/edc-popover-ng.svg?branch=master)](https://travis-ci.org/tech-advantage/edc-popover-ng)
+[![npm version](https://badge.fury.io/js/edc-popover-ng.svg)](https://badge.fury.io/js/edc-popover-ng)
 
 # edc-popover-ng
 
@@ -12,10 +13,6 @@ The only required dependencies are:
 
 ## Importing the help component
 
-> EDIT : not published on NPM yet, for now you should use : 
-> ```bash
-> "edc-popover-ng": "git+https://github.com/tech-advantage/edc-popover-ng#{commitId}",
-> ```
 
 You can import your library with NPM in any Angular application by running:
 
