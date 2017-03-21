@@ -1,7 +1,6 @@
 {
   "name": "edc-popover-ng",
-  "version": "1.0.2",
-  "description": "Angular Help Component for edc - TECH'advantage",
+  "version": "1.0.2-1",
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
