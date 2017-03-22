@@ -50,8 +50,7 @@ describe('Help component', () => {
       });
 
       it('should return bottom if placement is NOT defined', () => {
-        // given placement value is undefined
-        component.placement = undefined;
+        // given placement is not set
 
         // when calling getPlacement()
         const testPlacement = component.getPlacement();

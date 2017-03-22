@@ -50,7 +50,7 @@ export class HelpComponent implements OnInit {
 
   @Input() key: string;
   @Input() subKey: string;
-  @Input() placement: string;
+  @Input() placement: string = 'bottom';
   @Input() dark: boolean;
 
   // for closing popover on focus out
@@ -80,7 +80,7 @@ export class HelpComponent implements OnInit {
   }
 
   getPlacement() {
-    return this.placement ? this.placement : 'bottom';
+    return this.placement;
   }
 
   private open(url: string) {

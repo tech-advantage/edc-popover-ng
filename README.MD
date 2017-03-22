@@ -73,6 +73,26 @@ Once the library is imported, you can use the Help component in your Angular app
   <edc-help [key]="key" [subKey]="subkey" [placement]="bottom"></edc-help>
 </h1>
 ```
+## Setting up the component
+
+The component `edc-help` can takes multiple inputs :
+
+| Name | Type | Default | Description | Optional |
+|---|---|---|---|---|
+| key | string | '' | The edc documentation main key | no |
+| subKey |  string | '' | The edc documentation sub key | no |
+| placement | string | 'bottom' | How to position the popover - top \| bottom \| left \| right | true |
+| dark | boolean | false | Should be true if icon is on dark background | true |
+
+
+_Coming soon :_
+
+| Name | Type | Default | Description | Optional |
+|---|---|---|---|---|
+| color | string | '#3C8DBC' | Choose the help icon color | true |
+| icon |  string | 'fa-question-circle-o' | Choose you font-awesome icon | true |
+| customClass | string | '' | Set a custom CSS class  | true |
+| trigger | string | 'click' | How popover is triggered - click \| hover \| focus \| manual | true |
 
 ## License
 
