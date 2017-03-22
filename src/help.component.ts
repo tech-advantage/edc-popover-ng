@@ -50,7 +50,7 @@ export class HelpComponent implements OnInit {
 
   @Input() key: string;
   @Input() subKey: string;
-  @Input() placement: string = 'bottom';
+  @Input() placement = 'bottom';
   @Input() dark: boolean;
 
   // for closing popover on focus out
