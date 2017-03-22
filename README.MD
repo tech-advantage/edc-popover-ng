@@ -1,7 +1,14 @@
+## edc-popover-ng
+
 [![Build Status](https://travis-ci.org/tech-advantage/edc-popover-ng.svg?branch=master)](https://travis-ci.org/tech-advantage/edc-popover-ng)
 [![npm version](https://badge.fury.io/js/edc-popover-ng.svg)](https://badge.fury.io/js/edc-popover-ng)
 
-# edc-popover-ng
+_This project is meant to be used with **easy doc contents** (aka edc)._
+
+edc is a simple yet powerful tool for agile-like documentation
+management.
+
+Learn more at [https://www.easydoccontents.com](https://www.easydoccontents.com).
 
 ## Dependencies
 
@@ -30,9 +37,10 @@ $ yarn add edc-popover-ng
 
 In your main style file (e.g. _style.less_) :
 
-- @import "~bootstrap/dist/css/bootstrap.css";
-- @import "~font-awesome/less/font-awesome.less";
-
+```css
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/less/font-awesome.less";
+```
 
 ## Consuming the help component
 
@@ -55,7 +63,7 @@ import { HelpModule } from 'edc-popover-ng';
   imports: [
     BrowserModule,
 
-    // Specify your library as an import
+    // Specify the edc-help module as an import
     HelpModule
   ],
   providers: [],
