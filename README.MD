@@ -89,7 +89,8 @@ _Coming soon :_
 
 | Name | Type | Default | Description | Optional |
 |---|---|---|---|---|
-| color | string | '#3C8DBC' | Choose the help icon color | true |
+| color | string | '#D3D3D3' | The help icon color | true |
+| colorHv | string | '#3C8DBC' | The help icon color on hover | true |
 | icon |  string | 'fa-question-circle-o' | Choose you font-awesome icon | true |
 | customClass | string | '' | Set a custom CSS class  | true |
 | trigger | string | 'click' | How popover is triggered - click \| hover \| focus \| manual | true |
