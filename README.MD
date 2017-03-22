@@ -75,7 +75,7 @@ Once the library is imported, you can use the Help component in your Angular app
 ```
 ## Setting up the component
 
-The component `edc-help` can takes multiple inputs :
+The `edc-help` component can take multiple inputs :
 
 | Name | Type | Default | Description | Optional |
 |---|---|---|---|---|
