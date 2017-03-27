@@ -91,7 +91,7 @@ The `edc-help` component can take multiple inputs :
 | subKey |  string | '' | The edc documentation sub key | no |
 | placement | string | 'bottom' | How to position the popover - top \| bottom \| left \| right | true |
 | dark | boolean | false | Should be true if icon is on dark background | true |
-
+| append-to-body | boolean | false | Appends the popover to body | true
 
 _Coming soon :_
 
