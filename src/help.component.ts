@@ -9,7 +9,7 @@ import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
   template: `
     <!-- Popover template -->
     <template #popTemplate>
-      <div class="popover-container" (click)="$event.stopPropagation()">
+      <div class="edc-popover-container" (click)="$event.stopPropagation()">
         <article class="popover-article">{{ helper?.description }}</article>
         <div class="see-also">
           <div *ngIf="helper?.articles.length">
@@ -39,19 +39,24 @@ import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
        (click)="$event.stopPropagation()"
        #popover="ngbPopover"
        [placement]="getPlacement()"
-       [ngClass]="{'on-dark': dark}">
+       [ngClass]="{'on-dark': dark}"
+       [container]="container">
     </i>
   `
 })
 export class HelpComponent implements OnInit {
 
   helper: Helper;
+  container:  string;
   @ViewChild('popover') popover: NgbPopover; // get the popover element by its name declared in the component template
 
   @Input() key: string;
   @Input() subKey: string;
   @Input() placement = 'bottom';
   @Input() dark: boolean;
+  @Input('append-to-body') set appendToBody (appendToBody: boolean) {
+    this.container = appendToBody ? 'body' : '';
+  };
 
   // for closing popover on focus out
   @HostListener('document:click')
