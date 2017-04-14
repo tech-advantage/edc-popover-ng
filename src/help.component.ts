@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
 import { HelpService } from './help.service';
 import { Helper, Link } from 'edc-web-publishing-js';
-import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { HelpConstants } from './help.constants';
+import { PopoverDirective } from 'ngx-bootstrap/popover';
 
 @Component({
   selector: 'edc-help',
@@ -32,16 +32,16 @@ import { HelpConstants } from './help.constants';
         </div>
       </div>
     </template>
-    
+
     <!-- app-help template -->
     <i class="fa fa-question-circle-o help-icon"
-       [ngbPopover]="helper ? popTemplate : comingSoon"
+       #popover="bs-popover"
+       [popover]="helper ? popTemplate : comingSoon"
        [popoverTitle]="helper?.label"
-       (click)="$event.stopPropagation()"
-       #popover="ngbPopover"
        [placement]="getPlacement()"
        [ngClass]="{'on-dark': dark}"
-       [container]="container">
+       [container]="container"
+       (click)="$event.stopPropagation()">
     </i>
   `
 })
@@ -51,7 +51,7 @@ export class HelpComponent implements OnInit {
   container:  string;
   comingSoon = HelpConstants.MESSAGE_COMING_SOON;
 
-  @ViewChild('popover') popover: NgbPopover; // get the popover element by its name declared in the component template
+  @ViewChild('popover') popover: PopoverDirective; // get the popover element by its name declared in the component template
 
   @Input() key: string;
   @Input() subKey: string;
@@ -64,7 +64,7 @@ export class HelpComponent implements OnInit {
   // for closing popover on focus out
   @HostListener('document:click')
   onDocumentClick() {
-    this.popover.close();
+    this.popover.hide();
   }
 
   constructor(
