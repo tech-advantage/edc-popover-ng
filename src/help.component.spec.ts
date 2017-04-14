@@ -3,7 +3,7 @@ import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { HelpService } from './help.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { mockService, mock } from './utils/test-helpers';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 import { Link } from 'edc-web-publishing-js';
 
 describe('Help component', () => {
@@ -17,7 +17,7 @@ describe('Help component', () => {
         HelpComponent
       ],
       imports: [
-        NgbModule.forRoot()
+        PopoverModule.forRoot()
       ],
       providers: [
         mockService(HelpService, ['getHelp'])
