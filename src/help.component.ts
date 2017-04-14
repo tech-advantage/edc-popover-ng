@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core
 import { HelpService } from './help.service';
 import { Helper, Link } from 'edc-web-publishing-js';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
+import { HelpConstants } from './help.constants';
 
 @Component({
   selector: 'edc-help',
@@ -34,7 +35,7 @@ import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
     
     <!-- app-help template -->
     <i class="fa fa-question-circle-o help-icon"
-       [ngbPopover]="popTemplate"
+       [ngbPopover]="helper ? popTemplate : comingSoon"
        [popoverTitle]="helper?.label"
        (click)="$event.stopPropagation()"
        #popover="ngbPopover"
@@ -48,6 +49,8 @@ export class HelpComponent implements OnInit {
 
   helper: Helper;
   container:  string;
+  comingSoon = HelpConstants.MESSAGE_COMING_SOON;
+
   @ViewChild('popover') popover: NgbPopover; // get the popover element by its name declared in the component template
 
   @Input() key: string;
@@ -69,7 +72,7 @@ export class HelpComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.key, this.subKey) {
+    if (this.key && this.subKey) {
       this.helpService.getHelp(this.key, this.subKey).then((helper: Helper) => this.helper = helper);
     }
   }
