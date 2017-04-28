@@ -1,8 +1,8 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { EdcClient, Helper } from 'edc-web-publishing-js';
-import { CONFIG } from './help.module';
 import { HelpModuleConfig } from './help.config';
 
+export let CONFIG = new InjectionToken<HelpModuleConfig>('app.config');
 
 @Injectable()
 export class HelpService {

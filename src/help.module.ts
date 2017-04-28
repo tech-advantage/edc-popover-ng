@@ -4,8 +4,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { HelpComponent } from './help.component';
 import { HelpService } from './help.service';
 import { HelpModuleConfig } from './help.config';
+import { CONFIG } from './help.service';
 
-export let CONFIG = new InjectionToken<HelpModuleConfig>('app.config');
 
 @NgModule({
   imports: [
