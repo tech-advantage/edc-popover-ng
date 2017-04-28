@@ -3,6 +3,13 @@ import { CommonModule } from '@angular/common';
 import { HelpComponent } from './help.component';
 import { HelpService } from './help.service';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { CONFIG } from 'help.service';
+
+export interface HelpModuleConfig {
+  helpPath?: string;
+  body?: boolean;
+  icon?: string;
+}
 
 @NgModule({
   imports: [
@@ -20,10 +27,13 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
   ]
 })
 export class HelpModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(config: HelpModuleConfig = {}): ModuleWithProviders {
     return {
       ngModule: HelpModule,
-      providers: [HelpService]
+      providers: [
+        HelpService,
+        {provide: CONFIG, useValue: config},
+      ]
     };
   }
 }

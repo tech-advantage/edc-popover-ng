@@ -1,10 +1,9 @@
 import { forEach, assign } from 'lodash';
-import { Observable } from 'rxjs';
 import { Provider } from '@angular/core';
 
 export function mockService(provide: any, methods?: string[]): Provider {
   class MockService {}
-  forEach(methods, method => MockService.prototype[method] = () => Observable.of({}));
+  forEach(methods, method => MockService.prototype[method] = () => {});
   return {provide: provide, useClass: MockService};
 }
 
