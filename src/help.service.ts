@@ -10,7 +10,7 @@ export class HelpService {
   private edcClient: EdcClient;
 
   constructor(@Inject(CONFIG) config: HelpModuleConfig) {
-    this.edcClient = new EdcClient('/doc/');
+    this.edcClient = new EdcClient(config.helpPath);
   }
 
   getHelp(primaryKey: string, subKey: string): Promise<Helper> {

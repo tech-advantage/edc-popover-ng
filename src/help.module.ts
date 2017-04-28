@@ -23,7 +23,7 @@ import { CONFIG } from './help.service';
   ]
 })
 export class HelpModule {
-  static forRoot(config: HelpModuleConfig = {}): ModuleWithProviders {
+  static forRoot(config: HelpModuleConfig): ModuleWithProviders {
     return {
       ngModule: HelpModule,
       providers: [

@@ -1,5 +1,5 @@
 export interface HelpModuleConfig {
-  helpPath?: string;
+  helpPath: string;
   body?: boolean;
   icon?: string;
 }
