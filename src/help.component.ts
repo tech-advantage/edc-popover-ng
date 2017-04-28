@@ -46,7 +46,6 @@ import { PopoverDirective } from 'ngx-bootstrap/popover';
   `
 })
 export class HelpComponent implements OnInit {
-
   helper: Helper;
   container:  string;
   comingSoon = HelpConstants.MESSAGE_COMING_SOON;
@@ -67,9 +66,7 @@ export class HelpComponent implements OnInit {
     this.popover.hide();
   }
 
-  constructor(
-    private helpService: HelpService
-  ) {}
+  constructor(private helpService: HelpService) {}
 
   ngOnInit(): void {
     if (this.key && this.subKey) {
@@ -78,12 +75,14 @@ export class HelpComponent implements OnInit {
   }
 
   goToArticle(index: number) {
-    const url = `/help/context/${this.key}/${this.subKey}/en/${index}`;
+    const basePath = this.helpService.getHelpPath();
+    const url = `${basePath}/context/${this.key}/${this.subKey}/en/${index}`;
     this.open(url);
   }
 
   goToLink(link: Link) {
-    const url = `/help/doc/${link.id}`;
+    const basePath = this.helpService.getHelpPath();
+    const url = `${basePath}/doc/${link.id}`;
     this.open(url);
   }
 

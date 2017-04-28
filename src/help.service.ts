@@ -8,12 +8,18 @@ export let CONFIG = new InjectionToken<HelpModuleConfig>('app.config');
 export class HelpService {
 
   private edcClient: EdcClient;
+  private config: HelpModuleConfig;
 
   constructor(@Inject(CONFIG) config: HelpModuleConfig) {
-    this.edcClient = new EdcClient(config.helpPath);
+    this.config = config;
+    this.edcClient = new EdcClient(config.docPath);
   }
 
   getHelp(primaryKey: string, subKey: string): Promise<Helper> {
     return this.edcClient.getHelper(primaryKey, subKey);
+  }
+
+  getHelpPath() {
+    return this.config.helpPath;
   }
 }
