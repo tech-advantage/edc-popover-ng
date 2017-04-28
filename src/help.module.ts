@@ -1,9 +1,9 @@
 import { NgModule, ModuleWithProviders, InjectionToken } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PopoverModule } from 'ngx-bootstrap/popover';
-import { HelpComponent } from 'help.component';
-import { HelpService } from 'help.service';
-import { HelpModuleConfig } from 'help.config';
+import { HelpComponent } from './help.component';
+import { HelpService } from './help.service';
+import { HelpModuleConfig } from './help.config';
 
 export let CONFIG = new InjectionToken<HelpModuleConfig>('app.config');
 

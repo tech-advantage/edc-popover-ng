@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { EdcClient, Helper } from 'edc-web-publishing-js';
-import { CONFIG } from 'help.module';
-import { HelpModuleConfig } from "help.config";
+import { CONFIG } from './help.module';
+import { HelpModuleConfig } from './help.config';
 
 
 @Injectable()
