@@ -9,6 +9,7 @@ import { Link } from 'edc-web-publishing-js';
 describe('Help component', () => {
   let component: HelpComponent;
   let fixture: ComponentFixture<HelpComponent>;
+  let helpService: HelpService;
   let link: Link;
 
   beforeEach(async(() => {
@@ -20,7 +21,7 @@ describe('Help component', () => {
         PopoverModule.forRoot()
       ],
       providers: [
-        mockService(HelpService, ['getHelp'])
+        mockService(HelpService, ['getHelp', 'getHelpPath'])
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -31,6 +32,9 @@ describe('Help component', () => {
     fixture = TestBed.createComponent(HelpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    helpService = TestBed.get(HelpService);
+
+    spyOn(helpService, 'getHelpPath').and.returnValue('/help/#');
   });
 
   describe('init', () => {
@@ -86,7 +90,7 @@ describe('Help component', () => {
         component.subKey = 'mySubKey';
 
         // when calling goToArticle() with index 1
-        const url = `/help/context/myKey/mySubKey/en/1`;
+        const url = `/help/#/context/myKey/mySubKey/en/1`;
         component.goToArticle(1);
 
         // then window.open() should be called
@@ -108,7 +112,7 @@ describe('Help component', () => {
         link = mock(Link, {id: 1});
 
         // when calling goToArticle() with link
-        const url = `/help/doc/1`;
+        const url = `/help/#/doc/1`;
         component.goToLink(link);
 
         // then window.open() should be called
