@@ -53,7 +53,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-// Import your library
+// Import the edc-popover-ng library.
 import { HelpModule } from 'edc-popover-ng';
 
 @NgModule({
@@ -61,10 +61,11 @@ import { HelpModule } from 'edc-popover-ng';
     AppComponent
   ],
   imports: [
-    BrowserModule,
-
-    // Specify the edc-help module as an import
-    HelpModule
+    // Specify the edc-help module as an import, and set basic configuration (see HelpModuleConfig).
+    HelpModule.forRoot({
+    	helpPath: '/pathToHelp',
+        docPath: '/pathToDoc'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -74,7 +75,7 @@ export class AppModule { }
 
 Once the library is imported, you can use the Help component in your Angular application:
 
-```xml
+```html
 <!-- You can now use your library component in app.component.html -->
 <h1>
   {{title}}
