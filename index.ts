@@ -1,3 +1,2 @@
-export * from './src/help.component';
-export * from './src/help.service';
-export * from './src/help.module';
+export { HelpComponent } from './src/help.component';
+export { HelpModule } from './src/help.module';
