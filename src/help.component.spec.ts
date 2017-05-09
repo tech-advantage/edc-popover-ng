@@ -4,7 +4,7 @@ import { HelpService } from './help.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { mockService, mock } from './utils/test-helpers';
 import { PopoverModule } from 'ngx-bootstrap/popover';
-import { Link } from 'edc-web-publishing-js';
+import { Link } from 'edc-client-js';
 
 describe('Help component', () => {
   let component: HelpComponent;
