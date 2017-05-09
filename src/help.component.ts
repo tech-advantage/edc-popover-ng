@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
 import { HelpService } from './help.service';
-import { Helper, Link } from 'edc-web-publishing-js';
+import { Helper, Link } from 'edc-client-js';
 import { HelpConstants } from './help.constants';
 import { PopoverDirective } from 'ngx-bootstrap/popover';
 
