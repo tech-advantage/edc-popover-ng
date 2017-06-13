@@ -94,7 +94,7 @@ describe('Help component', () => {
         component.goToArticle(1);
 
         // then window.open() should be called
-        expect(window.open).toHaveBeenCalledWith(url, 'help', 'height=800,width=1200');
+        expect(window.open).toHaveBeenCalledWith(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
       });
     });
 
@@ -116,7 +116,7 @@ describe('Help component', () => {
         component.goToLink(link);
 
         // then window.open() should be called
-        expect(window.open).toHaveBeenCalledWith(url, 'help', 'height=800,width=1200');
+        expect(window.open).toHaveBeenCalledWith(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
       });
 
     });
