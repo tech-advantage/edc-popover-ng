@@ -91,6 +91,6 @@ export class HelpComponent implements OnInit {
   }
 
   private open(url: string) {
-    window.open(url, 'help', 'height=800,width=1200');
+    window.open(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
   }
 }
