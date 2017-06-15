@@ -41,7 +41,7 @@ import { HelpConstants } from './help.constants';
        [placement]="getPlacement()"
        [ngClass]="{'on-dark': dark }"
        [container]="container"
-       (click)="$event.stopPropagation()">
+       (click)="cancelClick()">
     </i>
   `
 })
@@ -88,6 +88,11 @@ export class HelpComponent implements OnInit {
 
   getPlacement() {
     return this.placement;
+  }
+
+  cancelClick($event: Event) {
+    $event.stopPropagation();
+    $event.preventDefault();
   }
 
   private open(url: string) {

@@ -21,7 +21,7 @@ describe('Help component', () => {
         PopoverModule.forRoot()
       ],
       providers: [
-        mockService(HelpService, ['getHelp', 'getHelpPath'])
+        mockService(HelpService, ['getHelp', 'getHelpPath', 'getIcon', 'getContainer'])
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

@@ -5,7 +5,7 @@ import { HelpComponent } from './help.component';
 import { HelpService } from './help.service';
 
 export interface HelpModuleConfig {
-  configLoader: Provider
+  configLoader: Provider;
 }
 
 @NgModule({
