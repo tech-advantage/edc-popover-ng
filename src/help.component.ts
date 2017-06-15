@@ -1,15 +1,15 @@
 import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
-import { HelpService } from './help.service';
-import { Helper, Link } from 'edc-client-js';
-import { HelpConstants } from './help.constants';
 import { PopoverDirective } from 'ngx-bootstrap/popover';
+import { Helper, Link } from 'edc-client-js';
+import { HelpService } from './help.service';
+import { HelpConstants } from './help.constants';
 
 @Component({
   selector: 'edc-help',
   styleUrls: ['help.less'],
   template: `
     <!-- Popover template -->
-    <template #popTemplate>
+    <ng-template #popTemplate>
       <div class="edc-popover-container" (click)="$event.stopPropagation()">
         <article class="popover-article">{{ helper?.description }}</article>
         <div class="see-also">
@@ -31,23 +31,24 @@ import { PopoverDirective } from 'ngx-bootstrap/popover';
           </div>
         </div>
       </div>
-    </template>
+    </ng-template>
 
     <!-- app-help template -->
-    <i class="fa fa-question-circle-o help-icon"
+    <i class="fa help-icon {{ iconCss }}"
        #popover="bs-popover"
        [popover]="helper ? popTemplate : comingSoon"
        [popoverTitle]="helper?.label"
        [placement]="getPlacement()"
-       [ngClass]="{'on-dark': dark}"
+       [ngClass]="{'on-dark': dark }"
        [container]="container"
-       (click)="$event.stopPropagation()">
+       (click)="cancelClick($event)">
     </i>
   `
 })
 export class HelpComponent implements OnInit {
   helper: Helper;
   container:  string;
+  iconCss:  string;
   comingSoon = HelpConstants.MESSAGE_COMING_SOON;
 
   @ViewChild('popover') popover: PopoverDirective; // get the popover element by its name declared in the component template
@@ -56,9 +57,6 @@ export class HelpComponent implements OnInit {
   @Input() subKey: string;
   @Input() placement = 'bottom';
   @Input() dark: boolean;
-  @Input('append-to-body') set appendToBody (appendToBody: boolean) {
-    this.container = appendToBody ? 'body' : '';
-  };
 
   // for closing popover on focus out
   @HostListener('document:click')
@@ -72,6 +70,8 @@ export class HelpComponent implements OnInit {
     if (this.key && this.subKey) {
       this.helpService.getHelp(this.key, this.subKey).then((helper: Helper) => this.helper = helper);
     }
+    this.iconCss = this.helpService.getIcon();
+    this.container = this.helpService.getContainer();
   }
 
   goToArticle(index: number) {
@@ -88,6 +88,11 @@ export class HelpComponent implements OnInit {
 
   getPlacement() {
     return this.placement;
+  }
+
+  cancelClick($event: Event) {
+    $event.stopPropagation();
+    $event.preventDefault();
   }
 
   private open(url: string) {

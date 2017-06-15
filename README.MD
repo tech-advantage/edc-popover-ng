@@ -45,7 +45,56 @@ In your main style file (e.g. _style.less_) :
 ## Consuming the help component
 
 
-From your Angular `AppModule`:
+### Create a configuration service
+
+This module needs a basic configuration. 
+
+To provide this configuration, first create a new Service implementing PopoverConfigurationHandler.
+
+Methods to implement are : 
+
+| Method | Return type | Description |
+|---|---|---|
+| getHelpPath | string | The path to edc-help-ng application |
+| getDocPath |  string | The path to exported documentation |
+| getIcon | string | The font awesome icon |
+| isAppendToBody | boolean | Appends the popover to body |
+
+Example : 
+```typescript
+import { Injectable } from '@angular/core';
+import { PopoverConfiguration, PopoverConfigurationHandler } from 'edc-popover-ng';
+
+@Injectable()
+export class YourService implements PopoverConfigurationHandler {
+
+  getHelpPath(): string {
+    return '/help';
+  }
+  
+  getDocPath(): string {
+    return '/doc';
+  }
+
+  getIcon() {
+    return 'fa-question-circle-o';
+  }
+
+  isAppendToBody(): boolean {
+    return true;
+  }
+}
+```
+
+
+N.B : The choice to provide a service instead of an object has been made to be more dynamic.
+
+For instance you could inject the `Http` service in `YourService` to get configuration from remote (see also : https://aclottan.wordpress.com/2016/12/30/load-configuration-from-external-file/).
+
+
+### Import HelpModule
+
+In your main application module, for example `AppModule`:
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -53,19 +102,21 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-// Import the edc-popover-ng library.
-import { HelpModule } from 'edc-popover-ng';
+// Import edc-popover-ng library elements.
+import { HelpModule, PopoverConfigurationHandler } from 'edc-popover-ng';
+
+// Import your service implementing PopoverConfigurationHandler.
+import { YourService } from './path.to.your.service';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    // Specify the edc-help module as an import, and set basic configuration (see HelpModuleConfig).
+    // Specify the edc-help module as an import, and provide service implementing PopoverConfigurationHandler.
     HelpModule.forRoot({
-    	helpPath: '/pathToHelp',
-        docPath: '/pathToDoc'
-    })
+      configLoader: {provide: PopoverConfigurationHandler, useClass: YourService}
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -73,13 +124,12 @@ import { HelpModule } from 'edc-popover-ng';
 export class AppModule { }
 ```
 
-Once the library is imported, you can use the Help component in your Angular application:
+You are now able to use the Help component in your Angular application :
 
 ```html
-<!-- You can now use your library component in app.component.html -->
 <h1>
   {{title}}
-  <edc-help [key]="key" [subKey]="subkey" [placement]="bottom"></edc-help>
+  <edc-help [key]="my.key" [subKey]="my.subkey" [placement]="'bottom'" [dark]="true"></edc-help>
 </h1>
 ```
 ## Setting up the component
@@ -92,17 +142,14 @@ The `edc-help` component can take multiple inputs :
 | subKey |  string | '' | The edc documentation sub key | no |
 | placement | string | 'bottom' | How to position the popover - top \| bottom \| left \| right | true |
 | dark | boolean | false | Should be true if icon is on dark background | true |
-| append-to-body | boolean | false | Appends the popover to body | true
 
-_Coming soon :_
+## Coming soon
 
-| Name | Type | Default | Description | Optional |
-|---|---|---|---|---|
-| color | string | '#D3D3D3' | The help icon color | true |
-| colorHv | string | '#3C8DBC' | The help icon color on hover | true |
-| icon |  string | 'fa-question-circle-o' | Choose you font-awesome icon | true |
-| customClass | string | '' | Set a custom CSS class  | true |
-| trigger | string | 'click' | How popover is triggered - click \| hover \| focus \| manual | true |
+* Customize help icon color (currently gray).
+* Customize help icon color on hover (currently blue).
+* Add a custom CSS class to popover.
+* Choose popover trigger (focus, hover, click, etc...)
+
 
 ## License
 

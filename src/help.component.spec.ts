@@ -1,10 +1,10 @@
 import { HelpComponent } from './help.component';
 import { ComponentFixture, async, TestBed } from '@angular/core/testing';
-import { HelpService } from './help.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { mockService, mock } from './utils/test-helpers';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { Link } from 'edc-client-js';
+import { HelpService } from './help.service';
+import { mockService, mock } from './utils/test-helpers';
 
 describe('Help component', () => {
   let component: HelpComponent;
@@ -21,7 +21,7 @@ describe('Help component', () => {
         PopoverModule.forRoot()
       ],
       providers: [
-        mockService(HelpService, ['getHelp', 'getHelpPath'])
+        mockService(HelpService, ['getHelp', 'getHelpPath', 'getIcon', 'getContainer'])
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
