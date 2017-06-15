@@ -47,7 +47,7 @@ In your main style file (e.g. _style.less_) :
 
 ### Create a configuration service
 
-This module needs a basic confuration. 
+This module needs a basic configuration. 
 
 To provide this configuration, first create a new Service implementing PopoverConfigurationHandler.
 
@@ -87,7 +87,7 @@ export class YourService implements PopoverConfigurationHandler {
 ```
 
 
-N.B : The choice to provide a service instead of directly an object has been to made to be more dynamic.
+N.B : The choice to provide a service instead of an object has been made to be more dynamic.
 
 For instance you could inject the `Http` service in `YourService` to get configuration from remote (see also : https://aclottan.wordpress.com/2016/12/30/load-configuration-from-external-file/).
 
