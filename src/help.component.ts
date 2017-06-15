@@ -41,7 +41,7 @@ import { HelpConstants } from './help.constants';
        [placement]="getPlacement()"
        [ngClass]="{'on-dark': dark }"
        [container]="container"
-       (click)="cancelClick()">
+       (click)="cancelClick($event)">
     </i>
   `
 })
