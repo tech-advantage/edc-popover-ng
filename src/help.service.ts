@@ -1,25 +1,32 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { EdcClient, Helper } from 'edc-client-js';
-import { HelpModuleConfig } from './help.config';
-
-export let CONFIG = new InjectionToken<HelpModuleConfig>('app.config');
+import { PopoverConfiguration } from './config/popover-configuration';
+import { PopoverConfigurationHandler } from './config/popover-configuration-handler';
 
 @Injectable()
 export class HelpService {
 
   private edcClient: EdcClient;
-  private config: HelpModuleConfig;
+  private helpPath: string;
 
-  constructor(@Inject(CONFIG) config: HelpModuleConfig) {
-    this.config = config;
-    this.edcClient = new EdcClient(config.docPath);
+  constructor(private configurationHandler: PopoverConfigurationHandler) {
+    this.helpPath = configurationHandler.getHelpPath();
+    this.edcClient = new EdcClient(configurationHandler.getDocPath());
   }
 
   getHelp(primaryKey: string, subKey: string): Promise<Helper> {
     return this.edcClient.getHelper(primaryKey, subKey);
   }
 
-  getHelpPath() {
-    return this.config.helpPath;
+  getHelpPath(): string {
+    return this.helpPath;
+  }
+
+  getIcon(): string {
+    return this.configurationHandler.getIcon() || 'fa-question-circle-o';
+  }
+
+  getContainer(): string {
+    return this.configurationHandler.isAppendToBody() ? 'body' : '';
   }
 }

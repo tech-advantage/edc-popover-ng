@@ -1,11 +1,12 @@
-import { NgModule, ModuleWithProviders, InjectionToken } from '@angular/core';
+import { NgModule, ModuleWithProviders, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { HelpComponent } from './help.component';
 import { HelpService } from './help.service';
-import { HelpModuleConfig } from './help.config';
-import { CONFIG } from './help.service';
 
+export interface HelpModuleConfig {
+  configLoader: Provider
+}
 
 @NgModule({
   imports: [
@@ -28,7 +29,7 @@ export class HelpModule {
       ngModule: HelpModule,
       providers: [
         HelpService,
-        {provide: CONFIG, useValue: config},
+        config.configLoader
       ]
     };
   }
