@@ -1,10 +1,7 @@
-import { forEach } from 'lodash';
-import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
-import { PopoverDirective } from 'ngx-bootstrap/popover';
+import { Component, OnInit, Input } from '@angular/core';
 import { Helper, Link } from 'edc-client-js';
 import { HelpService } from './help.service';
 import { HelpConstants } from './help.constants';
-import { noop } from 'rxjs/util/noop';
 
 @Component({
   selector: 'edc-help',
@@ -43,7 +40,8 @@ import { noop } from 'rxjs/util/noop';
        [placement]="getPlacement()"
        [ngClass]="{'on-dark': dark }"
        [container]="container"
-       (click)="handleClick($event)">
+       [outsideClick]="true"
+       (click)="cancelClick($event)">
     </i>
   `
 })
@@ -53,18 +51,10 @@ export class HelpComponent implements OnInit {
   iconCss: string;
   comingSoon = HelpConstants.MESSAGE_COMING_SOON;
 
-  @ViewChild('popover') popover: PopoverDirective; // get the popover element by its name declared in the component template
-
   @Input() key: string;
   @Input() subKey: string;
   @Input() placement = 'bottom';
   @Input() dark: boolean;
-
-  // for closing popover on focus out
-  @HostListener('document:click')
-  onDocumentClick(): void {
-    this.popover.hide();
-  }
 
   constructor(private helpService: HelpService) {}
 
@@ -92,38 +82,8 @@ export class HelpComponent implements OnInit {
     return this.placement;
   }
 
-  /**
-   * handle click event on help icon
-   * in case one popover is already open, remove it before opening the new one to make sure
-   * only one popover is open at once
-   *
-   * @param $event
-   */
-  handleClick($event: Event): void {
-    this.cancelClick($event);
-
-    this.resetActivePopover();
-  }
-
   cancelClick($event: Event): void {
-    $event.stopPropagation();
     $event.preventDefault();
-  }
-
-  /**
-   * look for any open popover, remove them and show the current one
-   */
-  resetActivePopover(): void {
-    const popovers = document.getElementsByClassName('popover');
-    if (popovers.length >= 1) {
-      this.removeAllPopovers(popovers);
-      // trigger current popover
-      setTimeout(() => this.popover.show());
-    }
-  }
-
-  removeAllPopovers(popoverList: any): void {
-    forEach(popoverList, (domElement: any) => domElement ? domElement.remove() : noop());
   }
 
   private open(url: string): void {
