@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
-import { PopoverDirective } from 'ngx-bootstrap/popover';
+import { Component, OnInit, Input } from '@angular/core';
 import { Helper, Link } from 'edc-client-js';
 import { HelpService } from './help.service';
 import { HelpConstants } from './help.constants';
 
 @Component({
   selector: 'edc-help',
-  styleUrls: ['help.less'],
+  styleUrls: [ 'help.less' ],
   template: `
     <!-- Popover template -->
     <ng-template #popTemplate>
@@ -41,28 +40,21 @@ import { HelpConstants } from './help.constants';
        [placement]="getPlacement()"
        [ngClass]="{'on-dark': dark }"
        [container]="container"
+       [outsideClick]="true"
        (click)="cancelClick($event)">
     </i>
   `
 })
 export class HelpComponent implements OnInit {
   helper: Helper;
-  container:  string;
-  iconCss:  string;
+  container: string;
+  iconCss: string;
   comingSoon = HelpConstants.MESSAGE_COMING_SOON;
-
-  @ViewChild('popover') popover: PopoverDirective; // get the popover element by its name declared in the component template
 
   @Input() key: string;
   @Input() subKey: string;
   @Input() placement = 'bottom';
   @Input() dark: boolean;
-
-  // for closing popover on focus out
-  @HostListener('document:click')
-  onDocumentClick() {
-    this.popover.hide();
-  }
 
   constructor(private helpService: HelpService) {}
 
@@ -74,28 +66,27 @@ export class HelpComponent implements OnInit {
     this.container = this.helpService.getContainer();
   }
 
-  goToArticle(index: number) {
+  goToArticle(index: number): void {
     const basePath = this.helpService.getHelpPath();
     const url = `${basePath}/context/${this.key}/${this.subKey}/en/${index}`;
     this.open(url);
   }
 
-  goToLink(link: Link) {
+  goToLink(link: Link): void {
     const basePath = this.helpService.getHelpPath();
     const url = `${basePath}/doc/${link.id}`;
     this.open(url);
   }
 
-  getPlacement() {
+  getPlacement(): string {
     return this.placement;
   }
 
-  cancelClick($event: Event) {
-    $event.stopPropagation();
+  cancelClick($event: Event): void {
     $event.preventDefault();
   }
 
-  private open(url: string) {
+  private open(url: string): void {
     window.open(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
   }
 }
