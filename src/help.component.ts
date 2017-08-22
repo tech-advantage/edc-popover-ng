@@ -1,12 +1,14 @@
+import { forEach } from 'lodash';
 import { Component, OnInit, Input, ViewChild, HostListener } from '@angular/core';
 import { PopoverDirective } from 'ngx-bootstrap/popover';
 import { Helper, Link } from 'edc-client-js';
 import { HelpService } from './help.service';
 import { HelpConstants } from './help.constants';
+import { noop } from 'rxjs/util/noop';
 
 @Component({
   selector: 'edc-help',
-  styleUrls: ['help.less'],
+  styleUrls: [ 'help.less' ],
   template: `
     <!-- Popover template -->
     <ng-template #popTemplate>
@@ -41,14 +43,14 @@ import { HelpConstants } from './help.constants';
        [placement]="getPlacement()"
        [ngClass]="{'on-dark': dark }"
        [container]="container"
-       (click)="cancelClick($event)">
+       (click)="handleClick($event)">
     </i>
   `
 })
 export class HelpComponent implements OnInit {
   helper: Helper;
-  container:  string;
-  iconCss:  string;
+  container: string;
+  iconCss: string;
   comingSoon = HelpConstants.MESSAGE_COMING_SOON;
 
   @ViewChild('popover') popover: PopoverDirective; // get the popover element by its name declared in the component template
@@ -60,7 +62,7 @@ export class HelpComponent implements OnInit {
 
   // for closing popover on focus out
   @HostListener('document:click')
-  onDocumentClick() {
+  onDocumentClick(): void {
     this.popover.hide();
   }
 
@@ -74,28 +76,57 @@ export class HelpComponent implements OnInit {
     this.container = this.helpService.getContainer();
   }
 
-  goToArticle(index: number) {
+  goToArticle(index: number): void {
     const basePath = this.helpService.getHelpPath();
     const url = `${basePath}/context/${this.key}/${this.subKey}/en/${index}`;
     this.open(url);
   }
 
-  goToLink(link: Link) {
+  goToLink(link: Link): void {
     const basePath = this.helpService.getHelpPath();
     const url = `${basePath}/doc/${link.id}`;
     this.open(url);
   }
 
-  getPlacement() {
+  getPlacement(): string {
     return this.placement;
   }
 
-  cancelClick($event: Event) {
+  /**
+   * handle click event on help icon
+   * in case one popover is already open, remove it before opening the new one to make sure
+   * only one popover is open at once
+   *
+   * @param $event
+   */
+  handleClick($event: Event): void {
+    this.cancelClick($event);
+
+    this.resetActivePopover();
+  }
+
+  cancelClick($event: Event): void {
     $event.stopPropagation();
     $event.preventDefault();
   }
 
-  private open(url: string) {
+  /**
+   * look for any open popover, remove them and show the current one
+   */
+  resetActivePopover(): void {
+    const popovers = document.getElementsByClassName('popover');
+    if (popovers.length >= 1) {
+      this.removeAllPopovers(popovers);
+      // trigger current popover
+      setTimeout(() => this.popover.show());
+    }
+  }
+
+  removeAllPopovers(popoverList: any): void {
+    forEach(popoverList, (domElement: any) => domElement ? domElement.remove() : noop());
+  }
+
+  private open(url: string): void {
     window.open(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
   }
 }
