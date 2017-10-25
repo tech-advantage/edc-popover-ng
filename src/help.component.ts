@@ -60,7 +60,9 @@ export class HelpComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.key && this.subKey) {
-      this.helpService.getHelp(this.key, this.subKey).then((helper: Helper) => this.helper = helper);
+      setTimeout(() => { // set timeout because popover content loading is not top priority.
+        this.helpService.getHelp(this.key, this.subKey).then((helper: Helper) => this.helper = helper);
+      }, 2000);
     }
     this.iconCss = this.helpService.getIcon();
     this.container = this.helpService.getContainer();
