@@ -21,7 +21,7 @@ describe('Help component', () => {
         PopoverModule.forRoot()
       ],
       providers: [
-        mockService(HelpService, ['getHelp', 'getHelpPath', 'getIcon', 'getContainer'])
+        mockService(HelpService, ['getHelp', 'getHelpPath', 'getIcon', 'getContainer', 'getPluginId'])
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -85,6 +85,23 @@ describe('Help component', () => {
       });
 
       it('should open a new window', () => {
+        spyOn(helpService, 'getPluginId').and.returnValue('myPluginId');
+
+        // given key value is 'myKey' and subKey value is 'mySubKey'
+        component.key = 'myKey';
+        component.subKey = 'mySubKey';
+
+        // when calling goToArticle() with index 1
+        const url = `/help/#/context/myPluginId/myKey/mySubKey/en/1`;
+        component.goToArticle(1);
+
+        // then window.open() should be called
+        expect(window.open).toHaveBeenCalledWith(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
+      });
+
+      it('should show a warning in console if plugin in was not found', () => {
+        spyOn(helpService, 'getPluginId').and.returnValue('');
+        spyOn(console, 'warn');
         // given key value is 'myKey' and subKey value is 'mySubKey'
         component.key = 'myKey';
         component.subKey = 'mySubKey';
@@ -92,6 +109,9 @@ describe('Help component', () => {
         // when calling goToArticle() with index 1
         const url = `/help/#/context/myKey/mySubKey/en/1`;
         component.goToArticle(1);
+
+        expect(console.warn).toHaveBeenCalledWith(
+          'Please check if plugin Id was correctly set in the edc-popover-ng configuration handler');
 
         // then window.open() should be called
         expect(window.open).toHaveBeenCalledWith(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');

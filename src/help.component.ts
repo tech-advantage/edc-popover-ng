@@ -61,7 +61,9 @@ export class HelpComponent implements OnInit {
   ngOnInit(): void {
     if (this.key && this.subKey) {
       setTimeout(() => { // set timeout because popover content loading is not top priority.
-        this.helpService.getHelp(this.key, this.subKey).then((helper: Helper) => this.helper = helper);
+        this.helpService.getHelp(this.key, this.subKey)
+          .then((helper: Helper) => this.helper = helper,
+            (err) => console.warn('Contextual Help not found : ', err));
       }, 2000);
     }
     this.iconCss = this.helpService.getIcon();
@@ -70,7 +72,14 @@ export class HelpComponent implements OnInit {
 
   goToArticle(index: number): void {
     const basePath = this.helpService.getHelpPath();
-    const url = `${basePath}/context/${this.key}/${this.subKey}/en/${index}`;
+    const pluginId = this.helpService.getPluginId();
+    let url = `${basePath}/context/`;
+    if (pluginId) {
+      url += `${pluginId}/`;
+    } else {
+      console.warn('Please check if plugin Id was correctly set in the edc-popover-ng configuration handler');
+    }
+    url += `${this.key}/${this.subKey}/en/${index}`;
     this.open(url);
   }
 

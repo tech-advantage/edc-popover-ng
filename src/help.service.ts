@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { EdcClient, Helper } from 'edc-client-js';
-import { PopoverConfiguration } from './config/popover-configuration';
 import { PopoverConfigurationHandler } from './config/popover-configuration-handler';
 
 @Injectable()
@@ -11,15 +10,19 @@ export class HelpService {
 
   constructor(private configurationHandler: PopoverConfigurationHandler) {
     this.helpPath = configurationHandler.getHelpPath();
-    this.edcClient = new EdcClient(configurationHandler.getDocPath());
+    this.edcClient = new EdcClient(configurationHandler.getDocPath(), configurationHandler.getPluginId());
   }
 
   getHelp(primaryKey: string, subKey: string): Promise<Helper> {
-    return this.edcClient.getHelper(primaryKey, subKey);
+    return this.edcClient.getHelper(primaryKey, subKey, this.configurationHandler.getPluginId());
   }
 
   getHelpPath(): string {
     return this.helpPath;
+  }
+
+  getPluginId(): string {
+    return this.configurationHandler.getPluginId();
   }
 
   getIcon(): string {

@@ -5,6 +5,8 @@ export abstract class PopoverConfigurationHandler {
 
   abstract getDocPath(): string;
 
+  abstract getPluginId(): string;
+
   abstract getIcon(): string;
 
   abstract isAppendToBody(): boolean;
