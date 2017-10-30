@@ -51,6 +51,7 @@ export class HelpComponent implements OnInit {
   iconCss: string;
   comingSoon = HelpConstants.MESSAGE_COMING_SOON;
 
+  @Input() pluginId: string; // if defined, the plugin identifier to use for fetching help content
   @Input() key: string;
   @Input() subKey: string;
   @Input() placement = 'bottom';
@@ -61,7 +62,7 @@ export class HelpComponent implements OnInit {
   ngOnInit(): void {
     if (this.key && this.subKey) {
       setTimeout(() => { // set timeout because popover content loading is not top priority.
-        this.helpService.getHelp(this.key, this.subKey)
+        this.helpService.getHelp(this.key, this.subKey, this.pluginId)
           .then((helper: Helper) => this.helper = helper,
             (err) => console.warn('Contextual Help not found : ', err));
       }, 2000);
@@ -72,7 +73,7 @@ export class HelpComponent implements OnInit {
 
   goToArticle(index: number): void {
     const basePath = this.helpService.getHelpPath();
-    const pluginId = this.helpService.getPluginId();
+    const pluginId = this.pluginId || this.helpService.getPluginId();
     let url = `${basePath}/context/`;
     if (pluginId) {
       url += `${pluginId}/`;

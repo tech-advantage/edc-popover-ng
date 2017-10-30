@@ -13,8 +13,8 @@ export class HelpService {
     this.edcClient = new EdcClient(configurationHandler.getDocPath(), configurationHandler.getPluginId());
   }
 
-  getHelp(primaryKey: string, subKey: string): Promise<Helper> {
-    return this.edcClient.getHelper(primaryKey, subKey, this.configurationHandler.getPluginId());
+  getHelp(primaryKey: string, subKey: string, pluginId?: string): Promise<Helper> {
+    return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId());
   }
 
   getHelpPath(): string {

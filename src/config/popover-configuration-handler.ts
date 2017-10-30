@@ -1,11 +1,11 @@
 
 export abstract class PopoverConfigurationHandler {
 
+  abstract getPluginId(): string;
+
   abstract getHelpPath(): string;
 
   abstract getDocPath(): string;
-
-  abstract getPluginId(): string;
 
   abstract getIcon(): string;
 
