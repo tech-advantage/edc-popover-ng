@@ -56,6 +56,7 @@ Methods to implement are :
 
 | Method | Return type | Description |
 |---|---|---|
+| getPluginId | string | The identifier of the target plugin documentation export |
 | getHelpPath | string | The path to edc-help-ng application |
 | getDocPath |  string | The path to exported documentation |
 | getIcon | string | The font awesome icon |
@@ -69,6 +70,10 @@ import { PopoverConfiguration, PopoverConfigurationHandler } from 'edc-popover-n
 @Injectable()
 export class YourService implements PopoverConfigurationHandler {
 
+  getPluginId(): string {
+    return 'edchelp';
+  }
+  
   getHelpPath(): string {
     return '/help';
   }
@@ -133,12 +138,24 @@ You are now able to use the Help component in your Angular application :
   <edc-help [key]="my.key" [subKey]="my.subkey" [placement]="'bottom'" [dark]="true"></edc-help>
 </h1>
 ```
+## If your application is covered by more than one documentation
+Wherever your application is not covered by the main documentation (the one whose plugin Id is set in the default configuration file), 
+you can specify a custom documentation plugin Id using the optional 'pluginId' attribute of the edc-help component.
+
+```html
+<h1>
+  {{title}}
+  <edc-help [pluginId]="my.specificPluginId" [key]="my.key" [subKey]="my.subkey" [placement]="'bottom'" [dark]="true"></edc-help>
+</h1>
+```
+
 ## Setting up the component
 
 The `edc-help` component can take multiple inputs :
 
 | Name | Type | Default | Description | Optional |
 |---|---|---|---|---|
+| pluginId | string | '' | The edc plugin Id if different from the one configured in the main settings | yes |
 | key | string | '' | The edc documentation main key | no |
 | subKey |  string | '' | The edc documentation sub key | no |
 | placement | string | 'bottom' | How to position the popover - top \| bottom \| left \| right | true |
