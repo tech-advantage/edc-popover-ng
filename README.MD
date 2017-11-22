@@ -14,9 +14,9 @@ Learn more at [https://www.easydoccontents.com](https://www.easydoccontents.com)
 
 The only required dependencies are:
 
-- Angular (requires Angular version 2 or higher, tested with 2.4.5 and 4.0.3)
+- Angular (requires Angular version 2 or higher, tested with 2.4.5 and 4.2.4)
 - Bootstrap CSS (tested with 3.3.7 and 4.0.0-alpha.6)
-- tested with ngx-bootstrap 1.9.0
+- tested with ngx-bootstrap 1.9.3
 
 
 ## Importing the help component
