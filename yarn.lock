@@ -1533,9 +1533,9 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
 
-edc-client-js@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/edc-client-js/-/edc-client-js-2.0.0.tgz#68c815532f33aafe5342de66761128e9400b3c2c"
+edc-client-js@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/edc-client-js/-/edc-client-js-2.0.1.tgz#88c82b96f497532fcb34db529494bf194b1b6b66"
   dependencies:
     axios "0.17.0"
     es6-promise "4.0.5"

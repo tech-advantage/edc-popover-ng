@@ -10,7 +10,8 @@ export class HelpService {
 
   constructor(private configurationHandler: PopoverConfigurationHandler) {
     this.helpPath = configurationHandler.getHelpPath();
-    this.edcClient = new EdcClient(configurationHandler.getDocPath(), configurationHandler.getPluginId());
+    // Edc-popover only uses contextual help, instantiate client with contextualOnly parameter set to true
+    this.edcClient = new EdcClient(configurationHandler.getDocPath(), configurationHandler.getPluginId(), true);
   }
 
   getHelp(primaryKey: string, subKey: string, pluginId?: string): Promise<Helper> {
