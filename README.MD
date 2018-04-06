@@ -10,6 +10,10 @@ management.
 
 Learn more at [https://www.easydoccontents.com](https://www.easydoccontents.com).
 
+## edc Version
+
+Current release targets edc v2.2.0.
+
 ## Dependencies
 
 The only required dependencies are:
