@@ -1,0 +1,9 @@
+{
+  "popover": {
+    "helpPath": "/help",
+    "docPath": "/doc",
+    "pluginId": "edchelp",
+    "icon": "fa-question-circle-o",
+    "body": true
+  }
+}
