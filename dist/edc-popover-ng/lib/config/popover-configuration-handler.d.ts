@@ -4,4 +4,5 @@ export declare abstract class PopoverConfigurationHandler {
     abstract getDocPath(): string;
     abstract getIcon(): string;
     abstract isAppendToBody(): boolean;
+    abstract getI18nPath(): string;
 }

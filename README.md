@@ -62,7 +62,8 @@ Methods to implement are :
 |---|---|---|
 | getPluginId | string | The identifier of the target plugin documentation export |
 | getHelpPath | string | The path to edc-help-ng application |
-| getDocPath |  string | The path to exported documentation |
+| getDocPath  | string | The path to exported documentation |
+| getI18nPath | string | The path to translation json files |
 | getIcon | string | The font awesome icon |
 | isAppendToBody | boolean | Appends the popover to body |
 
@@ -84,6 +85,10 @@ export class YourService implements PopoverConfigurationHandler {
   
   getDocPath(): string {
     return '/doc';
+  }
+
+  getI18nPath(): string {
+    return '/doc/my-i18n-directory';
   }
 
   getIcon() {
@@ -139,7 +144,7 @@ You are now able to use the Help component in your Angular application :
 ```html
 <h1>
   {{title}}
-  <edc-help [key]="my.key" [subKey]="my.subkey" [placement]="'bottom'" [dark]="true"></edc-help>
+  <edc-help [key]="my.key" [subKey]="my.subkey" [placement]="'bottom'" [dark]="true" [lang]="'en'"></edc-help>
 </h1>
 ```
 ## If your application is covered by more than one documentation
@@ -157,13 +162,41 @@ you can specify a custom documentation plugin Id using the optional 'pluginId' a
 
 The `edc-help` component can take multiple inputs :
 
-| Name | Type | Default | Description | Optional |
-|---|---|---|---|---|
-| pluginId | string | '' | The edc plugin Id if different from the one configured in the main settings | yes |
-| key | string | '' | The edc documentation main key | no |
-| subKey |  string | '' | The edc documentation sub key | no |
-| placement | string | 'bottom' | How to position the popover - top \| bottom \| left \| right | true |
-| dark | boolean | false | Should be true if icon is on dark background | true |
+| Name       |   Type   |       Default      |                                 Description                                 | Optional |
+|------------|----------|--------------------|-----------------------------------------------------------------------------|----------|
+| pluginId   |  string  |         ''         | The edc plugin Id if different from the one configured in the main settings |   yes    |
+| key        |  string  |         ''         | The edc documentation main key                                              |    no    |
+| subKey     |  string  |         ''         | The edc documentation sub key                                               |    no    |
+| placement  |  string  |      'bottom'      | How to position the popover - top \| bottom \| left \| right                |   yes    |
+| dark       |  boolean |        false       | Should be true if icon is on dark background                                |   yes    |
+| lang       |  string  |       default      | The language to use, for labels and contents, identified by the 2 letters   |   yes    |
+|                                            | from ISO639-1. Will use documentation's default if no value is present      |          |
+
+## Providing your own translations for popover labels
+
+You can set additional translations (or replace the existing ones) by adding i18n json files to the documentation export.
+
+Please note that one file is required per language (see file example below), and should be named following the ISO639-1 two letters standards 
+(ie en.json, it.json...).
+
+By default, edc-popover-ng will be looking for the files in [yourDocPath]/i18n/ (*.json), but you can change this path by modifying 
+getI18nPath() in your PopoverConfigurationHandler.
+
+edc-popover-ng comes with English, French, Chinese, Russian and Vietnamese translations, and supports up to 36 languages.
+Full list is defined in constant LANGUAGE_CODES exported from src/lib/translate/default-translation.ts.
+
+##### JSON file structure
+
+As an example, here is the en.json file used by default:
+
+```json
+{
+  "labels": {
+    "articles": "Need more...",
+    "links": "Related topics"
+  }
+}
+```
 
 ## Coming soon
 

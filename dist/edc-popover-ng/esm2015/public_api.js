@@ -1,13 +1,9 @@
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
- */
 /*
  * Public API Surface of edc-popover-ng
  */
-export { HelpComponent } from './lib/help.component';
-export { HelpModule } from './lib/help.module';
-export { HelpService } from './lib/help.service';
-export { PopoverConfigurationHandler } from './lib/config/popover-configuration-handler';
-
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL2VkYy1wb3BvdmVyLW5nLyIsInNvdXJjZXMiOlsicHVibGljX2FwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBSUEsOEJBQWMsc0JBQXNCLENBQUM7QUFDckMsMkJBQWMsbUJBQW1CLENBQUM7QUFDbEMsNEJBQWMsb0JBQW9CLENBQUM7QUFFbkMsNENBQWMsNENBQTRDLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogUHVibGljIEFQSSBTdXJmYWNlIG9mIGVkYy1wb3BvdmVyLW5nXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9saWIvaGVscC5jb21wb25lbnQnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvaGVscC5tb2R1bGUnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvaGVscC5zZXJ2aWNlJztcbmV4cG9ydCAqIGZyb20gJy4vbGliL2NvbmZpZy9wb3BvdmVyLWNvbmZpZ3VyYXRpb24nO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvY29uZmlnL3BvcG92ZXItY29uZmlndXJhdGlvbi1oYW5kbGVyJztcbiJdfQ==
+export * from './lib/help.component';
+export * from './lib/help.module';
+export * from './lib/help.service';
+export * from './lib/config/popover-configuration-handler';
+export * from './lib/translate/language-codes';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL2VkYy1wb3BvdmVyLW5nLyIsInNvdXJjZXMiOlsicHVibGljX2FwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7R0FFRztBQUVILGNBQWMsc0JBQXNCLENBQUM7QUFDckMsY0FBYyxtQkFBbUIsQ0FBQztBQUNsQyxjQUFjLG9CQUFvQixDQUFDO0FBRW5DLGNBQWMsNENBQTRDLENBQUM7QUFDM0QsY0FBYyxnQ0FBZ0MsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4gKiBQdWJsaWMgQVBJIFN1cmZhY2Ugb2YgZWRjLXBvcG92ZXItbmdcbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL2xpYi9oZWxwLmNvbXBvbmVudCc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9oZWxwLm1vZHVsZSc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9oZWxwLnNlcnZpY2UnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvY29uZmlnL3BvcG92ZXItY29uZmlndXJhdGlvbic7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9jb25maWcvcG9wb3Zlci1jb25maWd1cmF0aW9uLWhhbmRsZXInO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvdHJhbnNsYXRlL2xhbmd1YWdlLWNvZGVzJztcbiJdfQ==

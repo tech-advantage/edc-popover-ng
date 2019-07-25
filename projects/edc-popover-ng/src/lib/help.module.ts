@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { HelpComponent } from './help.component';
 import { HelpService } from './help.service';
+import { TranslateModule, MissingTranslationHandler, TranslateLoader } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateMissingTranslationHandler } from './translate/translate-missing-handler';
+import { HttpLoaderFactory } from './translate/translate-loader';
 
 export interface HelpModuleConfig {
   configLoader: Provider;
@@ -11,6 +15,18 @@ export interface HelpModuleConfig {
 @NgModule({
   imports: [
     CommonModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient, HelpService]
+      },
+      missingTranslationHandler: {
+        provide: MissingTranslationHandler,
+        useClass: TranslateMissingTranslationHandler,
+        deps: [HelpService]
+      }
+    }),
     PopoverModule.forRoot()
   ],
   declarations: [

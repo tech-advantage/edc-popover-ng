@@ -26,4 +26,8 @@ export class PopoverConfigHandler implements PopoverConfigurationHandler {
   isAppendToBody(): boolean {
     return this.configService.getConfiguration().popover.body;
   }
+
+  getI18nPath(): string {
+    return this.configService.getConfiguration().popover.i18nPath;
+  }
 }

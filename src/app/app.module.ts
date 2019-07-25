@@ -9,6 +9,7 @@ import { ConfigService } from 'src/config/config.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { environment } from 'src/environments/environment';
     HelpModule.forRoot({
       configLoader: {provide: PopoverConfigurationHandler, useClass: PopoverConfigHandler}
     }),
+    FormsModule
   ],
   providers: [
     ConfigService,

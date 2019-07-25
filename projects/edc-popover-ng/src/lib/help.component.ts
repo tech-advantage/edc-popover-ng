@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Helper, Link } from 'edc-client-js';
 import { HelpService } from './help.service';
 import { HelpConstants } from './help.constants';
-import { PopoverDirective } from 'ngx-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import { isLanguageCodePresent } from './utils/translate.utils';
+import { LANGUAGE_CODES, SYS_LANG } from './translate/language-codes';
 
 @Component({
   selector: 'edc-help',
@@ -14,19 +16,19 @@ import { PopoverDirective } from 'ngx-bootstrap';
         <article class="popover-article">{{ helper?.description }}</article>
         <div class="see-also">
           <div *ngIf="helper?.articles.length">
-            <h6><strong><span>Need more...</span></strong></h6>
-            <ul class="list-unstyled see-also-list">
+            <h6><strong><span>{{ 'labels.articles' | translate }}</span></strong></h6>
+            <ul class="see-also-list">
               <li *ngFor="let article of helper.articles; let key = index" class="see-also-item"
                   (click)="goToArticle(key)">
-                <div class="article-link">-{{article.label}}</div>
+                <div class="article-link">{{article.label}}</div>
               </li>
             </ul>
           </div>
           <div *ngIf="helper?.links.length">
-            <h6><strong><span>Related Topics</span></strong></h6>
-            <ul class="list-unstyled see-also-list">
+            <h6><strong><span>{{ 'labels.links' | translate }}</span></strong></h6>
+            <ul class="see-also-list">
               <li *ngFor="let link of helper.links" class="see-also-item" (click)="goToLink(link)">
-                <div class="article-link">-{{link.label}}</div>
+                <div class="article-link">{{link.label}}</div>
               </li>
             </ul>
           </div>
@@ -47,7 +49,7 @@ import { PopoverDirective } from 'ngx-bootstrap';
     </i>
   `
 })
-export class HelpComponent implements OnInit {
+export class HelpComponent implements OnInit, OnChanges {
   helper: Helper;
   container: string;
   iconCss: string;
@@ -58,8 +60,9 @@ export class HelpComponent implements OnInit {
   @Input() subKey: string;
   @Input() placement = 'bottom';
   @Input() dark: boolean;
+  @Input() lang: string;
 
-  constructor(private helpService: HelpService) {}
+  constructor(private readonly helpService: HelpService, private readonly translateService: TranslateService) {}
 
   ngOnInit(): void {
     if (this.key && this.subKey) {
@@ -69,26 +72,25 @@ export class HelpComponent implements OnInit {
             (err) => console.warn('Contextual Help not found : ', err));
       }, 2000);
     }
+    this.translateService.setDefaultLang(SYS_LANG);
     this.iconCss = this.helpService.getIcon();
     this.container = this.helpService.getContainer();
   }
 
-  goToArticle(index: number): void {
-    const basePath = this.helpService.getHelpPath();
-    const pluginId = this.pluginId || this.helpService.getPluginId();
-    let url = `${basePath}/context/`;
-    if (pluginId) {
-      url += `${pluginId}/`;
-    } else {
-      console.warn('Please check if plugin Id was correctly set in the edc-popover-ng configuration handler');
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['lang'] && isLanguageCodePresent(changes['lang'].currentValue, LANGUAGE_CODES)) {
+      this.translateService.use(this.lang);
+      this.helpService.setCurrentLanguage(this.lang);
     }
-    url += `${this.key}/${this.subKey}/en/${index}`;
-    this.open(url);
+  }
+
+  goToArticle(index: number): void {
+    const articleUrl = this.helpService.getContextUrl(this.key, this.subKey, this.lang, index);
+    this.open(articleUrl);
   }
 
   goToLink(link: Link): void {
-    const basePath = this.helpService.getHelpPath();
-    const url = `${basePath}/doc/${link.id}`;
+    const url = this.helpService.getDocumentationUrl(link.id);
     this.open(url);
   }
 

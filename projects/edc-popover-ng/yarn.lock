@@ -15,13 +15,14 @@ debug@^3.1.0:
   dependencies:
     ms "2.0.0"
 
-"edc-client-js@http://github.com/tech-advantage/edc-client-js.git#41044894259e8aa9d43f2faf48ac6973faa63736":
-  version "2.2.0"
-  resolved "http://github.com/tech-advantage/edc-client-js.git#41044894259e8aa9d43f2faf48ac6973faa63736"
+edc-client-js@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/edc-client-js/-/edc-client-js-2.1.1.tgz#e63f053140fb38d3a1aeee702685c6db4cd84db0"
+  integrity sha512-BXyPbRD7IlajasIpDNyTuu1x3IrYuvvNHkN1iQS6mCrnq33aNf953jLGjwiJBUu1+o2azFYy3nHzk5s2xmLWsg==
   dependencies:
     axios "0.18.0"
     es6-promise "4.2.4"
-    lodash "4.17.10"
+    lodash "4.17.4"
 
 es6-promise@4.2.4:
   version "4.2.4"
@@ -37,9 +38,10 @@ is-buffer@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
 
-lodash@4.17.10:
-  version "4.17.10"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
+lodash@4.17.4:
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+  integrity sha1-eCA6TRwyiuHYbcpkYONptX9AVa4=
 
 ms@2.0.0:
   version "2.0.0"
