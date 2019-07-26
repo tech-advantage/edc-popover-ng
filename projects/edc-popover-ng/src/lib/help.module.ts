@@ -23,8 +23,7 @@ export interface HelpModuleConfig {
       },
       missingTranslationHandler: {
         provide: MissingTranslationHandler,
-        useClass: TranslateMissingTranslationHandler,
-        deps: [HelpService]
+        useClass: TranslateMissingTranslationHandler
       }
     }),
     PopoverModule.forRoot()

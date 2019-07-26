@@ -10,13 +10,13 @@
     "url": "https://github.com/tech-advantage/edc-popover-ng/issues"
   },
   "dependencies": {
-    "edc-client-js": "http://github.com/tech-advantage/edc-client-js.git#a2d53204e3af7a40f5b9b869f11d20742596c9bd"
+    "edc-client-js": "http://github.com/tech-advantage/edc-client-js.git#a2d53204e3af7a40f5b9b869f11d20742596c9bd",
+    "@ngx-translate/core": "11.0.1"
   },
   "peerDependencies": {
     "@angular/common": "~7.0.0",
     "@angular/core": "~7.0.0",
     "@angular/animations": "~7.0.0",
-    "@ngx-translate/core": "~11.0.1",
     "ngx-bootstrap": "3.0.1",
     "font-awesome": "4.7.0",
     "lodash": "4.17.15"
