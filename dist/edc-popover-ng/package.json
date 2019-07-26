@@ -1,0 +1,35 @@
+{
+  "name": "edc-popover-ng",
+  "version": "3.0.0-beta",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tech-advantage/edc-popover-ng"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tech-advantage/edc-popover-ng/issues"
+  },
+  "dependencies": {
+    "edc-client-js": "http://github.com/tech-advantage/edc-client-js.git#a2d53204e3af7a40f5b9b869f11d20742596c9bd",
+    "@ngx-translate/core": "11.0.1",
+    "tslib": "^1.9.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "~7.0.0",
+    "@angular/core": "~7.0.0",
+    "@angular/animations": "~7.0.0",
+    "ngx-bootstrap": "3.0.1",
+    "font-awesome": "4.7.0",
+    "lodash": "4.17.15"
+  },
+  "main": "bundles/edc-popover-ng.umd.js",
+  "module": "fesm5/edc-popover-ng.js",
+  "es2015": "fesm2015/edc-popover-ng.js",
+  "esm5": "esm5/edc-popover-ng.js",
+  "esm2015": "esm2015/edc-popover-ng.js",
+  "fesm5": "fesm5/edc-popover-ng.js",
+  "fesm2015": "fesm2015/edc-popover-ng.js",
+  "typings": "edc-popover-ng.d.ts",
+  "metadata": "edc-popover-ng.metadata.json",
+  "sideEffects": false
+}
