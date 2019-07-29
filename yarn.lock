@@ -238,10 +238,10 @@
     tree-kill "1.2.1"
     webpack-sources "1.3.0"
 
-"@ngx-translate/core@~11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@ngx-translate/core/-/core-11.0.1.tgz#cecefad41f06368f5859dac48fec8fcc4485615f"
-  integrity sha512-nBCa1ZD9fAUY/3eskP3Lql2fNg8OMrYIej1/5GRsfcutx9tG/5fZLCv9m6UCw1aS+u4uK/vXjv1ctG/FdMvaWg==
+"@ngx-translate/core@11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@ngx-translate/core/-/core-11.0.0.tgz#700675ee276a9f567760218b8e43e276479ebdce"
+  integrity sha512-wCeHhDqrkt1h8gApyzxEQcDLGJ/LcihNMmk0BPT3BMn/4R+pDoBEG2ZyjcYpj1Wt36zBCXONTSzBD9vPclfWzQ==
   dependencies:
     tslib "^1.9.0"
 
@@ -2097,6 +2097,7 @@ date-now@^0.1.4:
 debug@*, debug@3.1.0, debug@=3.1.0, debug@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
   dependencies:
     ms "2.0.0"
 
@@ -2354,9 +2355,10 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-"edc-client-js@http://github.com/tech-advantage/edc-client-js.git#a2d53204e3af7a40f5b9b869f11d20742596c9bd":
-  version "2.1.1"
-  resolved "http://github.com/tech-advantage/edc-client-js.git#a2d53204e3af7a40f5b9b869f11d20742596c9bd"
+edc-client-js@3.0.0-beta-0:
+  version "3.0.0-beta-0"
+  resolved "https://registry.yarnpkg.com/edc-client-js/-/edc-client-js-3.0.0-beta-0.tgz#fef71a18a51b2820c442e6cc382014d637b01173"
+  integrity sha512-xIYQ5I2yqEFp8LmCwoGUR79ip+JDaNh253YE74fUFRVTL13dBkrcaVRQr0OqeJH/t+7NoHuR/GS0Zm5TJNk+Hw==
   dependencies:
     axios "0.19.0"
     es6-promise "4.2.8"
@@ -2927,6 +2929,7 @@ follow-redirects@^1.0.0:
 font-awesome@4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
+  integrity sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM=
 
 for-in@^0.1.3:
   version "0.1.8"
