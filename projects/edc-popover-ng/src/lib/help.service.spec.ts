@@ -19,7 +19,7 @@ describe('Help Service Test', () => {
     TestBed.configureTestingModule({
       providers: [
         HelpService,
-        mockService(PopoverConfigurationHandler, ['getHelpPath', 'getDocPath', 'getPluginId', 'getIcon', 'isAppendToBody'])
+        mockService(PopoverConfigurationHandler, ['getHelpPath', 'getDocPath', 'getPluginId', 'getIcon', 'isAppendToBody', 'getI18nPath'])
       ]
     });
   });

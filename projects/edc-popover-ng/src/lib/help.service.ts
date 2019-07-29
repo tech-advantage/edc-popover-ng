@@ -13,7 +13,8 @@ export class HelpService {
       configurationHandler.getHelpPath(),
       configurationHandler.getPluginId(),
       true, // Context only, don't load the whole doc
-      configurationHandler.getI18nPath());
+      configurationHandler.getI18nPath()
+    );
   }
 
   getHelp(primaryKey: string, subKey: string, pluginId?: string): Promise<Helper> {

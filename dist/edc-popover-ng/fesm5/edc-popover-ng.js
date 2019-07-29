@@ -247,12 +247,6 @@ var TranslateMissingTranslationHandler = /** @class */ (function () {
     return TranslateMissingTranslationHandler;
 }());
 
-// AoT requires an exported function for factories
-function HttpLoaderFactory(http, helpService) {
-    var defaultLanguage = helpService.getDefaultLanguage() || SYS_LANG;
-    var i18nUrl = helpService.getI18nUrl();
-    return new TranslateLoader(http, defaultLanguage, i18nUrl);
-}
 var TranslateLoader = /** @class */ (function () {
     function TranslateLoader(http, defaultLanguage, prefix, suffix) {
         if (defaultLanguage === void 0) { defaultLanguage = SYS_LANG; }
@@ -285,6 +279,12 @@ var TranslateLoader = /** @class */ (function () {
     };
     return TranslateLoader;
 }());
+// AoT requires an exported function for factories
+function HttpLoaderFactory(http, helpService) {
+    var defaultLanguage = helpService.getDefaultLanguage() || SYS_LANG;
+    var i18nUrl = helpService.getI18nUrl();
+    return new TranslateLoader(http, defaultLanguage, i18nUrl);
+}
 
 var ɵ0 = HttpLoaderFactory;
 var HelpModule = /** @class */ (function () {

@@ -6,13 +6,6 @@ import { HelpService } from '../help.service';
 import { isLanguageCodePresent } from '../utils/translate.utils';
 import { LANGUAGE_CODES, SYS_LANG, localTranslations } from './language-codes';
 
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient, helpService: HelpService) {
-  const defaultLanguage = helpService.getDefaultLanguage() || SYS_LANG;
-  const i18nUrl = helpService.getI18nUrl();
-  return new TranslateLoader(http, defaultLanguage, i18nUrl);
-}
-
 export class TranslateLoader {
 
   constructor(private readonly http: HttpClient,
@@ -40,4 +33,11 @@ export class TranslateLoader {
       localTranslations[SYS_LANG];
     return of(translationFile);
   }
+}
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient, helpService: HelpService) {
+  const defaultLanguage = helpService.getDefaultLanguage() || SYS_LANG;
+  const i18nUrl = helpService.getI18nUrl();
+  return new TranslateLoader(http, defaultLanguage, i18nUrl);
 }

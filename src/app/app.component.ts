@@ -10,7 +10,7 @@ import {
     <div>
       <h1 class="title-container">
         Welcome to {{title}}!
-        <edc-help class="help-icon" 
+        <edc-help class="help-icon"
                   [key]="'fr.techad.edc.configuration'"
                   [subKey]="'products'"
                   [placement]="'bottom'"
@@ -22,7 +22,7 @@ import {
         <div>Change the language to use with the popover (labels)</div>
         <span>(Options with green background are provided by default)</span>
         <select  id="lang" class="form-group" [(ngModel)]="lang">
-          <option *ngFor="let language of languages" 
+          <option *ngFor="let language of languages"
                   [value]="language"
                   [ngClass]="{'translation-defined': isTranslationDefined(language)}">
             {{ language | uppercase }}

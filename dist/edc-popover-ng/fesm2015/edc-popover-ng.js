@@ -273,12 +273,6 @@ class TranslateMissingTranslationHandler {
     }
 }
 
-// AoT requires an exported function for factories
-function HttpLoaderFactory(http, helpService) {
-    const defaultLanguage = helpService.getDefaultLanguage() || SYS_LANG;
-    const i18nUrl = helpService.getI18nUrl();
-    return new TranslateLoader(http, defaultLanguage, i18nUrl);
-}
 class TranslateLoader {
     constructor(http, defaultLanguage = SYS_LANG, prefix = '', suffix = '.json') {
         this.http = http;
@@ -303,6 +297,12 @@ class TranslateLoader {
             localTranslations[SYS_LANG];
         return of(translationFile);
     }
+}
+// AoT requires an exported function for factories
+function HttpLoaderFactory(http, helpService) {
+    const defaultLanguage = helpService.getDefaultLanguage() || SYS_LANG;
+    const i18nUrl = helpService.getI18nUrl();
+    return new TranslateLoader(http, defaultLanguage, i18nUrl);
 }
 
 var HelpModule_1;

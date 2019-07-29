@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HelpService } from '../help.service';
-export declare function HttpLoaderFactory(http: HttpClient, helpService: HelpService): TranslateLoader;
 export declare class TranslateLoader {
     private readonly http;
     private readonly defaultLanguage;
@@ -18,3 +17,4 @@ export declare class TranslateLoader {
      */
     getTranslationFile(lang: string, defaultLanguage?: string): Observable<any>;
 }
+export declare function HttpLoaderFactory(http: HttpClient, helpService: HelpService): TranslateLoader;
