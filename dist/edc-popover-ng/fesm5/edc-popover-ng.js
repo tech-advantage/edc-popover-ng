@@ -4,7 +4,7 @@ import { EdcClient } from 'edc-client-js';
 import { TranslateService, TranslateModule, TranslateLoader as TranslateLoader$1, MissingTranslationHandler } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { PopoverModule } from 'ngx-bootstrap/popover';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -116,8 +116,8 @@ var HelpService = /** @class */ (function () {
         this.edcClient = new EdcClient(configurationHandler.getDocPath(), configurationHandler.getHelpPath(), configurationHandler.getPluginId(), true, // Context only, don't load the whole doc
         configurationHandler.getI18nPath());
     }
-    HelpService.prototype.getHelp = function (primaryKey, subKey, pluginId) {
-        return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId());
+    HelpService.prototype.getHelp = function (primaryKey, subKey, pluginId, lang) {
+        return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId(), lang);
     };
     HelpService.prototype.getContextUrl = function (mainKey, subKey, languageCode, articleIndex, pluginId) {
         return this.edcClient.getContextWebHelpUrl(mainKey, subKey, languageCode, articleIndex, pluginId);
@@ -141,7 +141,7 @@ var HelpService = /** @class */ (function () {
         return (this.edcClient && this.edcClient.getDefaultLanguage && this.edcClient.getDefaultLanguage()) || SYS_LANG;
     };
     HelpService.prototype.setCurrentLanguage = function (languageCode) {
-        this.edcClient.setCurrentLanguage(languageCode);
+        return this.edcClient.setCurrentLanguage(languageCode);
     };
     HelpService = __decorate([
         Injectable(),
@@ -182,8 +182,10 @@ var HelpComponent = /** @class */ (function () {
     };
     HelpComponent.prototype.ngOnChanges = function (changes) {
         if (changes['lang'] && isLanguageCodePresent(changes['lang'].currentValue, LANGUAGE_CODES)) {
-            this.translateService.use(this.lang);
-            this.helpService.setCurrentLanguage(this.lang);
+            var langToUse = this.helpService.setCurrentLanguage(this.lang);
+            if (langToUse) {
+                this.translateService.use(langToUse);
+            }
         }
     };
     HelpComponent.prototype.goToArticle = function (index) {
@@ -305,6 +307,7 @@ var HelpModule = /** @class */ (function () {
         NgModule({
             imports: [
                 CommonModule,
+                HttpClientModule,
                 TranslateModule.forRoot({
                     loader: {
                         provide: TranslateLoader$1,

@@ -4,7 +4,7 @@ import { EdcClient } from 'edc-client-js';
 import { TranslateService, TranslateModule, TranslateLoader as TranslateLoader$1, MissingTranslationHandler } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { PopoverModule } from 'ngx-bootstrap/popover';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -113,8 +113,8 @@ let HelpService = class HelpService {
         this.edcClient = new EdcClient(configurationHandler.getDocPath(), configurationHandler.getHelpPath(), configurationHandler.getPluginId(), true, // Context only, don't load the whole doc
         configurationHandler.getI18nPath());
     }
-    getHelp(primaryKey, subKey, pluginId) {
-        return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId());
+    getHelp(primaryKey, subKey, pluginId, lang) {
+        return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId(), lang);
     }
     getContextUrl(mainKey, subKey, languageCode, articleIndex, pluginId) {
         return this.edcClient.getContextWebHelpUrl(mainKey, subKey, languageCode, articleIndex, pluginId);
@@ -138,7 +138,7 @@ let HelpService = class HelpService {
         return (this.edcClient && this.edcClient.getDefaultLanguage && this.edcClient.getDefaultLanguage()) || SYS_LANG;
     }
     setCurrentLanguage(languageCode) {
-        this.edcClient.setCurrentLanguage(languageCode);
+        return this.edcClient.setCurrentLanguage(languageCode);
     }
 };
 HelpService = __decorate([
@@ -174,8 +174,10 @@ let HelpComponent = class HelpComponent {
     }
     ngOnChanges(changes) {
         if (changes['lang'] && isLanguageCodePresent(changes['lang'].currentValue, LANGUAGE_CODES)) {
-            this.translateService.use(this.lang);
-            this.helpService.setCurrentLanguage(this.lang);
+            const langToUse = this.helpService.setCurrentLanguage(this.lang);
+            if (langToUse) {
+                this.translateService.use(langToUse);
+            }
         }
     }
     goToArticle(index) {
@@ -322,6 +324,7 @@ HelpModule = HelpModule_1 = __decorate([
     NgModule({
         imports: [
             CommonModule,
+            HttpClientModule,
             TranslateModule.forRoot({
                 loader: {
                     provide: TranslateLoader$1,

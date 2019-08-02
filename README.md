@@ -183,7 +183,7 @@ By default, edc-popover-ng will be looking for the files in [yourDocPath]/i18n/ 
 getI18nPath() in your PopoverConfigurationHandler.
 
 edc-popover-ng comes with English, French, Chinese, Russian and Vietnamese translations, and supports up to 36 languages.
-Full list is defined in constant LANGUAGE_CODES exported from src/lib/translate/default-translation.ts.
+Full list can be found in constant LANGUAGE_CODES exported from src/lib/translate/language-codes.ts.
 
 ##### JSON file structure
 

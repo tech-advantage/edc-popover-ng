@@ -17,8 +17,8 @@ export class HelpService {
     );
   }
 
-  getHelp(primaryKey: string, subKey: string, pluginId?: string): Promise<Helper> {
-    return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId());
+  getHelp(primaryKey: string, subKey: string, pluginId?: string, lang?: string): Promise<Helper> {
+    return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId(), lang);
   }
 
   getContextUrl(mainKey: string, subKey: string, languageCode: string, articleIndex: number, pluginId?: string): string {
@@ -49,7 +49,7 @@ export class HelpService {
     return (this.edcClient && this.edcClient.getDefaultLanguage && this.edcClient.getDefaultLanguage()) || SYS_LANG;
   }
 
-  setCurrentLanguage(languageCode: string): void {
-    this.edcClient.setCurrentLanguage(languageCode);
+  setCurrentLanguage(languageCode: string): string {
+    return this.edcClient.setCurrentLanguage(languageCode);
   }
 }

@@ -42,7 +42,7 @@ describe('Help Service Test', () => {
 
       helpService.getHelp('mainKey', 'subKey').then(() => {});
 
-      expect(EdcClient.prototype.getHelper).toHaveBeenCalledWith('mainKey', 'subKey', 'edchelp');
+      expect(EdcClient.prototype.getHelper).toHaveBeenCalledWith('mainKey', 'subKey', 'edchelp', undefined);
     }));
 
     it('should use "edchelp2" as plugin identifier', async(() => {
@@ -50,7 +50,7 @@ describe('Help Service Test', () => {
 
       helpService.getHelp('mainKey', 'subKey', 'edchelp2').then(() => {});
 
-      expect(EdcClient.prototype.getHelper).toHaveBeenCalledWith('mainKey', 'subKey', 'edchelp2');
+      expect(EdcClient.prototype.getHelper).toHaveBeenCalledWith('mainKey', 'subKey', 'edchelp2', undefined);
     }));
   });
 

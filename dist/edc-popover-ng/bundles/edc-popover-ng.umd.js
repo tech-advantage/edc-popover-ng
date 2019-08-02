@@ -138,8 +138,8 @@
             this.edcClient = new edcClientJs.EdcClient(configurationHandler.getDocPath(), configurationHandler.getHelpPath(), configurationHandler.getPluginId(), true, // Context only, don't load the whole doc
             configurationHandler.getI18nPath());
         }
-        HelpService.prototype.getHelp = function (primaryKey, subKey, pluginId) {
-            return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId());
+        HelpService.prototype.getHelp = function (primaryKey, subKey, pluginId, lang) {
+            return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId(), lang);
         };
         HelpService.prototype.getContextUrl = function (mainKey, subKey, languageCode, articleIndex, pluginId) {
             return this.edcClient.getContextWebHelpUrl(mainKey, subKey, languageCode, articleIndex, pluginId);
@@ -163,7 +163,7 @@
             return (this.edcClient && this.edcClient.getDefaultLanguage && this.edcClient.getDefaultLanguage()) || SYS_LANG;
         };
         HelpService.prototype.setCurrentLanguage = function (languageCode) {
-            this.edcClient.setCurrentLanguage(languageCode);
+            return this.edcClient.setCurrentLanguage(languageCode);
         };
         HelpService = __decorate([
             core.Injectable(),
@@ -204,8 +204,10 @@
         };
         HelpComponent.prototype.ngOnChanges = function (changes) {
             if (changes['lang'] && isLanguageCodePresent(changes['lang'].currentValue, LANGUAGE_CODES)) {
-                this.translateService.use(this.lang);
-                this.helpService.setCurrentLanguage(this.lang);
+                var langToUse = this.helpService.setCurrentLanguage(this.lang);
+                if (langToUse) {
+                    this.translateService.use(langToUse);
+                }
             }
         };
         HelpComponent.prototype.goToArticle = function (index) {
@@ -327,6 +329,7 @@
             core.NgModule({
                 imports: [
                     common.CommonModule,
+                    http.HttpClientModule,
                     core$1.TranslateModule.forRoot({
                         loader: {
                             provide: core$1.TranslateLoader,

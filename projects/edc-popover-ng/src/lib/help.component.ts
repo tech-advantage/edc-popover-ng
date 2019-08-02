@@ -79,8 +79,10 @@ export class HelpComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lang'] && isLanguageCodePresent(changes['lang'].currentValue, LANGUAGE_CODES)) {
-      this.translateService.use(this.lang);
-      this.helpService.setCurrentLanguage(this.lang);
+      const langToUse = this.helpService.setCurrentLanguage(this.lang);
+      if (langToUse) {
+        this.translateService.use(langToUse);
+      }
     }
   }
 
