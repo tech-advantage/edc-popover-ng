@@ -1,11 +1,12 @@
 {
   "name": "edc-popover-ng-app",
-  "version": "3.0.0-beta-1",
+  "version": "3.0.0-beta-2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test --watch=false edc-popover-ng",
+    "test-auto": "ng test edc-popover-ng",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build_lib": "ng build --prod edc-popover-ng",
@@ -27,7 +28,7 @@
     "rxjs": "~6.5.2",
     "zone.js": "^0.8.26",
     "ngx-bootstrap": "3.0.1",
-    "edc-client-js": "^3.0.0-beta-1",
+    "edc-client-js": "^3.0.0-beta-2",
     "font-awesome": "4.7.0"
   },
   "devDependencies": {

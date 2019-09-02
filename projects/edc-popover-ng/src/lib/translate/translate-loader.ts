@@ -3,18 +3,18 @@ import { catchError } from 'rxjs/operators';
 
 import { HttpClient } from '@angular/common/http';
 import { HelpService } from '../help.service';
-import { isLanguageCodePresent } from '../utils/translate.utils';
-import { LANGUAGE_CODES, SYS_LANG, localTranslations } from './language-codes';
+import { SYS_LANG, localTranslations } from './language-codes';
 
 export class TranslateLoader {
 
   constructor(private readonly http: HttpClient,
+              private readonly helpService: HelpService,
               private readonly defaultLanguage = SYS_LANG,
               private prefix = '',
               private suffix = '.json') {}
 
   getTranslation(lang: string = SYS_LANG): Observable<any> {
-    const langToUse = isLanguageCodePresent(lang, LANGUAGE_CODES) ? lang : this.defaultLanguage;
+    const langToUse = this.helpService.isLanguagePresent(lang) ? lang : this.defaultLanguage;
     return this.http.get(`${this.prefix}/${langToUse}${this.suffix}`).pipe(
       catchError(() => this.getTranslationFile(lang))
     );
@@ -39,5 +39,5 @@ export class TranslateLoader {
 export function HttpLoaderFactory(http: HttpClient, helpService: HelpService) {
   const defaultLanguage = helpService.getDefaultLanguage() || SYS_LANG;
   const i18nUrl = helpService.getI18nUrl();
-  return new TranslateLoader(http, defaultLanguage, i18nUrl);
+  return new TranslateLoader(http, helpService, defaultLanguage, i18nUrl);
 }

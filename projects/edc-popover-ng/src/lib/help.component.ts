@@ -3,12 +3,11 @@ import { Helper, Link } from 'edc-client-js';
 import { HelpService } from './help.service';
 import { HelpConstants } from './help.constants';
 import { TranslateService } from '@ngx-translate/core';
-import { isLanguageCodePresent } from './utils/translate.utils';
-import { LANGUAGE_CODES, SYS_LANG } from './translate/language-codes';
+import { SYS_LANG } from './translate/language-codes';
 
 @Component({
   selector: 'edc-help',
-  styleUrls: [ 'help.less' ],
+  styleUrls: ['help.less'],
   template: `
     <!-- Popover template -->
     <ng-template #popTemplate>
@@ -39,13 +38,13 @@ import { LANGUAGE_CODES, SYS_LANG } from './translate/language-codes';
 
     <!-- app-help template -->
     <i class="fa help-icon {{ iconCss }}"
-    [popover]="helper ? popTemplate : comingSoon"
-    [popoverTitle]="helper?.label"
-    [placement]="getPlacement()"
-    [ngClass]="{'on-dark': dark }"
-    [container]="container"
-    [outsideClick]="true"
-    (click)="cancelClick($event)">
+       [popover]="helper ? popTemplate : comingSoon"
+       [popoverTitle]="helper?.label"
+       [placement]="getPlacement()"
+       [ngClass]="{'on-dark': dark }"
+       [container]="container"
+       [outsideClick]="true"
+       (click)="cancelClick($event)">
     </i>
   `
 })
@@ -54,6 +53,7 @@ export class HelpComponent implements OnInit, OnChanges {
   container: string;
   iconCss: string;
   comingSoon = HelpConstants.MESSAGE_COMING_SOON;
+  langLoading: string; // The lang in use to load the helper - for race conditions
 
   @Input() pluginId: string; // if defined, the plugin identifier to use for fetching help content
   @Input() key: string;
@@ -62,15 +62,14 @@ export class HelpComponent implements OnInit, OnChanges {
   @Input() dark: boolean;
   @Input() lang: string;
 
-  constructor(private readonly helpService: HelpService, private readonly translateService: TranslateService) {}
+  constructor(private readonly helpService: HelpService, private readonly translateService: TranslateService) {
+  }
 
   ngOnInit(): void {
-    if (this.key && this.subKey) {
-      setTimeout(() => { // set timeout because popover content loading is not top priority.
-        this.helpService.getHelp(this.key, this.subKey, this.pluginId)
-          .then((helper: Helper) => this.helper = helper,
-            (err) => console.warn('Contextual Help not found : ', err));
-      }, 2000);
+    // If a lang input was provided, helper is already being loaded from ngOnChanges
+    if (this.langLoading === undefined) {
+      // No helper loading in progress from ngOnChanges, so init helper
+      this.startHelper();
     }
     this.translateService.setDefaultLang(SYS_LANG);
     this.iconCss = this.helpService.getIcon();
@@ -78,10 +77,38 @@ export class HelpComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['lang'] && isLanguageCodePresent(changes['lang'].currentValue, LANGUAGE_CODES)) {
-      const langToUse = this.helpService.setCurrentLanguage(this.lang);
-      if (langToUse) {
-        this.translateService.use(langToUse);
+    if (changes['lang'] && changes['lang'].currentValue !== this.langLoading) {
+      this.startHelper();
+    }
+  }
+
+  private startHelper(): void {
+    this.langLoading = this.lang || null;
+    this.helpService.setCurrentLanguage(this.lang).then(lang => {
+      if (lang) {
+        // We set local translate lang only if lang has been changed in client, using the returned value
+        this.translateService.use(lang);
+        this.lang = lang;
+        this.initHelper();
+      }
+    });
+  }
+
+  private initHelper(): void {
+    if (this.key && this.subKey) {
+      const loadHelper = () => {
+        this.helpService.getHelp(this.key, this.subKey, this.pluginId, this.lang)
+          .then((helper: Helper) => {
+            this.helper = helper;
+            this.langLoading = null;
+          });
+      };
+      if (this.helper) {
+        // This is not the first initialization, skip timeout
+        loadHelper();
+      } else {
+        // Set timeout because popover content loading is not a bootstrap top priority.
+        setTimeout(loadHelper, 2000);
       }
     }
   }

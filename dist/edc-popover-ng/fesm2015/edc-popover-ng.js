@@ -114,7 +114,8 @@ let HelpService = class HelpService {
         configurationHandler.getI18nPath());
     }
     getHelp(primaryKey, subKey, pluginId, lang) {
-        return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId(), lang);
+        const pluginIdentifier = pluginId || this.configurationHandler.getPluginId();
+        return this.edcClient.getHelper(primaryKey, subKey, pluginIdentifier, lang);
     }
     getContextUrl(mainKey, subKey, languageCode, articleIndex, pluginId) {
         return this.edcClient.getContextWebHelpUrl(mainKey, subKey, languageCode, articleIndex, pluginId);
@@ -123,7 +124,7 @@ let HelpService = class HelpService {
         return this.edcClient.getDocumentationWebHelpUrl(docId);
     }
     getI18nUrl() {
-        return this.edcClient.getI18nUrl();
+        return this.edcClient.getPopoverI18nUrl();
     }
     getPluginId() {
         return this.configurationHandler.getPluginId();
@@ -138,7 +139,10 @@ let HelpService = class HelpService {
         return (this.edcClient && this.edcClient.getDefaultLanguage && this.edcClient.getDefaultLanguage()) || SYS_LANG;
     }
     setCurrentLanguage(languageCode) {
-        return this.edcClient.setCurrentLanguage(languageCode);
+        return this.edcClient.changeCurrentLanguage(languageCode);
+    }
+    isLanguagePresent(langCode) {
+        return this.edcClient.isLanguagePresent(langCode);
     }
 };
 HelpService = __decorate([
@@ -150,10 +154,6 @@ class HelpConstants {
 }
 HelpConstants.MESSAGE_COMING_SOON = 'Contextual help is coming soon.';
 
-function isLanguageCodePresent(code, languages) {
-    return code && languages && languages.length && languages.indexOf(code) > -1;
-}
-
 let HelpComponent = class HelpComponent {
     constructor(helpService, translateService) {
         this.helpService = helpService;
@@ -162,21 +162,47 @@ let HelpComponent = class HelpComponent {
         this.placement = 'bottom';
     }
     ngOnInit() {
-        if (this.key && this.subKey) {
-            setTimeout(() => {
-                this.helpService.getHelp(this.key, this.subKey, this.pluginId)
-                    .then((helper) => this.helper = helper, (err) => console.warn('Contextual Help not found : ', err));
-            }, 2000);
+        // If a lang input was provided, helper is already being loaded from ngOnChanges
+        if (this.langLoading === undefined) {
+            // No helper loading in progress from ngOnChanges, so init helper
+            this.startHelper();
         }
         this.translateService.setDefaultLang(SYS_LANG);
         this.iconCss = this.helpService.getIcon();
         this.container = this.helpService.getContainer();
     }
     ngOnChanges(changes) {
-        if (changes['lang'] && isLanguageCodePresent(changes['lang'].currentValue, LANGUAGE_CODES)) {
-            const langToUse = this.helpService.setCurrentLanguage(this.lang);
-            if (langToUse) {
-                this.translateService.use(langToUse);
+        if (changes['lang'] && changes['lang'].currentValue !== this.langLoading) {
+            this.startHelper();
+        }
+    }
+    startHelper() {
+        this.langLoading = this.lang || null;
+        this.helpService.setCurrentLanguage(this.lang).then(lang => {
+            if (lang) {
+                // We set local translate lang only if lang has been changed in client, using the returned value
+                this.translateService.use(lang);
+                this.lang = lang;
+                this.initHelper();
+            }
+        });
+    }
+    initHelper() {
+        if (this.key && this.subKey) {
+            const loadHelper = () => {
+                this.helpService.getHelp(this.key, this.subKey, this.pluginId, this.lang)
+                    .then((helper) => {
+                    this.helper = helper;
+                    this.langLoading = null;
+                });
+            };
+            if (this.helper) {
+                // This is not the first initialization, skip timeout
+                loadHelper();
+            }
+            else {
+                // Set timeout because popover content loading is not a bootstrap top priority.
+                setTimeout(loadHelper, 2000);
             }
         }
     }
@@ -255,13 +281,13 @@ HelpComponent = __decorate([
 
     <!-- app-help template -->
     <i class="fa help-icon {{ iconCss }}"
-    [popover]="helper ? popTemplate : comingSoon"
-    [popoverTitle]="helper?.label"
-    [placement]="getPlacement()"
-    [ngClass]="{'on-dark': dark }"
-    [container]="container"
-    [outsideClick]="true"
-    (click)="cancelClick($event)">
+       [popover]="helper ? popTemplate : comingSoon"
+       [popoverTitle]="helper?.label"
+       [placement]="getPlacement()"
+       [ngClass]="{'on-dark': dark }"
+       [container]="container"
+       [outsideClick]="true"
+       (click)="cancelClick($event)">
     </i>
   `,
         styles: [":host{cursor:pointer;line-height:34px;font-size:16px;padding-right:5px}:host .help-icon{color:#d3d3d3}:host .help-icon:hover{color:#3c8dbc}:host .help-icon.on-dark{color:rgba(0,0,0,.3)}:host .help-icon.on-dark:hover{color:#fff}/deep/ popover-container.popover{border-color:#3c8dbc}/deep/ popover-container.popover.top>div.arrow::before{border-top-color:#3c8dbc}/deep/ popover-container.popover.bottom>div.arrow::before{border-bottom-color:#3c8dbc}/deep/ popover-container.popover.left>div.arrow::before{border-left-color:#3c8dbc}/deep/ popover-container.popover.right>div.arrow::before{border-right-color:#3c8dbc}/deep/ popover-container.popover .popover-title{border-bottom-color:#3c8dbc}.edc-popover-container{min-width:150px;line-height:20px;display:flex;flex-direction:column;flex-grow:1}.edc-popover-container .popover-article{font-size:14px;padding-bottom:10px}.edc-popover-container .see-also-item{font-size:15px}.edc-popover-container .see-also-item .article-link{cursor:pointer;color:#0275d8;text-decoration:underline}.edc-popover-container ul{list-style-type:disc}"]
@@ -276,14 +302,15 @@ class TranslateMissingTranslationHandler {
 }
 
 class TranslateLoader {
-    constructor(http, defaultLanguage = SYS_LANG, prefix = '', suffix = '.json') {
+    constructor(http, helpService, defaultLanguage = SYS_LANG, prefix = '', suffix = '.json') {
         this.http = http;
+        this.helpService = helpService;
         this.defaultLanguage = defaultLanguage;
         this.prefix = prefix;
         this.suffix = suffix;
     }
     getTranslation(lang = SYS_LANG) {
-        const langToUse = isLanguageCodePresent(lang, LANGUAGE_CODES) ? lang : this.defaultLanguage;
+        const langToUse = this.helpService.isLanguagePresent(lang) ? lang : this.defaultLanguage;
         return this.http.get(`${this.prefix}/${langToUse}${this.suffix}`).pipe(catchError(() => this.getTranslationFile(lang)));
     }
     /**
@@ -304,7 +331,7 @@ class TranslateLoader {
 function HttpLoaderFactory(http, helpService) {
     const defaultLanguage = helpService.getDefaultLanguage() || SYS_LANG;
     const i18nUrl = helpService.getI18nUrl();
-    return new TranslateLoader(http, defaultLanguage, i18nUrl);
+    return new TranslateLoader(http, helpService, defaultLanguage, i18nUrl);
 }
 
 var HelpModule_1;

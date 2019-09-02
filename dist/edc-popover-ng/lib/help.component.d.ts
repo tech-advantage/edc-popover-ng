@@ -9,6 +9,7 @@ export declare class HelpComponent implements OnInit, OnChanges {
     container: string;
     iconCss: string;
     comingSoon: string;
+    langLoading: string;
     pluginId: string;
     key: string;
     subKey: string;
@@ -18,6 +19,8 @@ export declare class HelpComponent implements OnInit, OnChanges {
     constructor(helpService: HelpService, translateService: TranslateService);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
+    private startHelper;
+    private initHelper;
     goToArticle(index: number): void;
     goToLink(link: Link): void;
     getPlacement(): string;

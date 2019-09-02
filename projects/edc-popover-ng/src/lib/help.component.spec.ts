@@ -24,7 +24,7 @@ describe('Help component', () => {
       ],
       providers: [
         mockService(HelpService, ['getHelp', 'getContextUrl', 'getDocumentationUrl',
-          'getI18nUrl', 'getIcon', 'getContainer', 'getPluginId']),
+          'getI18nUrl', 'getIcon', 'getContainer', 'getPluginId', 'setCurrentLanguage']),
         mockService(TranslateService, ['setDefaultLang', 'use'])
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -33,12 +33,18 @@ describe('Help component', () => {
   }));
 
   beforeEach(() => {
+    helpService = TestBed.get(HelpService);
+  });
+
+  beforeEach(() => {
+    spyOn(helpService, 'getI18nUrl').and.returnValue('/i18n/');
+    spyOn(helpService, 'setCurrentLanguage').and.returnValue(new Promise(() => 'en'));
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(HelpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    helpService = TestBed.get(HelpService);
-
-    spyOn(helpService, 'getI18nUrl').and.returnValue('/i18n/');
   });
 
   describe('init', () => {

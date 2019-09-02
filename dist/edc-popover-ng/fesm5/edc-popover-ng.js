@@ -117,7 +117,8 @@ var HelpService = /** @class */ (function () {
         configurationHandler.getI18nPath());
     }
     HelpService.prototype.getHelp = function (primaryKey, subKey, pluginId, lang) {
-        return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId(), lang);
+        var pluginIdentifier = pluginId || this.configurationHandler.getPluginId();
+        return this.edcClient.getHelper(primaryKey, subKey, pluginIdentifier, lang);
     };
     HelpService.prototype.getContextUrl = function (mainKey, subKey, languageCode, articleIndex, pluginId) {
         return this.edcClient.getContextWebHelpUrl(mainKey, subKey, languageCode, articleIndex, pluginId);
@@ -126,7 +127,7 @@ var HelpService = /** @class */ (function () {
         return this.edcClient.getDocumentationWebHelpUrl(docId);
     };
     HelpService.prototype.getI18nUrl = function () {
-        return this.edcClient.getI18nUrl();
+        return this.edcClient.getPopoverI18nUrl();
     };
     HelpService.prototype.getPluginId = function () {
         return this.configurationHandler.getPluginId();
@@ -141,7 +142,10 @@ var HelpService = /** @class */ (function () {
         return (this.edcClient && this.edcClient.getDefaultLanguage && this.edcClient.getDefaultLanguage()) || SYS_LANG;
     };
     HelpService.prototype.setCurrentLanguage = function (languageCode) {
-        return this.edcClient.setCurrentLanguage(languageCode);
+        return this.edcClient.changeCurrentLanguage(languageCode);
+    };
+    HelpService.prototype.isLanguagePresent = function (langCode) {
+        return this.edcClient.isLanguagePresent(langCode);
     };
     HelpService = __decorate([
         Injectable(),
@@ -157,10 +161,6 @@ var HelpConstants = /** @class */ (function () {
     return HelpConstants;
 }());
 
-function isLanguageCodePresent(code, languages) {
-    return code && languages && languages.length && languages.indexOf(code) > -1;
-}
-
 var HelpComponent = /** @class */ (function () {
     function HelpComponent(helpService, translateService) {
         this.helpService = helpService;
@@ -169,22 +169,49 @@ var HelpComponent = /** @class */ (function () {
         this.placement = 'bottom';
     }
     HelpComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        if (this.key && this.subKey) {
-            setTimeout(function () {
-                _this.helpService.getHelp(_this.key, _this.subKey, _this.pluginId)
-                    .then(function (helper) { return _this.helper = helper; }, function (err) { return console.warn('Contextual Help not found : ', err); });
-            }, 2000);
+        // If a lang input was provided, helper is already being loaded from ngOnChanges
+        if (this.langLoading === undefined) {
+            // No helper loading in progress from ngOnChanges, so init helper
+            this.startHelper();
         }
         this.translateService.setDefaultLang(SYS_LANG);
         this.iconCss = this.helpService.getIcon();
         this.container = this.helpService.getContainer();
     };
     HelpComponent.prototype.ngOnChanges = function (changes) {
-        if (changes['lang'] && isLanguageCodePresent(changes['lang'].currentValue, LANGUAGE_CODES)) {
-            var langToUse = this.helpService.setCurrentLanguage(this.lang);
-            if (langToUse) {
-                this.translateService.use(langToUse);
+        if (changes['lang'] && changes['lang'].currentValue !== this.langLoading) {
+            this.startHelper();
+        }
+    };
+    HelpComponent.prototype.startHelper = function () {
+        var _this = this;
+        this.langLoading = this.lang || null;
+        this.helpService.setCurrentLanguage(this.lang).then(function (lang) {
+            if (lang) {
+                // We set local translate lang only if lang has been changed in client, using the returned value
+                _this.translateService.use(lang);
+                _this.lang = lang;
+                _this.initHelper();
+            }
+        });
+    };
+    HelpComponent.prototype.initHelper = function () {
+        var _this = this;
+        if (this.key && this.subKey) {
+            var loadHelper = function () {
+                _this.helpService.getHelp(_this.key, _this.subKey, _this.pluginId, _this.lang)
+                    .then(function (helper) {
+                    _this.helper = helper;
+                    _this.langLoading = null;
+                });
+            };
+            if (this.helper) {
+                // This is not the first initialization, skip timeout
+                loadHelper();
+            }
+            else {
+                // Set timeout because popover content loading is not a bootstrap top priority.
+                setTimeout(loadHelper, 2000);
             }
         }
     };
@@ -232,7 +259,7 @@ var HelpComponent = /** @class */ (function () {
     HelpComponent = __decorate([
         Component({
             selector: 'edc-help',
-            template: "\n    <!-- Popover template -->\n    <ng-template #popTemplate>\n      <div class=\"edc-popover-container\" (click)=\"$event.stopPropagation()\">\n        <article class=\"popover-article\">{{ helper?.description }}</article>\n        <div class=\"see-also\">\n          <div *ngIf=\"helper?.articles.length\">\n            <h6><strong><span>{{ 'labels.articles' | translate }}</span></strong></h6>\n            <ul class=\"see-also-list\">\n              <li *ngFor=\"let article of helper.articles; let key = index\" class=\"see-also-item\"\n                  (click)=\"goToArticle(key)\">\n                <div class=\"article-link\">{{article.label}}</div>\n              </li>\n            </ul>\n          </div>\n          <div *ngIf=\"helper?.links.length\">\n            <h6><strong><span>{{ 'labels.links' | translate }}</span></strong></h6>\n            <ul class=\"see-also-list\">\n              <li *ngFor=\"let link of helper.links\" class=\"see-also-item\" (click)=\"goToLink(link)\">\n                <div class=\"article-link\">{{link.label}}</div>\n              </li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </ng-template>\n\n\n    <!-- app-help template -->\n    <i class=\"fa help-icon {{ iconCss }}\"\n    [popover]=\"helper ? popTemplate : comingSoon\"\n    [popoverTitle]=\"helper?.label\"\n    [placement]=\"getPlacement()\"\n    [ngClass]=\"{'on-dark': dark }\"\n    [container]=\"container\"\n    [outsideClick]=\"true\"\n    (click)=\"cancelClick($event)\">\n    </i>\n  ",
+            template: "\n    <!-- Popover template -->\n    <ng-template #popTemplate>\n      <div class=\"edc-popover-container\" (click)=\"$event.stopPropagation()\">\n        <article class=\"popover-article\">{{ helper?.description }}</article>\n        <div class=\"see-also\">\n          <div *ngIf=\"helper?.articles.length\">\n            <h6><strong><span>{{ 'labels.articles' | translate }}</span></strong></h6>\n            <ul class=\"see-also-list\">\n              <li *ngFor=\"let article of helper.articles; let key = index\" class=\"see-also-item\"\n                  (click)=\"goToArticle(key)\">\n                <div class=\"article-link\">{{article.label}}</div>\n              </li>\n            </ul>\n          </div>\n          <div *ngIf=\"helper?.links.length\">\n            <h6><strong><span>{{ 'labels.links' | translate }}</span></strong></h6>\n            <ul class=\"see-also-list\">\n              <li *ngFor=\"let link of helper.links\" class=\"see-also-item\" (click)=\"goToLink(link)\">\n                <div class=\"article-link\">{{link.label}}</div>\n              </li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </ng-template>\n\n\n    <!-- app-help template -->\n    <i class=\"fa help-icon {{ iconCss }}\"\n       [popover]=\"helper ? popTemplate : comingSoon\"\n       [popoverTitle]=\"helper?.label\"\n       [placement]=\"getPlacement()\"\n       [ngClass]=\"{'on-dark': dark }\"\n       [container]=\"container\"\n       [outsideClick]=\"true\"\n       (click)=\"cancelClick($event)\">\n    </i>\n  ",
             styles: [":host{cursor:pointer;line-height:34px;font-size:16px;padding-right:5px}:host .help-icon{color:#d3d3d3}:host .help-icon:hover{color:#3c8dbc}:host .help-icon.on-dark{color:rgba(0,0,0,.3)}:host .help-icon.on-dark:hover{color:#fff}/deep/ popover-container.popover{border-color:#3c8dbc}/deep/ popover-container.popover.top>div.arrow::before{border-top-color:#3c8dbc}/deep/ popover-container.popover.bottom>div.arrow::before{border-bottom-color:#3c8dbc}/deep/ popover-container.popover.left>div.arrow::before{border-left-color:#3c8dbc}/deep/ popover-container.popover.right>div.arrow::before{border-right-color:#3c8dbc}/deep/ popover-container.popover .popover-title{border-bottom-color:#3c8dbc}.edc-popover-container{min-width:150px;line-height:20px;display:flex;flex-direction:column;flex-grow:1}.edc-popover-container .popover-article{font-size:14px;padding-bottom:10px}.edc-popover-container .see-also-item{font-size:15px}.edc-popover-container .see-also-item .article-link{cursor:pointer;color:#0275d8;text-decoration:underline}.edc-popover-container ul{list-style-type:disc}"]
         }),
         __metadata("design:paramtypes", [HelpService, TranslateService])
@@ -250,11 +277,12 @@ var TranslateMissingTranslationHandler = /** @class */ (function () {
 }());
 
 var TranslateLoader = /** @class */ (function () {
-    function TranslateLoader(http, defaultLanguage, prefix, suffix) {
+    function TranslateLoader(http, helpService, defaultLanguage, prefix, suffix) {
         if (defaultLanguage === void 0) { defaultLanguage = SYS_LANG; }
         if (prefix === void 0) { prefix = ''; }
         if (suffix === void 0) { suffix = '.json'; }
         this.http = http;
+        this.helpService = helpService;
         this.defaultLanguage = defaultLanguage;
         this.prefix = prefix;
         this.suffix = suffix;
@@ -262,7 +290,7 @@ var TranslateLoader = /** @class */ (function () {
     TranslateLoader.prototype.getTranslation = function (lang) {
         var _this = this;
         if (lang === void 0) { lang = SYS_LANG; }
-        var langToUse = isLanguageCodePresent(lang, LANGUAGE_CODES) ? lang : this.defaultLanguage;
+        var langToUse = this.helpService.isLanguagePresent(lang) ? lang : this.defaultLanguage;
         return this.http.get(this.prefix + "/" + langToUse + this.suffix).pipe(catchError(function () { return _this.getTranslationFile(lang); }));
     };
     /**
@@ -285,7 +313,7 @@ var TranslateLoader = /** @class */ (function () {
 function HttpLoaderFactory(http, helpService) {
     var defaultLanguage = helpService.getDefaultLanguage() || SYS_LANG;
     var i18nUrl = helpService.getI18nUrl();
-    return new TranslateLoader(http, defaultLanguage, i18nUrl);
+    return new TranslateLoader(http, helpService, defaultLanguage, i18nUrl);
 }
 
 var ɵ0 = HttpLoaderFactory;

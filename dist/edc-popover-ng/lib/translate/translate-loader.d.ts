@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { HelpService } from '../help.service';
 export declare class TranslateLoader {
     private readonly http;
+    private readonly helpService;
     private readonly defaultLanguage;
     private prefix;
     private suffix;
-    constructor(http: HttpClient, defaultLanguage?: string, prefix?: string, suffix?: string);
+    constructor(http: HttpClient, helpService: HelpService, defaultLanguage?: string, prefix?: string, suffix?: string);
     getTranslation(lang?: string): Observable<any>;
     /**
      * Get the i18n json file for the requested lang

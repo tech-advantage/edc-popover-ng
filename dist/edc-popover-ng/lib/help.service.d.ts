@@ -1,10 +1,9 @@
-import { Helper } from 'edc-client-js';
 import { PopoverConfigurationHandler } from './config/popover-configuration-handler';
 export declare class HelpService {
     private configurationHandler;
     private readonly edcClient;
     constructor(configurationHandler: PopoverConfigurationHandler);
-    getHelp(primaryKey: string, subKey: string, pluginId?: string, lang?: string): Promise<Helper>;
+    getHelp(primaryKey: string, subKey: string, pluginId?: string, lang?: string): any;
     getContextUrl(mainKey: string, subKey: string, languageCode: string, articleIndex: number, pluginId?: string): string;
     getDocumentationUrl(docId: number): string;
     getI18nUrl(): string;
@@ -12,5 +11,6 @@ export declare class HelpService {
     getIcon(): string;
     getContainer(): string;
     getDefaultLanguage(): string;
-    setCurrentLanguage(languageCode: string): string;
+    setCurrentLanguage(languageCode: string): any;
+    isLanguagePresent(langCode: string): boolean;
 }

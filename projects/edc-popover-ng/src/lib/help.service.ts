@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EdcClient, Helper } from 'edc-client-js';
+import { EdcClient } from 'edc-client-js';
 import { PopoverConfigurationHandler } from './config/popover-configuration-handler';
 import { SYS_LANG } from './translate/language-codes';
 
@@ -17,8 +17,9 @@ export class HelpService {
     );
   }
 
-  getHelp(primaryKey: string, subKey: string, pluginId?: string, lang?: string): Promise<Helper> {
-    return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId(), lang);
+  getHelp(primaryKey: string, subKey: string, pluginId?: string, lang?: string): any {
+    const pluginIdentifier = pluginId || this.configurationHandler.getPluginId();
+    return this.edcClient.getHelper(primaryKey, subKey, pluginIdentifier, lang);
   }
 
   getContextUrl(mainKey: string, subKey: string, languageCode: string, articleIndex: number, pluginId?: string): string {
@@ -30,7 +31,7 @@ export class HelpService {
   }
 
   getI18nUrl(): string {
-    return this.edcClient.getI18nUrl();
+    return this.edcClient.getPopoverI18nUrl();
   }
 
   getPluginId(): string {
@@ -49,7 +50,11 @@ export class HelpService {
     return (this.edcClient && this.edcClient.getDefaultLanguage && this.edcClient.getDefaultLanguage()) || SYS_LANG;
   }
 
-  setCurrentLanguage(languageCode: string): string {
-    return this.edcClient.setCurrentLanguage(languageCode);
+  setCurrentLanguage(languageCode: string): any {
+    return this.edcClient.changeCurrentLanguage(languageCode);
+  }
+
+  isLanguagePresent(langCode: string): boolean {
+    return this.edcClient.isLanguagePresent(langCode);
   }
 }
