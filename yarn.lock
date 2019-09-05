@@ -2355,10 +2355,10 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-edc-client-js@^3.0.0-beta-2:
-  version "3.0.0-beta-2"
-  resolved "https://registry.yarnpkg.com/edc-client-js/-/edc-client-js-3.0.0-beta-2.tgz#9d334e994ddcc87c213926e0e3b54e0d1d15ec0b"
-  integrity sha512-nvl78RxbXgK4z2XDWTsbGTTKuufOCl6cxOJMdNhHzXhGKmVGakbuMCRJdOPMBR4dh5MFFvYy+6o2CtcAZ4+Fwg==
+edc-client-js@^3.0.0-beta-3:
+  version "3.0.0-beta-3"
+  resolved "https://registry.yarnpkg.com/edc-client-js/-/edc-client-js-3.0.0-beta-3.tgz#8afb134ca0d54f5dbd3449ad490f088c8f5c8e02"
+  integrity sha512-vM5wJm3+ezhn/F0KzjnwwTHD1gFgOXqRNtB1GHQ7OpMN9un3XjfsPgRXcnjaTY/7JyQ6SuiHhPRxKY/L5LBj6g==
   dependencies:
     axios "0.19.0"
     es6-promise "4.2.8"
