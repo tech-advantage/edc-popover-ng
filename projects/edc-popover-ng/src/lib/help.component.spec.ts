@@ -24,7 +24,7 @@ describe('Help component', () => {
       ],
       providers: [
         mockService(HelpService, ['getHelp', 'getContextUrl', 'getDocumentationUrl',
-          'getI18nUrl', 'getIcon', 'getContainer', 'getPluginId', 'setCurrentLanguage']),
+          'getI18nUrl', 'getIcon', 'getContainer', 'getPluginId']),
         mockService(TranslateService, ['setDefaultLang', 'use'])
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -38,7 +38,6 @@ describe('Help component', () => {
 
   beforeEach(() => {
     spyOn(helpService, 'getI18nUrl').and.returnValue('/i18n/');
-    spyOn(helpService, 'setCurrentLanguage').and.returnValue(new Promise(() => 'en'));
   });
 
   beforeEach(() => {

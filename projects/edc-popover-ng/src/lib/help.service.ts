@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EdcClient } from 'edc-client-js';
+import { EdcClient, Helper } from 'edc-client-js';
 import { PopoverConfigurationHandler } from './config/popover-configuration-handler';
 import { SYS_LANG } from './translate/language-codes';
 
@@ -17,7 +17,7 @@ export class HelpService {
     );
   }
 
-  getHelp(primaryKey: string, subKey: string, pluginId?: string, lang?: string): any {
+  getHelp(primaryKey: string, subKey: string, pluginId?: string, lang?: string): Promise<Helper> {
     const pluginIdentifier = pluginId || this.configurationHandler.getPluginId();
     return this.edcClient.getHelper(primaryKey, subKey, pluginIdentifier, lang);
   }
@@ -48,10 +48,6 @@ export class HelpService {
 
   getDefaultLanguage(): string {
     return (this.edcClient && this.edcClient.getDefaultLanguage && this.edcClient.getDefaultLanguage()) || SYS_LANG;
-  }
-
-  setCurrentLanguage(languageCode: string): any {
-    return this.edcClient.changeCurrentLanguage(languageCode);
   }
 
   isLanguagePresent(langCode: string): boolean {

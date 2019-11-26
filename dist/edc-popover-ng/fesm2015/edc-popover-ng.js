@@ -138,9 +138,6 @@ let HelpService = class HelpService {
     getDefaultLanguage() {
         return (this.edcClient && this.edcClient.getDefaultLanguage && this.edcClient.getDefaultLanguage()) || SYS_LANG;
     }
-    setCurrentLanguage(languageCode) {
-        return this.edcClient.changeCurrentLanguage(languageCode);
-    }
     isLanguagePresent(langCode) {
         return this.edcClient.isLanguagePresent(langCode);
     }
@@ -164,8 +161,8 @@ let HelpComponent = class HelpComponent {
     ngOnInit() {
         // If a lang input was provided, helper is already being loaded from ngOnChanges
         if (this.langLoading === undefined) {
-            // No helper loading in progress from ngOnChanges, so init helper
-            this.startHelper();
+            // No helper loading in progress from ngOnChanges, so initialize helper
+            this.initHelper();
         }
         this.translateService.setDefaultLang(SYS_LANG);
         this.iconCss = this.helpService.getIcon();
@@ -173,38 +170,43 @@ let HelpComponent = class HelpComponent {
     }
     ngOnChanges(changes) {
         if (changes['lang'] && changes['lang'].currentValue !== this.langLoading) {
-            this.startHelper();
+            this.initHelper();
         }
-    }
-    startHelper() {
-        this.langLoading = this.lang || null;
-        this.helpService.setCurrentLanguage(this.lang).then(lang => {
-            if (lang) {
-                // We set local translate lang only if lang has been changed in client, using the returned value
-                this.translateService.use(lang);
-                this.lang = lang;
-                this.initHelper();
-            }
-        });
     }
     initHelper() {
         if (this.key && this.subKey) {
-            const loadHelper = () => {
-                this.helpService.getHelp(this.key, this.subKey, this.pluginId, this.lang)
-                    .then((helper) => {
-                    this.helper = helper;
-                    this.langLoading = null;
-                });
-            };
+            this.langLoading = this.lang || null;
             if (this.helper) {
-                // This is not the first initialization, skip timeout
-                loadHelper();
+                // This is not the first initialization, just an update, skip timeout
+                this.loadHelper();
             }
             else {
                 // Set timeout because popover content loading is not a bootstrap top priority.
-                setTimeout(loadHelper, 2000);
+                setTimeout(this.loadHelper.bind(this), 2000);
             }
         }
+    }
+    loadHelper() {
+        this.helpService.getHelp(this.key, this.subKey, this.pluginId, this.lang)
+            .then((helper) => {
+            if (!helper) {
+                throw new Error(`Could not load Helper for the key ${this.key} and subKey ${this.subKey}`);
+            }
+            this.helper = helper;
+            const { language: resolvedLanguage } = helper;
+            if (resolvedLanguage !== this.lang) {
+                this.lang = resolvedLanguage;
+                console.warn(`Requested language ${this.lang} could not be loaded,
+           content will be using default language ${helper.language} instead`);
+            }
+            // Set translation language for the labels
+            this.translateService.use(this.lang);
+            this.langLoading = null;
+        })
+            .catch((err) => {
+            console.error(err);
+            this.langLoading = null;
+        });
     }
     goToArticle(index) {
         const articleUrl = this.helpService.getContextUrl(this.key, this.subKey, this.lang, index);

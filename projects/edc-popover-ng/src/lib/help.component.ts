@@ -68,8 +68,8 @@ export class HelpComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     // If a lang input was provided, helper is already being loaded from ngOnChanges
     if (this.langLoading === undefined) {
-      // No helper loading in progress from ngOnChanges, so init helper
-      this.startHelper();
+      // No helper loading in progress from ngOnChanges, so initialize helper
+      this.initHelper();
     }
     this.translateService.setDefaultLang(SYS_LANG);
     this.iconCss = this.helpService.getIcon();
@@ -78,39 +78,46 @@ export class HelpComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['lang'] && changes['lang'].currentValue !== this.langLoading) {
-      this.startHelper();
+      this.initHelper();
     }
-  }
 
-  private startHelper(): void {
-    this.langLoading = this.lang || null;
-    this.helpService.setCurrentLanguage(this.lang).then(lang => {
-      if (lang) {
-        // We set local translate lang only if lang has been changed in client, using the returned value
-        this.translateService.use(lang);
-        this.lang = lang;
-        this.initHelper();
-      }
-    });
   }
 
   private initHelper(): void {
     if (this.key && this.subKey) {
-      const loadHelper = () => {
-        this.helpService.getHelp(this.key, this.subKey, this.pluginId, this.lang)
-          .then((helper: Helper) => {
-            this.helper = helper;
-            this.langLoading = null;
-          });
-      };
+      this.langLoading = this.lang || null;
       if (this.helper) {
-        // This is not the first initialization, skip timeout
-        loadHelper();
+        // This is not the first initialization, just an update, skip timeout
+        this.loadHelper();
       } else {
         // Set timeout because popover content loading is not a bootstrap top priority.
-        setTimeout(loadHelper, 2000);
+        setTimeout(this.loadHelper.bind(this), 2000);
       }
     }
+  }
+
+  loadHelper(): void {
+    this.helpService.getHelp(this.key, this.subKey, this.pluginId, this.lang)
+      .then((helper: Helper) => {
+        if (!helper) {
+          throw new Error(`Could not load Helper for the key ${this.key} and subKey ${this.subKey}`);
+        }
+        this.helper = helper;
+        const { language: resolvedLanguage } = helper;
+        if (resolvedLanguage !== this.lang) {
+          this.lang = resolvedLanguage;
+          console.warn(`Requested language ${this.lang} could not be loaded,
+           content will be using default language ${helper.language} instead`);
+        }
+        // Set translation language for the labels
+        this.translateService.use(this.lang);
+
+        this.langLoading = null;
+      })
+      .catch((err: Error) => {
+        console.error(err);
+        this.langLoading = null;
+      });
   }
 
   goToArticle(index: number): void {

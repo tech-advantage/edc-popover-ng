@@ -19,8 +19,8 @@ export declare class HelpComponent implements OnInit, OnChanges {
     constructor(helpService: HelpService, translateService: TranslateService);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
-    private startHelper;
     private initHelper;
+    loadHelper(): void;
     goToArticle(index: number): void;
     goToLink(link: Link): void;
     getPlacement(): string;

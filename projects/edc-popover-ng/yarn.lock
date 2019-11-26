@@ -24,16 +24,16 @@ debug@=3.1.0:
   dependencies:
     ms "2.0.0"
 
-edc-client-js@3.0.0-beta-0:
-  version "3.0.0-beta-0"
-  resolved "https://registry.yarnpkg.com/edc-client-js/-/edc-client-js-3.0.0-beta-0.tgz#fef71a18a51b2820c442e6cc382014d637b01173"
-  integrity sha512-xIYQ5I2yqEFp8LmCwoGUR79ip+JDaNh253YE74fUFRVTL13dBkrcaVRQr0OqeJH/t+7NoHuR/GS0Zm5TJNk+Hw==
+edc-client-js@^3.0.0-beta-3:
+  version "3.0.0-beta-3"
+  resolved "https://registry.yarnpkg.com/edc-client-js/-/edc-client-js-3.0.0-beta-3.tgz#8afb134ca0d54f5dbd3449ad490f088c8f5c8e02"
+  integrity sha512-vM5wJm3+ezhn/F0KzjnwwTHD1gFgOXqRNtB1GHQ7OpMN9un3XjfsPgRXcnjaTY/7JyQ6SuiHhPRxKY/L5LBj6g==
   dependencies:
     axios "0.19.0"
     es6-promise "4.2.8"
     lodash "4.17.15"
 
-es6-promise@4.2.8:
+es6-promise@4.2.8, es6-promise@^4.2.8:
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.8.tgz#4eb21594c972bc40553d276e510539143db53e0a"
   integrity sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==
@@ -80,3 +80,8 @@ tslib@^1.9.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
+
+typescript@3.5.3:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
+  integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
