@@ -141,9 +141,6 @@ var HelpService = /** @class */ (function () {
     HelpService.prototype.getDefaultLanguage = function () {
         return (this.edcClient && this.edcClient.getDefaultLanguage && this.edcClient.getDefaultLanguage()) || SYS_LANG;
     };
-    HelpService.prototype.setCurrentLanguage = function (languageCode) {
-        return this.edcClient.changeCurrentLanguage(languageCode);
-    };
     HelpService.prototype.isLanguagePresent = function (langCode) {
         return this.edcClient.isLanguagePresent(langCode);
     };
@@ -171,8 +168,8 @@ var HelpComponent = /** @class */ (function () {
     HelpComponent.prototype.ngOnInit = function () {
         // If a lang input was provided, helper is already being loaded from ngOnChanges
         if (this.langLoading === undefined) {
-            // No helper loading in progress from ngOnChanges, so init helper
-            this.startHelper();
+            // No helper loading in progress from ngOnChanges, so initialize helper
+            this.initHelper();
         }
         this.translateService.setDefaultLang(SYS_LANG);
         this.iconCss = this.helpService.getIcon();
@@ -180,40 +177,43 @@ var HelpComponent = /** @class */ (function () {
     };
     HelpComponent.prototype.ngOnChanges = function (changes) {
         if (changes['lang'] && changes['lang'].currentValue !== this.langLoading) {
-            this.startHelper();
+            this.initHelper();
         }
     };
-    HelpComponent.prototype.startHelper = function () {
-        var _this = this;
-        this.langLoading = this.lang || null;
-        this.helpService.setCurrentLanguage(this.lang).then(function (lang) {
-            if (lang) {
-                // We set local translate lang only if lang has been changed in client, using the returned value
-                _this.translateService.use(lang);
-                _this.lang = lang;
-                _this.initHelper();
-            }
-        });
-    };
     HelpComponent.prototype.initHelper = function () {
-        var _this = this;
         if (this.key && this.subKey) {
-            var loadHelper = function () {
-                _this.helpService.getHelp(_this.key, _this.subKey, _this.pluginId, _this.lang)
-                    .then(function (helper) {
-                    _this.helper = helper;
-                    _this.langLoading = null;
-                });
-            };
+            this.langLoading = this.lang || null;
             if (this.helper) {
-                // This is not the first initialization, skip timeout
-                loadHelper();
+                // This is not the first initialization, just an update, skip timeout
+                this.loadHelper();
             }
             else {
                 // Set timeout because popover content loading is not a bootstrap top priority.
-                setTimeout(loadHelper, 2000);
+                setTimeout(this.loadHelper.bind(this), 2000);
             }
         }
+    };
+    HelpComponent.prototype.loadHelper = function () {
+        var _this = this;
+        this.helpService.getHelp(this.key, this.subKey, this.pluginId, this.lang)
+            .then(function (helper) {
+            if (!helper) {
+                throw new Error("Could not load Helper for the key " + _this.key + " and subKey " + _this.subKey);
+            }
+            _this.helper = helper;
+            var resolvedLanguage = helper.language;
+            if (resolvedLanguage !== _this.lang) {
+                _this.lang = resolvedLanguage;
+                console.warn("Requested language " + _this.lang + " could not be loaded,\n           content will be using default language " + helper.language + " instead");
+            }
+            // Set translation language for the labels
+            _this.translateService.use(_this.lang);
+            _this.langLoading = null;
+        })
+            .catch(function (err) {
+            console.error(err);
+            _this.langLoading = null;
+        });
     };
     HelpComponent.prototype.goToArticle = function (index) {
         var articleUrl = this.helpService.getContextUrl(this.key, this.subKey, this.lang, index);
