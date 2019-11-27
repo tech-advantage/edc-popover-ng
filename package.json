@@ -1,6 +1,6 @@
 {
   "name": "edc-popover-ng-app",
-  "version": "3.0.0-beta-4",
+  "version": "3.0.0-beta-5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -28,7 +28,7 @@
     "rxjs": "~6.5.2",
     "zone.js": "^0.8.26",
     "ngx-bootstrap": "3.0.1",
-    "edc-client-js": "^3.0.0-beta-4",
+    "edc-client-js": "^3.0.0-beta-5",
     "font-awesome": "4.7.0"
   },
   "devDependencies": {
