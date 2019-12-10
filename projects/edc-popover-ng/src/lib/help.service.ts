@@ -1,25 +1,37 @@
 import { Injectable } from '@angular/core';
 import { EdcClient, Helper } from 'edc-client-js';
 import { PopoverConfigurationHandler } from './config/popover-configuration-handler';
+import { SYS_LANG } from './translate/language-codes';
 
 @Injectable()
 export class HelpService {
 
-  private edcClient: EdcClient;
-  private helpPath: string;
+  private readonly edcClient: EdcClient;
 
   constructor(private configurationHandler: PopoverConfigurationHandler) {
-    this.helpPath = configurationHandler.getHelpPath();
-    // Edc-popover only uses contextual help, instantiate client with contextualOnly parameter set to true
-    this.edcClient = new EdcClient(configurationHandler.getDocPath(), '', configurationHandler.getPluginId(), true);
+    this.edcClient = new EdcClient(configurationHandler.getDocPath(),
+      configurationHandler.getHelpPath(),
+      configurationHandler.getPluginId(),
+      true, // Context only, don't load the whole doc
+      configurationHandler.getI18nPath()
+    );
   }
 
-  getHelp(primaryKey: string, subKey: string, pluginId?: string): Promise<Helper> {
-    return this.edcClient.getHelper(primaryKey, subKey, pluginId || this.configurationHandler.getPluginId());
+  getHelp(primaryKey: string, subKey: string, pluginId?: string, lang?: string): Promise<Helper> {
+    const pluginIdentifier = pluginId || this.configurationHandler.getPluginId();
+    return this.edcClient.getHelper(primaryKey, subKey, pluginIdentifier, lang);
   }
 
-  getHelpPath(): string {
-    return this.helpPath;
+  getContextUrl(mainKey: string, subKey: string, languageCode: string, articleIndex: number, pluginId?: string): string {
+    return this.edcClient.getContextWebHelpUrl(mainKey, subKey, languageCode, articleIndex, pluginId);
+  }
+
+  getDocumentationUrl(docId: number): string {
+    return this.edcClient.getDocumentationWebHelpUrl(docId);
+  }
+
+  getI18nUrl(): string {
+    return this.edcClient.getPopoverI18nUrl();
   }
 
   getPluginId(): string {
@@ -32,5 +44,13 @@ export class HelpService {
 
   getContainer(): string {
     return this.configurationHandler.isAppendToBody() ? 'body' : '';
+  }
+
+  getDefaultLanguage(): string {
+    return (this.edcClient && this.edcClient.getDefaultLanguage && this.edcClient.getDefaultLanguage()) || SYS_LANG;
+  }
+
+  isLanguagePresent(langCode: string): boolean {
+    return this.edcClient.isLanguagePresent(langCode);
   }
 }

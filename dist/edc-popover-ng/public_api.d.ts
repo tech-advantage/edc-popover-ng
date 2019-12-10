@@ -3,3 +3,4 @@ export * from './lib/help.module';
 export * from './lib/help.service';
 export * from './lib/config/popover-configuration';
 export * from './lib/config/popover-configuration-handler';
+export * from './lib/translate/language-codes';

@@ -1,19 +1,26 @@
-import { OnInit } from '@angular/core';
+import { OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Helper, Link } from 'edc-client-js';
 import { HelpService } from './help.service';
-export declare class HelpComponent implements OnInit {
-    private helpService;
+import { TranslateService } from '@ngx-translate/core';
+export declare class HelpComponent implements OnInit, OnChanges {
+    private readonly helpService;
+    private readonly translateService;
     helper: Helper;
     container: string;
     iconCss: string;
     comingSoon: string;
+    langLoading: string;
     pluginId: string;
     key: string;
     subKey: string;
     placement: string;
     dark: boolean;
-    constructor(helpService: HelpService);
+    lang: string;
+    constructor(helpService: HelpService, translateService: TranslateService);
     ngOnInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    private initHelper;
+    loadHelper(): void;
     goToArticle(index: number): void;
     goToLink(link: Link): void;
     getPlacement(): string;

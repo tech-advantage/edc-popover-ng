@@ -4,7 +4,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { Link } from 'edc-client-js';
 import { HelpService } from './help.service';
-import { mockService, mock } from './utils/test-helpers';
+import { mockService, mock, FakeTranslatePipe } from './utils/test-helpers';
+import { TranslateService } from '@ngx-translate/core';
 
 describe('Help component', () => {
   let component: HelpComponent;
@@ -15,13 +16,16 @@ describe('Help component', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
+        FakeTranslatePipe,
         HelpComponent
       ],
       imports: [
         PopoverModule.forRoot()
       ],
       providers: [
-        mockService(HelpService, ['getHelp', 'getHelpPath', 'getIcon', 'getContainer', 'getPluginId'])
+        mockService(HelpService, ['getHelp', 'getContextUrl', 'getDocumentationUrl',
+          'getI18nUrl', 'getIcon', 'getContainer', 'getPluginId']),
+        mockService(TranslateService, ['setDefaultLang', 'use'])
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -29,12 +33,17 @@ describe('Help component', () => {
   }));
 
   beforeEach(() => {
+    helpService = TestBed.get(HelpService);
+  });
+
+  beforeEach(() => {
+    spyOn(helpService, 'getI18nUrl').and.returnValue('/i18n/');
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(HelpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    helpService = TestBed.get(HelpService);
-
-    spyOn(helpService, 'getHelpPath').and.returnValue('/help/#');
   });
 
   describe('init', () => {
@@ -93,25 +102,8 @@ describe('Help component', () => {
 
         // when calling goToArticle() with index 1
         const url = `/help/#/context/myPluginId/myKey/mySubKey/en/1`;
+        spyOn(helpService, 'getContextUrl').and.returnValue(url);
         component.goToArticle(1);
-
-        // then window.open() should be called
-        expect(window.open).toHaveBeenCalledWith(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
-      });
-
-      it('should show a warning in console if plugin in was not found', () => {
-        spyOn(helpService, 'getPluginId').and.returnValue('');
-        spyOn(console, 'warn');
-        // given key value is 'myKey' and subKey value is 'mySubKey'
-        component.key = 'myKey';
-        component.subKey = 'mySubKey';
-
-        // when calling goToArticle() with index 1
-        const url = `/help/#/context/myKey/mySubKey/en/1`;
-        component.goToArticle(1);
-
-        expect(console.warn).toHaveBeenCalledWith(
-          'Please check if plugin Id was correctly set in the edc-popover-ng configuration handler');
 
         // then window.open() should be called
         expect(window.open).toHaveBeenCalledWith(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
@@ -133,6 +125,7 @@ describe('Help component', () => {
 
         // when calling goToArticle() with link
         const url = `/help/#/doc/1`;
+        spyOn(helpService, 'getDocumentationUrl').and.returnValue(url);
         component.goToLink(link);
 
         // then window.open() should be called

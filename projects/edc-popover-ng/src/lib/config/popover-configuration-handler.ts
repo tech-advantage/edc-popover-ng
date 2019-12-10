@@ -11,4 +11,6 @@ export abstract class PopoverConfigurationHandler {
 
   abstract isAppendToBody(): boolean;
 
+  abstract getI18nPath(): string;
+
 }

@@ -11,7 +11,6 @@ describe('Help Service Test', () => {
 
   // mock EdcClient
   beforeEach(() => {
-    spyOn(EdcClient.prototype, 'init');
     spyOn(EdcClient.prototype, 'getHelper').and.returnValue(Promise.resolve());
   });
 
@@ -19,7 +18,7 @@ describe('Help Service Test', () => {
     TestBed.configureTestingModule({
       providers: [
         HelpService,
-        mockService(PopoverConfigurationHandler, ['getHelpPath', 'getDocPath', 'getPluginId', 'getIcon', 'isAppendToBody'])
+        mockService(PopoverConfigurationHandler, ['getHelpPath', 'getDocPath', 'getPluginId', 'getIcon', 'isAppendToBody', 'getI18nPath'])
       ]
     });
   });
@@ -42,7 +41,7 @@ describe('Help Service Test', () => {
 
       helpService.getHelp('mainKey', 'subKey').then(() => {});
 
-      expect(EdcClient.prototype.getHelper).toHaveBeenCalledWith('mainKey', 'subKey', 'edchelp');
+      expect(EdcClient.prototype.getHelper).toHaveBeenCalledWith('mainKey', 'subKey', 'edchelp', undefined);
     }));
 
     it('should use "edchelp2" as plugin identifier', async(() => {
@@ -50,7 +49,7 @@ describe('Help Service Test', () => {
 
       helpService.getHelp('mainKey', 'subKey', 'edchelp2').then(() => {});
 
-      expect(EdcClient.prototype.getHelper).toHaveBeenCalledWith('mainKey', 'subKey', 'edchelp2');
+      expect(EdcClient.prototype.getHelper).toHaveBeenCalledWith('mainKey', 'subKey', 'edchelp2', undefined);
     }));
   });
 
