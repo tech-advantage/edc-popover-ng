@@ -1,6 +1,6 @@
 {
   "name": "edc-popover-ng-app",
-  "version": "3.0.0-beta-6",
+  "version": "3.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -25,10 +25,10 @@
     "@angular/router": "7.2.15",
     "@ngx-translate/core": "11.0.0",
     "core-js": "2.5.7",
-    "rxjs": "~6.5.2",
-    "zone.js": "^0.8.26",
+    "rxjs": "6.5.2",
+    "zone.js": "0.8.26",
     "ngx-bootstrap": "3.0.1",
-    "edc-client-js": "^3.0.0-beta-5",
+    "edc-client-js": "3.0.1",
     "font-awesome": "4.7.0"
   },
   "devDependencies": {
@@ -40,8 +40,8 @@
     "@types/jasmine": "2.8.8",
     "@types/jasminewd2": "2.0.3",
     "@types/lodash": "4.14.149",
-    "@types/node": "^10.9.4",
-    "codelyzer": "^5.1.0",
+    "@types/node": "10.9.4",
+    "codelyzer": "5.1.0",
     "jasmine-core": "3.2.0",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "1.7.1",
@@ -52,8 +52,8 @@
     "ng-packagr": "^5.1.0",
     "protractor": "5.4.0",
     "ts-node": "7.0.1",
-    "tsickle": "^0.33.1",
-    "tslib": "^1.9.0",
+    "tsickle": "0.33.1",
+    "tslib": "1.9.0",
     "tslint": "5.18.0",
     "typescript": "3.2.4"
   },

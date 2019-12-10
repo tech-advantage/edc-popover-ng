@@ -195,9 +195,9 @@ let HelpComponent = class HelpComponent {
             this.helper = helper;
             const { language: resolvedLanguage } = helper;
             if (resolvedLanguage !== this.lang) {
-                this.lang = resolvedLanguage;
                 console.warn(`Requested language ${this.lang} could not be loaded,
            content will be using default language ${helper.language} instead`);
+                this.lang = resolvedLanguage;
             }
             // Set translation language for the labels
             this.translateService.use(this.lang);

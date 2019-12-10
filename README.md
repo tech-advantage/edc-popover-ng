@@ -12,15 +12,15 @@ Learn more at [https://www.easydoccontents.com](https://www.easydoccontents.com)
 
 ## edc Version
 
-Current release targets edc v2.7.0.
+Current release is compatible with edc v3.0+
 
 ## Dependencies
 
 The only required dependencies are:
 
-- Angular (requires Angular version 6 or higher, tested with 7)
-- Bootstrap CSS (tested with 3.3.7 and 4.0.0-alpha.6)
-- tested with ngx-bootstrap 3.0.1
+- Angular (requires Angular version 6 or higher)
+- Bootstrap CSS (tested with 3.3.7 and 4.0.0)
+- tested with ngx-bootstrap 3.1.1
 
 
 ## Importing the help component
@@ -174,16 +174,16 @@ The `edc-help` component can take multiple inputs :
 
 ## Providing your own translations for popover labels
 
-You can set additional translations (or replace the existing ones) by adding i18n json files to the documentation export.
+You can set additional translations (or replace the existing ones) by adding i18n json files to the documentation folder.
 
 Please note that one file is required per language (see file example below), and should be named following the ISO639-1 two letters standards 
 (ie en.json, it.json...).
 
-By default, edc-popover-ng will be looking for the files in [yourDocPath]/i18n/ (*.json), but you can change this path by modifying 
+By default, edc-popover-ng will be looking for the files in [yourDocPath]/popover/i18n/ (*.json), but you can change this path by modifying 
 getI18nPath() in your PopoverConfigurationHandler.
 
 edc-popover-ng comes with English, French, Chinese, Russian and Vietnamese translations, and supports up to 36 languages.
-Full list can be found in constant LANGUAGE_CODES exported from src/lib/translate/language-codes.ts.
+For the full list, please refer to [LANGUAGE_CODES](https://github.com/tech-advantage/edc-popover-ng/src/lib/translate/language-codes.ts).
 
 ##### JSON file structure
 

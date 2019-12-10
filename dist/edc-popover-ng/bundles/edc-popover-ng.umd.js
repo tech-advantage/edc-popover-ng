@@ -225,8 +225,8 @@
                 _this.helper = helper;
                 var resolvedLanguage = helper.language;
                 if (resolvedLanguage !== _this.lang) {
-                    _this.lang = resolvedLanguage;
                     console.warn("Requested language " + _this.lang + " could not be loaded,\n           content will be using default language " + helper.language + " instead");
+                    _this.lang = resolvedLanguage;
                 }
                 // Set translation language for the labels
                 _this.translateService.use(_this.lang);
