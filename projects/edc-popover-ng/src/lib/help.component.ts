@@ -1,106 +1,71 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Helper, Link } from 'edc-client-js';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Helper } from 'edc-client-js';
 import { HelpService } from './help.service';
-import { HelpConstants } from './help.constants';
-import { SYS_LANG } from './translate/language-codes';
-import { EdcTranslationService } from './translate/edc-translation.service';
+import { PopoverConfig } from 'edc-popover-js';
+import { HelpConfigService } from './config/help-config.service';
+import { Placement } from 'tippy.js';
 
 @Component({
   selector: 'edc-help',
   styleUrls: ['help.less'],
-  template: `<i class="fa help-icon {{ iconCss }}"></i>`
+  template: `
+    <i class="fa help-icon" [ngClass]="this.getIconClasses()" edcHelpPopover [config]="config"></i>
+  `,
+  encapsulation: ViewEncapsulation.None
 })
 export class HelpComponent implements OnInit, OnChanges {
+
+  readonly DEFAULT_PLACEMENT = 'bottom';
+
   helper: Helper;
-  container: string;
   iconCss: string;
-  comingSoon = HelpConstants.MESSAGE_COMING_SOON;
-  langLoading: string; // The lang in use to load the helper - for race conditions
+
+  config: PopoverConfig;
 
   @Input() pluginId: string; // if defined, the plugin identifier to use for fetching help content
-  @Input() key: string;
+  @Input() mainKey: string;
   @Input() subKey: string;
-  @Input() placement = 'bottom';
+  @Input() placement: Placement;
   @Input() dark: boolean;
   @Input() lang: string;
+  @Input() customClass: string;
 
-  constructor(private readonly helpService: HelpService, private readonly translationService: EdcTranslationService) {
+  constructor(private readonly helpConfigService: HelpConfigService) {
   }
 
   ngOnInit(): void {
-    // If a lang input was provided, helper is already being loaded from ngOnChanges
-    if (this.langLoading === undefined) {
-      // No helper loading in progress from ngOnChanges, so initialize helper
-      this.initHelper();
-    }
-    this.translationService.setLang(SYS_LANG);
-    this.iconCss = this.helpService.getIcon();
-    this.container = this.helpService.getContainer();
+    this.iconCss = this.helpConfigService.getIcon();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['lang'] && changes['lang'].currentValue !== this.langLoading) {
-      this.initHelper();
-    }
-
-  }
-
-  private initHelper(): void {
-    if (this.key && this.subKey) {
-      this.langLoading = this.lang || null;
-      if (this.helper) {
-        // This is not the first initialization, just an update, skip timeout
-        this.loadHelper();
-      } else {
-        // Set timeout because popover content loading is not a bootstrap top priority.
-        setTimeout(this.loadHelper.bind(this), 2000);
-      }
+    // When at least one of the inputs related to content changes, the configuration must be rebuild
+    const contentTriggers = ['pluginId', 'mainKey', 'subKey', 'lang'];
+    // Those only require to update the configuration options attribute
+    const optionsTriggers = ['placement', 'customClass'];
+    if (contentTriggers.some(prop => changes[prop])) {
+      this.buildPopoverConfig();
+    } else if (optionsTriggers.some(prop => changes[prop])) {
+      this.config = this.helpConfigService.updateOptions(this.config, this.placement, this.customClass);
     }
   }
 
-  loadHelper(): void {
-    this.helpService.getHelp(this.key, this.subKey, this.pluginId, this.lang)
-      .then((helper: Helper) => {
-        if (!helper) {
-          throw new Error(`Could not load Helper for the key ${this.key} and subKey ${this.subKey}`);
-        }
-        this.helper = helper;
-        const { language: resolvedLanguage } = helper;
-        if (resolvedLanguage !== this.lang) {
-          console.warn(`Requested language ${this.lang} could not be loaded,
-           content will be using default language ${helper.language} instead`);
-          this.lang = resolvedLanguage;
-        }
-        // Set translation language for the labels
-        this.translationService.setLang(this.lang);
+  getIconClasses(): string[] {
+    const classes = [];
+    if (this.iconCss) {
+      classes.push(this.iconCss);
+    }
+    // Set dark class
+    if (this.dark) {
+      classes.push('on-dark');
+    }
+    return classes;
+  }
 
-        this.langLoading = null;
-      })
-      .catch((err: Error) => {
-        console.error(err);
-        this.langLoading = null;
+  private buildPopoverConfig(): void {
+    const placement = this.placement || this.DEFAULT_PLACEMENT;
+    this.helpConfigService.buildPopoverConfig(this.mainKey, this.subKey, this.pluginId, this.lang, placement, this.customClass)
+      .then((config: PopoverConfig) => {
+        this.config = config;
       });
-  }
-
-  goToArticle(index: number): void {
-    const articleUrl = this.helpService.getContextUrl(this.key, this.subKey, this.lang, index);
-    this.open(articleUrl);
-  }
-
-  goToLink(link: Link): void {
-    const url = this.helpService.getDocumentationUrl(link.id);
-    this.open(url);
-  }
-
-  getPlacement(): string {
-    return this.placement;
-  }
-
-  cancelClick($event: Event): void {
-    $event.preventDefault();
-  }
-
-  private open(url: string): void {
-    window.open(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
   }
 }

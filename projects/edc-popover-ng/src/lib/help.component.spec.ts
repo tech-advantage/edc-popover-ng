@@ -1,29 +1,26 @@
 import { HelpComponent } from './help.component';
-import { ComponentFixture, async, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Link } from 'edc-client-js';
-import { HelpService } from './help.service';
-import { mockService, mock, FakeTranslatePipe } from './utils/test-helpers';
-import { EdcTranslationService } from './translate/edc-translation.service';
+import { mockService, TestModule } from './utils/test-helpers';
+import { HelpConfigService } from './config/help-config.service';
+import { HelpPopoverDirective } from './help-popover.directive';
 
 describe('Help component', () => {
   let component: HelpComponent;
   let fixture: ComponentFixture<HelpComponent>;
-  let helpService: HelpService;
-  let link: Link;
+  let helpConfigService: HelpConfigService;
 
-  beforeEach(async(() => {
+  beforeEach((() => {
     TestBed.configureTestingModule({
-      declarations: [
-        FakeTranslatePipe,
-        HelpComponent
-      ],
       imports: [
+        TestModule
+      ],
+      declarations: [
+        HelpComponent,
+        HelpPopoverDirective
       ],
       providers: [
-        mockService(HelpService, ['getHelp', 'getContextUrl', 'getDocumentationUrl',
-          'getI18nUrl', 'getIcon', 'getContainer', 'getPluginId']),
-        mockService(EdcTranslationService, ['setLang'])
+        mockService(HelpConfigService, ['getIcon', 'updateOptions', 'buildPopoverConfig'])
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -31,105 +28,68 @@ describe('Help component', () => {
   }));
 
   beforeEach(() => {
-    helpService = TestBed.inject<HelpService>(HelpService);
+    helpConfigService = TestBed.inject<HelpConfigService>(HelpConfigService);
   });
 
   beforeEach(() => {
-    spyOn(helpService, 'getI18nUrl').and.returnValue('/i18n/');
+    spyOn(helpConfigService, 'getIcon').and.returnValue('fa-question-circle-o');
   });
 
   beforeEach(() => {
+    const bindings = {
+      mainKey: 'main',
+      subKey: 'sub',
+      pluginId: 'myPlugin',
+      lang: 'fr'
+    };
     fixture = TestBed.createComponent(HelpComponent);
-    component = fixture.componentInstance;
+    component = Object.assign(fixture.componentInstance, bindings);
     fixture.detectChanges();
   });
 
   describe('init', () => {
-    it('should create', async(() => {
+    it('should create', () => {
       expect(component).toBeTruthy();
-    }));
+      expect(component.mainKey).toEqual('main');
+      expect(component.subKey).toEqual('sub');
+      expect(component.pluginId).toEqual('myPlugin');
+      expect(component.lang).toEqual('fr');
+      expect(component.iconCss).toEqual('fa-question-circle-o');
+    });
   });
 
   describe('runtime', () => {
 
-    describe('getPlacement', () => {
+    describe('getIconClasses', () => {
 
-      beforeEach(() => {
-        fixture = TestBed.createComponent(HelpComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+      it('should return icon class', () => {
+        // Given component iconCss attribute is defined
+        expect(component.iconCss).toEqual('fa-question-circle-o');
+        expect(component.dark).toBeFalsy();
+
+        const classes = component.getIconClasses();
+
+        expect(classes.length).toEqual(1);
+        expect(classes).toEqual(['fa-question-circle-o']);
       });
 
-      it('should return bottom if placement is NOT defined', () => {
-        // given placement is not set
+      it('should return icon class in dark mode', () => {
+        // Given component iconCss attribute is defined
+        component.dark = true;
 
-        // when calling getPlacement()
-        const testPlacement = component.getPlacement();
+        const classes = component.getIconClasses();
 
-        // then returned value should be 'bottom'
-        expect(testPlacement).toEqual('bottom');
+        expect(classes).toEqual(['fa-question-circle-o', 'on-dark']);
       });
+      it('should return empty array if classes are not defined', () => {
+        // Given component iconCss attribute is defined
+        component.iconCss = undefined;
+        component.dark = false;
 
-      it('should return placement if placement is defined', () => {
-        // given placement value is 'up'
-        component.placement = 'up';
+        const classes = component.getIconClasses();
 
-        // when calling getPlacement()
-        const testPlacement = component.getPlacement();
-
-        // then returned value should be 'up'
-        expect(testPlacement).toEqual('up');
+        expect(classes).toEqual([]);
       });
-    });
-
-    describe('goToArticle', () => {
-
-      beforeEach(() => {
-        fixture = TestBed.createComponent(HelpComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-        spyOn(window, 'open');
-      });
-
-      it('should open a new window', () => {
-        spyOn(helpService, 'getPluginId').and.returnValue('myPluginId');
-
-        // given key value is 'myKey' and subKey value is 'mySubKey'
-        component.key = 'myKey';
-        component.subKey = 'mySubKey';
-
-        // when calling goToArticle() with index 1
-        const url = `/help/#/context/myPluginId/myKey/mySubKey/en/1`;
-        spyOn(helpService, 'getContextUrl').and.returnValue(url);
-        component.goToArticle(1);
-
-        // then window.open() should be called
-        expect(window.open).toHaveBeenCalledWith(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
-      });
-    });
-
-    describe('goToLink', () => {
-
-      beforeEach(() => {
-        fixture = TestBed.createComponent(HelpComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-        spyOn(window, 'open');
-      });
-
-      it('should open a new window', () => {
-        // given link is a Link with id value 1
-        link = mock(Link, {id: 1});
-
-        // when calling goToArticle() with link
-        const url = `/help/#/doc/1`;
-        spyOn(helpService, 'getDocumentationUrl').and.returnValue(url);
-        component.goToLink(link);
-
-        // then window.open() should be called
-        expect(window.open).toHaveBeenCalledWith(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
-      });
-
     });
   });
 });

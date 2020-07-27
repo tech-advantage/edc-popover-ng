@@ -182,7 +182,10 @@ As an example, here is the en.json file used by default:
 {
   "labels": {
     "articles": "Need more...",
-    "links": "Related topics"
+    "links": "Related topics",
+    "iconAlt": "Help",
+    "comingSoon": "Contextual help is coming soon.",
+    "errorTitle":  "Error"
   }
 }
 ```

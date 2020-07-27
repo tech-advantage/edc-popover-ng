@@ -40,10 +40,7 @@ export const LANGUAGE_CODES = [
 // Languages with translation contents
 export const DEFINED_TRANSLATION_CODES = [
   'en',
-  'fr',
-  'ru',
-  'vi',
-  'zh'
+  'fr'
 ];
 
 export const SYS_LANG = 'en';

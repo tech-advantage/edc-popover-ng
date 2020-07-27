@@ -11,10 +11,11 @@ import {
           <h1 class="title-container">
               Welcome to {{title}}!
               <edc-help class="help-icon"
-                        [key]="'fr.techad.edc.configuration'"
+                        [mainKey]="'fr.techad.edc.configuration'"
                         [subKey]="'products'"
                         [placement]="'bottom'"
                         [dark]="false"
+                        customClass="my-popover"
                         [lang]="lang"></edc-help>
           </h1>
           <div class="title-container">
@@ -29,10 +30,11 @@ import {
                   </option>
               </select>
               <edc-help class="help-icon"
-                        [key]="'fr.techad.edc.configuration2'"
+                        [mainKey]="'fr.techad.edc.configuration2'"
                         [subKey]="'products'"
                         [placement]="'bottom-start'"
                         [dark]="false"
+                        customClass="my-popover"
                         [lang]="lang"></edc-help>
               <div>More translations can be added:</div>
               <div>Just include your own i18n json files on the default location (doc/i18n/)</div>

@@ -1,4 +1,4 @@
-import { Helper } from 'edc-client-js';
+import { Helper, PopoverLabel } from 'edc-client-js';
 import { PopoverConfigurationHandler } from './config/popover-configuration-handler';
 export declare class HelpService {
     private configurationHandler;
@@ -13,4 +13,5 @@ export declare class HelpService {
     getContainer(): string;
     getDefaultLanguage(): string;
     isLanguagePresent(langCode: string): boolean;
+    getPopoverTranslation(langCode: string): Promise<PopoverLabel>;
 }
