@@ -15,6 +15,7 @@
 *.launch
 .settings/
 *.sublime-workspace
+edc-popover-ng.iml
 
 # IDE - VSCode
 .vscode/*
@@ -36,3 +37,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/edc-popover-ng.iml
+
+# Yalc
+.yalc
+yalc.lock

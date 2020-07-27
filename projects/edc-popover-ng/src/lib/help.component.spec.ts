@@ -1,11 +1,10 @@
 import { HelpComponent } from './help.component';
 import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { PopoverModule } from 'ngx-bootstrap/popover';
 import { Link } from 'edc-client-js';
 import { HelpService } from './help.service';
 import { mockService, mock, FakeTranslatePipe } from './utils/test-helpers';
-import { TranslateService } from '@ngx-translate/core';
+import { EdcTranslationService } from './translate/edc-translation.service';
 
 describe('Help component', () => {
   let component: HelpComponent;
@@ -20,12 +19,11 @@ describe('Help component', () => {
         HelpComponent
       ],
       imports: [
-        PopoverModule.forRoot()
       ],
       providers: [
         mockService(HelpService, ['getHelp', 'getContextUrl', 'getDocumentationUrl',
           'getI18nUrl', 'getIcon', 'getContainer', 'getPluginId']),
-        mockService(TranslateService, ['setDefaultLang', 'use'])
+        mockService(EdcTranslationService, ['setLang'])
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -33,7 +31,7 @@ describe('Help component', () => {
   }));
 
   beforeEach(() => {
-    helpService = TestBed.get(HelpService);
+    helpService = TestBed.inject<HelpService>(HelpService);
   });
 
   beforeEach(() => {

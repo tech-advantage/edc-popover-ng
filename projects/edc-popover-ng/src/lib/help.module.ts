@@ -1,12 +1,10 @@
-import { NgModule, ModuleWithProviders, Provider } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PopoverModule } from 'ngx-bootstrap/popover';
 import { HelpComponent } from './help.component';
 import { HelpService } from './help.service';
-import { TranslateModule, MissingTranslationHandler, TranslateLoader } from '@ngx-translate/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslateMissingTranslationHandler } from './translate/translate-missing-handler';
-import { HttpLoaderFactory } from './translate/translate-loader';
+import { EdcTranslationService } from './translate/edc-translation.service';
+
+import 'edc-popover-js/dist/edc-popover.css';
 
 export interface HelpModuleConfig {
   configLoader: Provider;
@@ -14,26 +12,14 @@ export interface HelpModuleConfig {
 
 @NgModule({
   imports: [
-    CommonModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient, HelpService]
-      },
-      missingTranslationHandler: {
-        provide: MissingTranslationHandler,
-        useClass: TranslateMissingTranslationHandler
-      }
-    }),
-    PopoverModule.forRoot()
+    CommonModule
   ],
   declarations: [
-    HelpComponent
+    HelpComponent,
   ],
   providers: [
-    HelpService
+    HelpService,
+    EdcTranslationService,
   ],
   exports: [
     HelpComponent
@@ -43,7 +29,7 @@ export interface HelpModuleConfig {
   ]
 })
 export class HelpModule {
-  static forRoot(config: HelpModuleConfig): ModuleWithProviders {
+  static forRoot(config: HelpModuleConfig): ModuleWithProviders<HelpModule> {
     return {
       ngModule: HelpModule,
       providers: [

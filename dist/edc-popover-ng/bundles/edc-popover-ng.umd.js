@@ -1,80 +1,14 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('edc-client-js'), require('@ngx-translate/core'), require('@angular/common'), require('ngx-bootstrap/popover'), require('@angular/common/http'), require('rxjs'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('edc-popover-ng', ['exports', '@angular/core', 'edc-client-js', '@ngx-translate/core', '@angular/common', 'ngx-bootstrap/popover', '@angular/common/http', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory(global['edc-popover-ng'] = {}, global.ng.core, global.edcClientJs, global.core$1, global.ng.common, global.popover, global.ng.common.http, global.rxjs, global.rxjs.operators));
-}(this, function (exports, core, edcClientJs, core$1, common, popover, http, rxjs, operators) { 'use strict';
-
-    /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
-
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
-
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
-    ***************************************************************************** */
-
-    function __decorate(decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-    }
-
-    function __metadata(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
-    }
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('edc-client-js'), require('@angular/common'), require('edc-popover-js/dist/edc-popover.css')) :
+    typeof define === 'function' && define.amd ? define('edc-popover-ng', ['exports', '@angular/core', 'edc-client-js', '@angular/common', 'edc-popover-js/dist/edc-popover.css'], factory) :
+    (global = global || self, factory(global['edc-popover-ng'] = {}, global.ng.core, global.edcClientJs, global.ng.common));
+}(this, (function (exports, core, edcClientJs, common) { 'use strict';
 
     var PopoverConfigurationHandler = /** @class */ (function () {
         function PopoverConfigurationHandler() {
         }
         return PopoverConfigurationHandler;
     }());
-
-    var labels = {
-    	articles: "Need more...",
-    	links: "Related topics"
-    };
-    var en = {
-    	labels: labels
-    };
-
-    var labels$1 = {
-    	articles: "Plus d'info...",
-    	links: "Sujets associés"
-    };
-    var fr = {
-    	labels: labels$1
-    };
-
-    var labels$2 = {
-    	articles: "Подробнее...",
-    	links: "Связанные темы"
-    };
-    var ru = {
-    	labels: labels$2
-    };
-
-    var labels$3 = {
-    	articles: "Đọc thêm...",
-    	links: "Liên quan"
-    };
-    var vi = {
-    	labels: labels$3
-    };
-
-    var labels$4 = {
-    	articles: "需要更多...",
-    	links: "相关话题"
-    };
-    var zh = {
-    	labels: labels$4
-    };
 
     var LANGUAGE_CODES = [
         'en',
@@ -123,14 +57,6 @@
         'zh'
     ];
     var SYS_LANG = 'en';
-    // Default translations content
-    var localTranslations = {
-        en: en,
-        fr: fr,
-        ru: ru,
-        vi: vi,
-        zh: zh
-    };
 
     var HelpService = /** @class */ (function () {
         function HelpService(configurationHandler) {
@@ -166,24 +92,47 @@
         HelpService.prototype.isLanguagePresent = function (langCode) {
             return this.edcClient.isLanguagePresent(langCode);
         };
-        HelpService = __decorate([
-            core.Injectable(),
-            __metadata("design:paramtypes", [PopoverConfigurationHandler])
-        ], HelpService);
         return HelpService;
     }());
+    HelpService.decorators = [
+        { type: core.Injectable }
+    ];
+    HelpService.ctorParameters = function () { return [
+        { type: PopoverConfigurationHandler }
+    ]; };
 
     var HelpConstants = /** @class */ (function () {
         function HelpConstants() {
         }
-        HelpConstants.MESSAGE_COMING_SOON = 'Contextual help is coming soon.';
         return HelpConstants;
     }());
+    HelpConstants.MESSAGE_COMING_SOON = 'Contextual help is coming soon.';
+
+    var EdcTranslationService = /** @class */ (function () {
+        function EdcTranslationService(helpService) {
+            this.helpService = helpService;
+            this.defaultLanguage = SYS_LANG;
+            this.lang = SYS_LANG;
+        }
+        EdcTranslationService.prototype.getLang = function () {
+            return this.lang;
+        };
+        EdcTranslationService.prototype.setLang = function (lang) {
+            this.lang = lang;
+        };
+        return EdcTranslationService;
+    }());
+    EdcTranslationService.decorators = [
+        { type: core.Injectable }
+    ];
+    EdcTranslationService.ctorParameters = function () { return [
+        { type: HelpService }
+    ]; };
 
     var HelpComponent = /** @class */ (function () {
-        function HelpComponent(helpService, translateService) {
+        function HelpComponent(helpService, translationService) {
             this.helpService = helpService;
-            this.translateService = translateService;
+            this.translationService = translationService;
             this.comingSoon = HelpConstants.MESSAGE_COMING_SOON;
             this.placement = 'bottom';
         }
@@ -193,7 +142,7 @@
                 // No helper loading in progress from ngOnChanges, so initialize helper
                 this.initHelper();
             }
-            this.translateService.setDefaultLang(SYS_LANG);
+            this.translationService.setLang(SYS_LANG);
             this.iconCss = this.helpService.getIcon();
             this.container = this.helpService.getContainer();
         };
@@ -229,7 +178,7 @@
                     _this.lang = resolvedLanguage;
                 }
                 // Set translation language for the labels
-                _this.translateService.use(_this.lang);
+                _this.translationService.setLang(_this.lang);
                 _this.langLoading = null;
             })
                 .catch(function (err) {
@@ -254,139 +203,70 @@
         HelpComponent.prototype.open = function (url) {
             window.open(url, 'help', 'scrollbars=1,resizable=1,height=800,width=1200');
         };
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], HelpComponent.prototype, "pluginId", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], HelpComponent.prototype, "key", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], HelpComponent.prototype, "subKey", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
-        ], HelpComponent.prototype, "placement", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Boolean)
-        ], HelpComponent.prototype, "dark", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], HelpComponent.prototype, "lang", void 0);
-        HelpComponent = __decorate([
-            core.Component({
-                selector: 'edc-help',
-                template: "\n    <!-- Popover template -->\n    <ng-template #popTemplate>\n      <div class=\"edc-popover-container\" (click)=\"$event.stopPropagation()\">\n        <article class=\"popover-article\">{{ helper?.description }}</article>\n        <div class=\"see-also\">\n          <div *ngIf=\"helper?.articles.length\">\n            <h6><strong><span>{{ 'labels.articles' | translate }}</span></strong></h6>\n            <ul class=\"see-also-list\">\n              <li *ngFor=\"let article of helper.articles; let key = index\" class=\"see-also-item\"\n                  (click)=\"goToArticle(key)\">\n                <div class=\"article-link\">{{article.label}}</div>\n              </li>\n            </ul>\n          </div>\n          <div *ngIf=\"helper?.links.length\">\n            <h6><strong><span>{{ 'labels.links' | translate }}</span></strong></h6>\n            <ul class=\"see-also-list\">\n              <li *ngFor=\"let link of helper.links\" class=\"see-also-item\" (click)=\"goToLink(link)\">\n                <div class=\"article-link\">{{link.label}}</div>\n              </li>\n            </ul>\n          </div>\n        </div>\n      </div>\n    </ng-template>\n\n\n    <!-- app-help template -->\n    <i class=\"fa help-icon {{ iconCss }}\"\n       [popover]=\"helper ? popTemplate : comingSoon\"\n       [popoverTitle]=\"helper?.label\"\n       [placement]=\"getPlacement()\"\n       [ngClass]=\"{'on-dark': dark }\"\n       [container]=\"container\"\n       [outsideClick]=\"true\"\n       (click)=\"cancelClick($event)\">\n    </i>\n  ",
-                styles: [":host{cursor:pointer;line-height:34px;font-size:16px;padding-right:5px}:host .help-icon{color:#d3d3d3}:host .help-icon:hover{color:#3c8dbc}:host .help-icon.on-dark{color:rgba(0,0,0,.3)}:host .help-icon.on-dark:hover{color:#fff}/deep/ popover-container.popover{border-color:#3c8dbc}/deep/ popover-container.popover.top>div.arrow::before{border-top-color:#3c8dbc}/deep/ popover-container.popover.bottom>div.arrow::before{border-bottom-color:#3c8dbc}/deep/ popover-container.popover.left>div.arrow::before{border-left-color:#3c8dbc}/deep/ popover-container.popover.right>div.arrow::before{border-right-color:#3c8dbc}/deep/ popover-container.popover .popover-title{border-bottom-color:#3c8dbc;font-weight:700}.edc-popover-container{min-width:150px;line-height:20px;display:flex;flex-direction:column;flex-grow:1}.edc-popover-container .popover-article{font-size:14px;padding-bottom:10px}.edc-popover-container .see-also-item{font-size:15px}.edc-popover-container .see-also-item .article-link{cursor:pointer;color:#0275d8;text-decoration:underline}.edc-popover-container ul{list-style-type:disc}"]
-            }),
-            __metadata("design:paramtypes", [HelpService, core$1.TranslateService])
-        ], HelpComponent);
         return HelpComponent;
     }());
+    HelpComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'edc-help',
+                    template: "<i class=\"fa help-icon {{ iconCss }}\"></i>",
+                    styles: [":host{cursor:pointer;font-size:16px;line-height:34px;padding-right:5px}:host .help-icon{color:#d3d3d3}:host .help-icon:hover{color:#3c8dbc}:host .help-icon.on-dark{color:rgba(0,0,0,.3)}:host .help-icon.on-dark:hover{color:#fff}/deep/ popover-container.popover{border-color:#3c8dbc}/deep/ popover-container.popover.top>div.arrow:before{border-top-color:#3c8dbc}/deep/ popover-container.popover.bottom>div.arrow:before{border-bottom-color:#3c8dbc}/deep/ popover-container.popover.left>div.arrow:before{border-left-color:#3c8dbc}/deep/ popover-container.popover.right>div.arrow:before{border-right-color:#3c8dbc}/deep/ popover-container.popover .popover-title{border-bottom-color:#3c8dbc;font-weight:700}.edc-popover-container{display:flex;flex-direction:column;flex-grow:1;line-height:20px;min-width:150px}.edc-popover-container .popover-article{font-size:14px;padding-bottom:10px}.edc-popover-container .see-also-item{font-size:15px}.edc-popover-container .see-also-item .article-link{color:#0275d8;cursor:pointer;text-decoration:underline}.edc-popover-container ul{list-style-type:disc}"]
+                },] }
+    ];
+    HelpComponent.ctorParameters = function () { return [
+        { type: HelpService },
+        { type: EdcTranslationService }
+    ]; };
+    HelpComponent.propDecorators = {
+        pluginId: [{ type: core.Input }],
+        key: [{ type: core.Input }],
+        subKey: [{ type: core.Input }],
+        placement: [{ type: core.Input }],
+        dark: [{ type: core.Input }],
+        lang: [{ type: core.Input }]
+    };
 
-    var TranslateMissingTranslationHandler = /** @class */ (function () {
-        function TranslateMissingTranslationHandler() {
-        }
-        TranslateMissingTranslationHandler.prototype.handle = function (params) {
-            return '';
-        };
-        return TranslateMissingTranslationHandler;
-    }());
-
-    var TranslateLoader = /** @class */ (function () {
-        function TranslateLoader(http, helpService, defaultLanguage, prefix, suffix) {
-            if (defaultLanguage === void 0) { defaultLanguage = SYS_LANG; }
-            if (prefix === void 0) { prefix = ''; }
-            if (suffix === void 0) { suffix = '.json'; }
-            this.http = http;
-            this.helpService = helpService;
-            this.defaultLanguage = defaultLanguage;
-            this.prefix = prefix;
-            this.suffix = suffix;
-        }
-        TranslateLoader.prototype.getTranslation = function (lang) {
-            var _this = this;
-            if (lang === void 0) { lang = SYS_LANG; }
-            var langToUse = this.helpService.isLanguagePresent(lang) ? lang : this.defaultLanguage;
-            return this.http.get(this.prefix + "/" + langToUse + this.suffix).pipe(operators.catchError(function () { return _this.getTranslationFile(lang); }));
-        };
-        /**
-         * Get the i18n json file for the requested lang
-         * Will be called if no i18n file was found on server for this lang
-         *
-         * @param lang the lang code
-         * @param defaultLanguage default lang code
-         */
-        TranslateLoader.prototype.getTranslationFile = function (lang, defaultLanguage) {
-            if (defaultLanguage === void 0) { defaultLanguage = this.defaultLanguage; }
-            var translationFile = (lang && localTranslations[lang]) ||
-                (defaultLanguage && localTranslations[defaultLanguage]) ||
-                localTranslations[SYS_LANG];
-            return rxjs.of(translationFile);
-        };
-        return TranslateLoader;
-    }());
-    // AoT requires an exported function for factories
-    function HttpLoaderFactory(http, helpService) {
-        var defaultLanguage = helpService.getDefaultLanguage() || SYS_LANG;
-        var i18nUrl = helpService.getI18nUrl();
-        return new TranslateLoader(http, helpService, defaultLanguage, i18nUrl);
-    }
-
-    var ɵ0 = HttpLoaderFactory;
     var HelpModule = /** @class */ (function () {
         function HelpModule() {
         }
-        HelpModule_1 = HelpModule;
         HelpModule.forRoot = function (config) {
             return {
-                ngModule: HelpModule_1,
+                ngModule: HelpModule,
                 providers: [
                     HelpService,
                     config.configLoader
                 ]
             };
         };
-        var HelpModule_1;
-        HelpModule = HelpModule_1 = __decorate([
-            core.NgModule({
-                imports: [
-                    common.CommonModule,
-                    http.HttpClientModule,
-                    core$1.TranslateModule.forRoot({
-                        loader: {
-                            provide: core$1.TranslateLoader,
-                            useFactory: ɵ0,
-                            deps: [http.HttpClient, HelpService]
-                        },
-                        missingTranslationHandler: {
-                            provide: core$1.MissingTranslationHandler,
-                            useClass: TranslateMissingTranslationHandler
-                        }
-                    }),
-                    popover.PopoverModule.forRoot()
-                ],
-                declarations: [
-                    HelpComponent
-                ],
-                providers: [
-                    HelpService
-                ],
-                exports: [
-                    HelpComponent
-                ],
-                entryComponents: [
-                    HelpComponent
-                ]
-            })
-        ], HelpModule);
         return HelpModule;
     }());
+    HelpModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [
+                        common.CommonModule
+                    ],
+                    declarations: [
+                        HelpComponent,
+                    ],
+                    providers: [
+                        HelpService,
+                        EdcTranslationService,
+                    ],
+                    exports: [
+                        HelpComponent
+                    ],
+                    entryComponents: [
+                        HelpComponent
+                    ]
+                },] }
+    ];
+
+    /*
+     * Public API Surface of edc-popover-ng
+     */
+
+    /**
+     * Generated bundle index. Do not edit.
+     */
 
     exports.DEFINED_TRANSLATION_CODES = DEFINED_TRANSLATION_CODES;
     exports.HelpComponent = HelpComponent;
@@ -395,12 +275,9 @@
     exports.LANGUAGE_CODES = LANGUAGE_CODES;
     exports.PopoverConfigurationHandler = PopoverConfigurationHandler;
     exports.SYS_LANG = SYS_LANG;
-    exports.localTranslations = localTranslations;
-    exports.ɵ0 = ɵ0;
-    exports.ɵa = HttpLoaderFactory;
-    exports.ɵb = TranslateMissingTranslationHandler;
+    exports.ɵa = EdcTranslationService;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=edc-popover-ng.umd.js.map

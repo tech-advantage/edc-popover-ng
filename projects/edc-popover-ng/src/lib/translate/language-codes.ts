@@ -1,9 +1,3 @@
-import en from '../../i18n/en.json';
-import fr from '../../i18n/fr.json';
-import ru from '../../i18n/ru.json';
-import vi from '../../i18n/vi.json';
-import zh from '../../i18n/zh.json';
-
 export const LANGUAGE_CODES = [
   'en', // English
   'ar', // Arabic
@@ -53,12 +47,3 @@ export const DEFINED_TRANSLATION_CODES = [
 ];
 
 export const SYS_LANG = 'en';
-
-// Default translations content
-export const localTranslations = {
-  en,
-  fr,
-  ru,
-  vi,
-  zh
-};

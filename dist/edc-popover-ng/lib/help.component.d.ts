@@ -1,10 +1,10 @@
 import { OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Helper, Link } from 'edc-client-js';
 import { HelpService } from './help.service';
-import { TranslateService } from '@ngx-translate/core';
+import { EdcTranslationService } from './translate/edc-translation.service';
 export declare class HelpComponent implements OnInit, OnChanges {
     private readonly helpService;
-    private readonly translateService;
+    private readonly translationService;
     helper: Helper;
     container: string;
     iconCss: string;
@@ -16,7 +16,7 @@ export declare class HelpComponent implements OnInit, OnChanges {
     placement: string;
     dark: boolean;
     lang: string;
-    constructor(helpService: HelpService, translateService: TranslateService);
+    constructor(helpService: HelpService, translationService: EdcTranslationService);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     private initHelper;

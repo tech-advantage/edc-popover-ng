@@ -2,51 +2,13 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { Helper, Link } from 'edc-client-js';
 import { HelpService } from './help.service';
 import { HelpConstants } from './help.constants';
-import { TranslateService } from '@ngx-translate/core';
 import { SYS_LANG } from './translate/language-codes';
+import { EdcTranslationService } from './translate/edc-translation.service';
 
 @Component({
   selector: 'edc-help',
   styleUrls: ['help.less'],
-  template: `
-    <!-- Popover template -->
-    <ng-template #popTemplate>
-      <div class="edc-popover-container" (click)="$event.stopPropagation()">
-        <article class="popover-article">{{ helper?.description }}</article>
-        <div class="see-also">
-          <div *ngIf="helper?.articles.length">
-            <h6><strong><span>{{ 'labels.articles' | translate }}</span></strong></h6>
-            <ul class="see-also-list">
-              <li *ngFor="let article of helper.articles; let key = index" class="see-also-item"
-                  (click)="goToArticle(key)">
-                <div class="article-link">{{article.label}}</div>
-              </li>
-            </ul>
-          </div>
-          <div *ngIf="helper?.links.length">
-            <h6><strong><span>{{ 'labels.links' | translate }}</span></strong></h6>
-            <ul class="see-also-list">
-              <li *ngFor="let link of helper.links" class="see-also-item" (click)="goToLink(link)">
-                <div class="article-link">{{link.label}}</div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-
-
-    <!-- app-help template -->
-    <i class="fa help-icon {{ iconCss }}"
-       [popover]="helper ? popTemplate : comingSoon"
-       [popoverTitle]="helper?.label"
-       [placement]="getPlacement()"
-       [ngClass]="{'on-dark': dark }"
-       [container]="container"
-       [outsideClick]="true"
-       (click)="cancelClick($event)">
-    </i>
-  `
+  template: `<i class="fa help-icon {{ iconCss }}"></i>`
 })
 export class HelpComponent implements OnInit, OnChanges {
   helper: Helper;
@@ -62,7 +24,7 @@ export class HelpComponent implements OnInit, OnChanges {
   @Input() dark: boolean;
   @Input() lang: string;
 
-  constructor(private readonly helpService: HelpService, private readonly translateService: TranslateService) {
+  constructor(private readonly helpService: HelpService, private readonly translationService: EdcTranslationService) {
   }
 
   ngOnInit(): void {
@@ -71,7 +33,7 @@ export class HelpComponent implements OnInit, OnChanges {
       // No helper loading in progress from ngOnChanges, so initialize helper
       this.initHelper();
     }
-    this.translateService.setDefaultLang(SYS_LANG);
+    this.translationService.setLang(SYS_LANG);
     this.iconCss = this.helpService.getIcon();
     this.container = this.helpService.getContainer();
   }
@@ -110,7 +72,7 @@ export class HelpComponent implements OnInit, OnChanges {
           this.lang = resolvedLanguage;
         }
         // Set translation language for the labels
-        this.translateService.use(this.lang);
+        this.translationService.setLang(this.lang);
 
         this.langLoading = null;
       })

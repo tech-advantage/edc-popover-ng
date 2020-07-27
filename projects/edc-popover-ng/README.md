@@ -18,13 +18,10 @@ Current release is compatible with edc v3.0+
 
 The only required dependencies are:
 
-- Angular (requires Angular version 6 or higher)
-- Bootstrap CSS (tested with 3.3.7 and 4.0.0)
-- tested with ngx-bootstrap 3.1.1
-
+- Angular (version >=7 and <=10)
+- Font awesome (icons)
 
 ## Importing the help component
-
 
 You can import your library with NPM in any Angular application by running:
 
@@ -38,12 +35,11 @@ with YARN, use:
 $ yarn add edc-popover-ng
 ```
 
-## Add Bootstrap and FontAwesome styles
+## Add FontAwesome styles
 
 In your main style file (e.g. _style.less_) :
 
 ```css
-@import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/less/font-awesome.less";
 ```
 
@@ -144,7 +140,7 @@ You are now able to use the Help component in your Angular application :
 ```html
 <h1>
   {{title}}
-  <edc-help [key]="my.key" [subKey]="my.subkey" [placement]="'bottom'" [dark]="true" [lang]="'en'"></edc-help>
+  <edc-help [mainKey]="my.mainKey" [subKey]="my.subkey" [placement]="'bottom'" [dark]="true" [lang]="'en'"></edc-help>
 </h1>
 ```
 ## If your application is covered by more than one documentation
@@ -154,7 +150,7 @@ you can specify a custom documentation plugin Id using the optional 'pluginId' a
 ```html
 <h1>
   {{title}}
-  <edc-help [pluginId]="my.specificPluginId" [key]="my.key" [subKey]="my.subkey" [placement]="'bottom'" [dark]="true"></edc-help>
+  <edc-help [pluginId]="my.specificPluginId" [mainKey]="my.mainKey" [subKey]="my.subkey" [placement]="'bottom'" [dark]="true"></edc-help>
 </h1>
 ```
 
@@ -165,8 +161,8 @@ The `edc-help` component can take multiple inputs :
 | Name       |   Type   |       Default      |                                 Description                                 | Optional |
 |------------|----------|--------------------|-----------------------------------------------------------------------------|----------|
 | pluginId   |  string  |         ''         | The edc plugin Id if different from the one configured in the main settings |   yes    |
-| key        |  string  |         ''         | The edc documentation main key                                              |    no    |
-| subKey     |  string  |         ''         | The edc documentation sub key                                               |    no    |
+| mainKey    |  string  |         ''         | The edc documentation main mainKey                                              |    no    |
+| subKey     |  string  |         ''         | The edc documentation sub mainKey                                               |    no    |
 | placement  |  string  |      'bottom'      | How to position the popover - top \| bottom \| left \| right                |   yes    |
 | dark       |  boolean |        false       | Should be true if icon is on dark background                                |   yes    |
 | lang       |  string  |       default      | The language to use, for labels and contents, identified by the 2 letters   |   yes    |
@@ -193,7 +189,9 @@ As an example, here is the en.json file used by default:
 {
   "labels": {
     "articles": "Need more...",
-    "links": "Related topics"
+    "links": "Related topics",
+    "iconAlt": "Help",
+    "comingSoon": "Contextual help is coming soon."
   }
 }
 ```

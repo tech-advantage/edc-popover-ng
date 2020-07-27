@@ -42,7 +42,7 @@ describe('AppComponent', () => {
   }));
 
   beforeEach(() => {
-    configService = TestBed.get(ConfigService);
+    configService = TestBed.inject<ConfigService>(ConfigService);
   });
 
   beforeEach(() => {

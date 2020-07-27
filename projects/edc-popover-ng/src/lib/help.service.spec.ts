@@ -24,8 +24,8 @@ describe('Help Service Test', () => {
   });
 
   beforeEach(() => {
-    popoverConfigurationHandler = TestBed.get(PopoverConfigurationHandler);
-    helpService = TestBed.get(HelpService);
+    popoverConfigurationHandler = TestBed.inject<PopoverConfigurationHandler>(PopoverConfigurationHandler);
+    helpService = TestBed.inject<HelpService>(HelpService);
   });
 
   beforeEach(() => {
