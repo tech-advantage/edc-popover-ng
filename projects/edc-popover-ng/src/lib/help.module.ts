@@ -6,8 +6,6 @@ import { EdcTranslationService } from './translate/edc-translation.service';
 import { HelpPopoverDirective } from './help-popover.directive';
 import { HelpConfigService } from './config/help-config.service';
 
-import 'edc-popover-js/dist/edc-popover.css';
-
 export interface HelpModuleConfig {
   configLoader: Provider;
 }

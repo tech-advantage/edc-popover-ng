@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Helper } from 'edc-client-js';
-import { HelpService } from './help.service';
 import { PopoverConfig } from 'edc-popover-js';
 import { HelpConfigService } from './config/help-config.service';
 import { Placement } from 'tippy.js';

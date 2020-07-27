@@ -11,8 +11,8 @@ import {
           <h1 class="title-container">
               Welcome to {{title}}!
               <edc-help class="help-icon"
-                        [mainKey]="'fr.techad.edc.configuration'"
-                        [subKey]="'products'"
+                        [mainKey]="'fr.techad.edc.showcase.external'"
+                        [subKey]="'external.header'"
                         [placement]="'bottom'"
                         [dark]="false"
                         customClass="my-popover"
@@ -30,8 +30,8 @@ import {
                   </option>
               </select>
               <edc-help class="help-icon"
-                        [mainKey]="'fr.techad.edc.configuration2'"
-                        [subKey]="'products'"
+                        [mainKey]="'fr.techad.edc.showcase.mailreader'"
+                        [subKey]="'leftmenu.account'"
                         [placement]="'bottom-start'"
                         [dark]="false"
                         customClass="my-popover"
