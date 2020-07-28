@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EdcClient, Helper } from 'edc-client-js';
+import { EdcClient, Helper, PopoverLabel } from 'edc-client-js';
 import { PopoverConfigurationHandler } from './config/popover-configuration-handler';
 import { SYS_LANG } from './translate/language-codes';
 
@@ -52,5 +52,9 @@ export class HelpService {
 
   isLanguagePresent(langCode: string): boolean {
     return this.edcClient.isLanguagePresent(langCode);
+  }
+
+  getPopoverTranslation(langCode: string): Promise<PopoverLabel> {
+    return this.edcClient.getPopoverLabels(langCode);
   }
 }

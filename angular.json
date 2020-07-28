@@ -11,7 +11,7 @@
       "schematics": {
         "@schematics/angular:component": {
           "inlineTemplate": true,
-          "styleext": "less"
+          "style": "less"
         }
       },
       "architect": {
@@ -30,10 +30,18 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": [],
+            "baseHref" : "/popover/",
+            "deployUrl": "/popover/"
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -142,7 +150,8 @@
           "configurations": {
             "production": {
               "project": "projects/edc-popover-ng/ng-package.prod.json"
-            }
+            ,              "tsConfig": "projects/edc-popover-ng/tsconfig.lib.prod.json"
+}
           }
         },
         "test": {
