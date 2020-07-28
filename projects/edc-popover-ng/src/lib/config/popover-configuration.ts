@@ -1,3 +1,5 @@
+import { PopoverOptions } from 'edc-popover-js';
+
 export interface PopoverConfiguration {
   pluginId: string;
   helpPath: string;
@@ -5,4 +7,5 @@ export interface PopoverConfiguration {
   body?: boolean;
   icon?: string;
   i18nDirName?: string;
+  popoverOptions?: PopoverOptions;
 }

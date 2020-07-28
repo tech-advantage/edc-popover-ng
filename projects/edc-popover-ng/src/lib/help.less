@@ -1,11 +1,14 @@
+@import (inline) '../../node_modules/tippy.js/dist/tippy.css';
+@import '../../node_modules/edc-popover-js/src/style/global';
+
 @appprimary: rgb(60, 141, 188);
 
-:host {
-  cursor: pointer;
+edc-help {
   line-height: 34px;
   font-size: 16px;
   padding-right: 5px;
   .help-icon {
+    cursor: pointer;
     color: lightgray;
     &:hover {
       color: @appprimary;
@@ -17,49 +20,5 @@
         color: white;
       }
     }
-  }
-}
-
-/deep/popover-container.popover {
-  border-color: @appprimary;
-  &.top > div.arrow::before {
-    border-top-color: @appprimary;
-  }
-  &.bottom > div.arrow::before {
-    border-bottom-color: @appprimary;
-  }
-  &.left > div.arrow::before {
-    border-left-color: @appprimary;
-  }
-  &.right > div.arrow::before {
-    border-right-color: @appprimary;
-  }
-  .popover-title {
-    border-bottom-color: @appprimary;
-    font-weight: bold;
-  }
-}
-
-.edc-popover-container {
-  min-width: 150px;
-  line-height: 20px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  .popover-article {
-    font-size: 14px;
-    padding-bottom: 10px;
-  }
-  .see-also-item {
-    font-size: 15px;
-
-    .article-link {
-      cursor: pointer;
-      color: #0275d8;
-      text-decoration: underline;
-    }
-  }
-  ul {
-    list-style-type: disc;
   }
 }
