@@ -31,10 +31,10 @@ edc-client-js@3.1.2:
     es6-promise "4.2.8"
     lodash "4.17.15"
 
-edc-popover-js@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/edc-popover-js/-/edc-popover-js-1.0.0.tgz#e26a0ea42e5576a098e296731f45254b751320ca"
-  integrity sha512-ZZRXBifvuz+0M9HYOdXjuFrB2ENRGpV6cMOYNKQzZNb/JKSoDcJaR6G4psDZZPG89pR6h3WO2gxCT28bZdG7hg==
+edc-popover-js@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/edc-popover-js/-/edc-popover-js-1.0.1.tgz#a136702a0ebd6b0b8abc56d4130659478b8f6650"
+  integrity sha512-V3hbGr1ItaT1fhk//hAhkin0YtkaasoRPfkS4rk6kjdiO7uoB+qtYRqUfbfd7mczYEIPbF+Wwe88ePhbX10yLw==
   dependencies:
     tippy.js "^6.2.3"
 
