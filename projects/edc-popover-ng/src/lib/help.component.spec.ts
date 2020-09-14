@@ -1,14 +1,18 @@
 import { HelpComponent } from './help.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { mockService, TestModule } from './utils/test-helpers';
-import { HelpConfigService } from './config/help-config.service';
+import { NO_ERRORS_SCHEMA, SimpleChange, SimpleChanges } from '@angular/core';
+import { mock, mockService, TestModule } from './utils/test-helpers';
+import { HelpConfigService } from './services/help-config.service';
 import { HelpPopoverDirective } from './help-popover.directive';
+import { IconPopoverConfig } from './config/icon-popover-config';
+import { EdcPopoverOptions } from './config/edc-popover-options';
 
 describe('Help component', () => {
   let component: HelpComponent;
   let fixture: ComponentFixture<HelpComponent>;
   let helpConfigService: HelpConfigService;
+
+  let config: IconPopoverConfig;
 
   beforeEach((() => {
     TestBed.configureTestingModule({
@@ -20,7 +24,7 @@ describe('Help component', () => {
         HelpPopoverDirective
       ],
       providers: [
-        mockService(HelpConfigService, ['getIcon', 'updateOptions', 'buildPopoverConfig'])
+        mockService(HelpConfigService, ['getIconClasses', 'updateOptions', 'buildPopoverConfig'])
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -32,15 +36,12 @@ describe('Help component', () => {
   });
 
   beforeEach(() => {
-    spyOn(helpConfigService, 'getIcon').and.returnValue('fa-question-circle-o');
-  });
-
-  beforeEach(() => {
     const bindings = {
       mainKey: 'main',
       subKey: 'sub',
       pluginId: 'myPlugin',
-      lang: 'fr'
+      lang: 'fr',
+      options: new EdcPopoverOptions()
     };
     fixture = TestBed.createComponent(HelpComponent);
     component = Object.assign(fixture.componentInstance, bindings);
@@ -54,7 +55,6 @@ describe('Help component', () => {
       expect(component.subKey).toEqual('sub');
       expect(component.pluginId).toEqual('myPlugin');
       expect(component.lang).toEqual('fr');
-      expect(component.iconCss).toEqual('fa-question-circle-o');
     });
   });
 
@@ -63,33 +63,97 @@ describe('Help component', () => {
     describe('getIconClasses', () => {
 
       it('should return icon class', () => {
-        // Given component iconCss attribute is defined
-        expect(component.iconCss).toEqual('fa-question-circle-o');
-        expect(component.dark).toBeFalsy();
+        // Given icon classes is provided by help config service
+        spyOn(helpConfigService, 'getIconClasses').and.returnValue(['my-icon']);
 
+        // When requesting the classes for the icon
         const classes = component.getIconClasses();
 
-        expect(classes.length).toEqual(1);
-        expect(classes).toEqual(['fa-question-circle-o']);
-      });
-
-      it('should return icon class in dark mode', () => {
-        // Given component iconCss attribute is defined
-        component.dark = true;
-
-        const classes = component.getIconClasses();
-
-        expect(classes).toEqual(['fa-question-circle-o', 'on-dark']);
-      });
-      it('should return empty array if classes are not defined', () => {
-        // Given component iconCss attribute is defined
-        component.iconCss = undefined;
-        component.dark = false;
-
-        const classes = component.getIconClasses();
-
-        expect(classes).toEqual([]);
+        // Then it should have called helpConfigService.getIconClasses()
+        expect(helpConfigService.getIconClasses).toHaveBeenCalledWith(component.config);
+        expect(classes).toEqual(['my-icon']);
       });
     });
+  });
+
+  describe('getIconStyle', () => {
+
+    beforeEach(() => {
+      config = new IconPopoverConfig();
+    });
+
+    it('should return the icon style object', () => {
+      // Given configuration has icon style defined
+      const style: Partial<CSSStyleDeclaration> = {
+        background: 'url(http://myimage.png)'
+      };
+      config.iconConfig.imageStyle = style;
+      component.config = config;
+
+      // When calling getIconStyle
+      const iconStyle = component.getIconStyle();
+
+      // Then it should be the config style
+      expect(iconStyle).toEqual(style);
+    });
+
+    it('should return falsy if iconConfig is not defined', () => {
+      // Given configuration icon style is not defined
+      const style: Partial<CSSStyleDeclaration> = {
+        background: 'url(http://myimage.png)'
+      };
+      config.iconConfig = undefined;
+      component.config = config;
+
+      // When calling getIconStyle
+      const iconStyle = component.getIconStyle();
+
+      // Then it should be the config style
+      expect(iconStyle).toBeFalsy();
+    });
+
+  });
+
+  describe('buildPopoverConfig', () => {
+    let updatedConfig: IconPopoverConfig;
+
+    beforeEach(() => {
+      config = new IconPopoverConfig();
+      updatedConfig = new IconPopoverConfig();
+    });
+
+    const inputChange = (inputName: string, value: string | EdcPopoverOptions) => {
+      expect(component.config).toBeUndefined();
+      spyOn(helpConfigService, 'buildPopoverConfig').and.returnValue(Promise.resolve(config));
+      const changes: SimpleChanges = {};
+      changes[inputName] = mock(SimpleChange, { currentValue: value });
+
+      component.ngOnChanges(changes);
+
+      fixture.detectChanges();
+    };
+
+    const testContentInput = (inputName: string, value: string | EdcPopoverOptions) => {
+      inputChange(inputName, value);
+
+      expect(helpConfigService.buildPopoverConfig).toHaveBeenCalledWith('main', 'sub', 'myPlugin', 'fr', component.options);
+    };
+
+    it('should set the popover configuration if main key changed', () => {
+      testContentInput('mainKey', 'main');
+    });
+
+    it('should set the popover configuration if sub key changed', () => {
+      testContentInput('subKey', 'sub');
+    });
+
+    it('should set the popover configuration if plugin id changed', () => {
+      testContentInput('pluginId', 'myPlugin');
+    });
+
+    it('should set the popover configuration if lang id changed', () => {
+      testContentInput('lang', 'fr');
+    });
+
   });
 });

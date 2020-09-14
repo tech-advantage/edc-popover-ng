@@ -1,70 +1,49 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { Helper } from 'edc-client-js';
-import { PopoverConfig } from 'edc-popover-js';
-import { HelpConfigService } from './config/help-config.service';
-import { Placement } from 'tippy.js';
+import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { HelpConfigService } from './services/help-config.service';
+import { IEdcPopoverOptions } from './config/edc-popover-options.interface';
+import { IconPopoverConfig } from './config/icon-popover-config';
+import { Popover } from 'edc-popover-js';
 
 @Component({
   selector: 'edc-help',
-  styleUrls: ['help.less'],
+  styleUrls: ['./help.less', '../style.less'],
   template: `
-    <i class="fa help-icon" [ngClass]="this.getIconClasses()" edcHelpPopover [config]="config"></i>
+    <span
+      class="fa help-icon"
+      [ngClass]="getIconClasses()"
+      [ngStyle]="getIconStyle()"
+      edcHelpPopover [config]="config"></span>
   `,
   encapsulation: ViewEncapsulation.None
 })
-export class HelpComponent implements OnInit, OnChanges {
+export class HelpComponent implements OnChanges {
 
-  readonly DEFAULT_PLACEMENT = 'bottom';
+  config: IconPopoverConfig;
+  popover: Popover;
 
-  helper: Helper;
-  iconCss: string;
-
-  config: PopoverConfig;
-
-  @Input() pluginId: string; // if defined, the plugin identifier to use for fetching help content
+  @Input() pluginId: string;
   @Input() mainKey: string;
   @Input() subKey: string;
-  @Input() placement: Placement;
-  @Input() dark: boolean;
   @Input() lang: string;
-  @Input() customClass: string;
+  @Input() options: IEdcPopoverOptions;
 
   constructor(private readonly helpConfigService: HelpConfigService) {
   }
 
-  ngOnInit(): void {
-    this.iconCss = this.helpConfigService.getIcon();
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
-    // When at least one of the inputs related to content changes, the configuration must be rebuild
-    const contentTriggers = ['pluginId', 'mainKey', 'subKey', 'lang'];
-    // Those only require to update the configuration options attribute
-    const optionsTriggers = ['placement', 'customClass'];
-    if (contentTriggers.some(prop => changes[prop])) {
-      this.buildPopoverConfig();
-    } else if (optionsTriggers.some(prop => changes[prop])) {
-      this.config = this.helpConfigService.updateOptions(this.config, this.placement, this.customClass);
-    }
+    this.buildPopoverConfig();
   }
 
-  getIconClasses(): string[] {
-    const classes = [];
-    if (this.iconCss) {
-      classes.push(this.iconCss);
-    }
-    // Set dark class
-    if (this.dark) {
-      classes.push('on-dark');
-    }
-    return classes;
+  getIconClasses(): string | string[] {
+    return this.helpConfigService.getIconClasses(this.config);
+  }
+
+  getIconStyle(): Partial<CSSStyleDeclaration> {
+    return this.config && this.config.iconConfig && this.config.iconConfig.imageStyle;
   }
 
   private buildPopoverConfig(): void {
-    const placement = this.placement || this.DEFAULT_PLACEMENT;
-    this.helpConfigService.buildPopoverConfig(this.mainKey, this.subKey, this.pluginId, this.lang, placement, this.customClass)
-      .then((config: PopoverConfig) => {
-        this.config = config;
-      });
+    this.helpConfigService.buildPopoverConfig(this.mainKey, this.subKey, this.pluginId, this.lang, this.options)
+      .then((config: IconPopoverConfig) => this.config = config);
   }
 }

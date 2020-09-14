@@ -1,9 +1,21 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url(https://fonts.googleapis.com/css?family=Ubuntu) format('truetype');
+  font-weight:300;
+}
+
 :host {
-  .title-container {
-    padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+  .main-container {
+    min-width: 580px;
+    padding: 20px 25%;
     select {
       margin-left: 10px;
-      width: 50px;
+      width: 250px;
+    }
+
+    .lang-option select {
+      width: 80px;
     }
     .translation-defined {
       background-color: lightgreen;
@@ -12,6 +24,31 @@
   .help-icon {
     padding-left: 5px;
     vertical-align: text-top;
+  }
+  .options-group {
+    padding: 5px 10px;
+    display: flex;
+    align-content: center;
+    line-height: 34px;
+
+    edc-help {
+      padding-left: 8px;
+    }
+  }
+
+  .dark-mode {
+    color: #EEE;
+    background-color: #999;
+    width: 200px;
+    margin-left: 10px;
+  }
+
+  .error-group {
+    display: flex;
+    justify-content: space-between;
+    edc-help {
+      padding-right: 20px;
+    }
   }
 
 }

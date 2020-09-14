@@ -5,8 +5,9 @@ const LABELS_EN: PopoverLabel = {
   links: 'Related topics',
   iconAlt: 'Help',
   comingSoon: 'Contextual help is coming soon.',
+  errorTitle:  'Error',
   errors: {
-    failedData: 'An error occurred when fetching data !\\nCheck the brick keys provided to the EdcHelp component.'
+    failedData: 'An error occurred when fetching data !\nCheck the brick keys provided to the EdcHelp component.'
   },
   content: null,
   url: '',
@@ -17,9 +18,10 @@ const LABELS_FR: PopoverLabel = {
   links: 'Sujets associés',
   iconAlt: 'Aide',
   comingSoon: 'Aide contextuelle à venir.',
+  errorTitle:  'Erreur',
   errors: {
     failedData: 'Une erreur est survenue lors de la récupération des données !' +
-      '\\nVérifiez les clés de la brique fournies au composant EdcHelp.'
+      '\nVérifiez les clés de la brique fournies au composant EdcHelp.'
   },
   content: null,
   url: '',

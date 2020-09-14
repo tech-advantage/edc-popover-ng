@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { EdcClient, Helper, PopoverLabel } from 'edc-client-js';
-import { PopoverConfigurationHandler } from './config/popover-configuration-handler';
-import { SYS_LANG } from './translate/language-codes';
+import { PopoverConfigurationHandler } from '../config/popover-configuration-handler';
+import { SYS_LANG } from '../translate/language-codes';
+import { IEdcPopoverOptions } from '../config/edc-popover-options.interface';
+import { EdcPopoverOptions } from '../config/edc-popover-options';
 
 @Injectable()
 export class HelpService {
@@ -38,12 +40,8 @@ export class HelpService {
     return this.configurationHandler.getPluginId();
   }
 
-  getIcon(): string {
-    return this.configurationHandler.getIcon() || 'fa-question-circle-o';
-  }
-
-  getContainer(): string {
-    return this.configurationHandler.isAppendToBody() ? 'body' : '';
+  getPopoverOptions(): IEdcPopoverOptions {
+    return this.configurationHandler.getPopoverOptions() || new EdcPopoverOptions();
   }
 
   getDefaultLanguage(): string {
@@ -54,7 +52,7 @@ export class HelpService {
     return this.edcClient.isLanguagePresent(langCode);
   }
 
-  getPopoverTranslation(langCode: string): Promise<PopoverLabel> {
+  getPopoverLabels(langCode: string): Promise<PopoverLabel> {
     return this.edcClient.getPopoverLabels(langCode);
   }
 }
