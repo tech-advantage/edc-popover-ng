@@ -23,14 +23,14 @@
     ],
     "paths": {
       "edc-popover-ng": [
-        "../dist/edc-popover-ng"
+        "./projects/edc-popover-ng/src/public_api"
       ],
       "edc-popover-ng/*": [
-        "../dist/edc-popover-ng/*"
+        "./projects/edc-popover-ng/src/public_api/*"
       ]
     }
   },
   "angularCompilerOptions": {
-    "enableIvy": true
+    "enableIvy": false
   }
 }

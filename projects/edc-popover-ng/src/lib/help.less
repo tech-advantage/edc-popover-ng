@@ -1,24 +1,43 @@
-@import (inline) '../../node_modules/tippy.js/dist/tippy.css';
-@import '../../node_modules/edc-popover-js/src/style/global';
+@icon-idle-color: lightgray;
+@icon-hover-color: rgb(60, 141, 188);
+@on-dark-color: rgba(0, 0, 0, .3);
+@on-dark-hover-color: white;
+@icon-disabled-color: rgb(211, 211, 211);
+@icon-error-color: rgb(210, 30, 30);
 
-@appprimary: rgb(60, 141, 188);
+@icon-disabled-opacity: 0.6;
 
 edc-help {
   line-height: 34px;
   font-size: 16px;
   padding-right: 5px;
+
   .help-icon {
     cursor: pointer;
-    color: lightgray;
+    color: @icon-idle-color;
+    &.icon-image {
+      display: inline-block;
+    }
     &:hover {
-      color: @appprimary;
+      color: @icon-hover-color;
     }
 
-    &.on-dark {
-      color: rgba(0, 0, 0, .3);
+    &.edc-on-dark {
+      color: @on-dark-color;
+
       &:hover {
-        color: white;
+        color: @on-dark-hover-color;
       }
+    }
+    &.edc-icon-hidden {
+      visibility: hidden;
+    }
+    &.edc-icon-disabled {
+      color: @icon-disabled-color;
+      opacity: @icon-disabled-opacity;
+    }
+    &.edc-icon-error {
+      color: @icon-error-color;
     }
   }
 }

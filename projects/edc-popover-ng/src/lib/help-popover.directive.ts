@@ -1,37 +1,45 @@
 import { Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { Popover, PopoverConfig } from 'edc-popover-js';
+import { Popover } from 'edc-popover-js';
+import { IconPopoverConfig } from './config/icon-popover-config';
+import { isFalse } from './utils/global.utils';
 
 @Directive({ selector: '[edcHelpPopover]' })
 export class HelpPopoverDirective implements OnChanges, OnDestroy {
 
-  popoverInstance;
+  popover: Popover;
 
-  @Input() config: PopoverConfig;
+  @Input() config: IconPopoverConfig;
 
   constructor(private elementRef: ElementRef) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.loadPopover();
-  }
-
-  ngOnDestroy(): void {
-    this.removePopovers();
-  }
-
-  private loadPopover(): void {
-    if (this.config && this.elementRef && this.elementRef.nativeElement) {
-      this.config.target = this.elementRef.nativeElement;
-      this.removePopovers();
-      this.popoverInstance = new Popover(this.config);
+    if (changes['config']) {
+      this.loadPopover();
     }
   }
 
-  private removePopovers(): void {
+  ngOnDestroy(): void {
+    this.removePopover();
+  }
+
+  private loadPopover(): void {
+    if (this.config && isFalse(this.config.disablePopover) && this.elementRef && this.elementRef.nativeElement) {
+      this.config.target = this.elementRef.nativeElement;
+      if (!this.popover) {
+        this.popover = new Popover();
+      }
+      this.popover.buildPopover(this.config);
+    } else {
+      this.removePopover();
+    }
+  }
+
+  private removePopover(): void {
     // Clean any previous instance
-    if (this.popoverInstance && this.popoverInstance.instance &&
-      typeof this.popoverInstance.instance.destroy === 'function') {
-      this.popoverInstance.instance.destroy();
+    if (this.popover && this.popover.instance &&
+      typeof this.popover.instance.destroy === 'function') {
+      this.popover.instance.destroy();
     }
   }
 }
