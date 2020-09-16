@@ -16,7 +16,6 @@ Learn more at [https://www.easydoccontents.com](https://www.easydoccontents.com)
 Required dependencies:
 
 - [Angular](https://angular.io/) (>=v7 && <=v10)
-- [FontAwesome](https://www.npmjs.com/package/font-awesome) 4.7.0
 
 ## How to use
 
@@ -30,17 +29,6 @@ npm install edc-popover-ng --save
 Or with `yarn`:
 ```bash
 yarn add edc-popover-ng
-```
-
-Add [font-awesome](https://fontawesome.com/v4.7.0/get-started/) as a dependency
-
-```bash
-npm install font-awesome --save
-```
-In your main style file (e.g. _style.less_) :
-
-```css
-@import "~font-awesome/less/font-awesome.less";
 ```
 
 ### Setup

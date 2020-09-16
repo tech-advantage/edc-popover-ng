@@ -142,7 +142,6 @@ export class AppComponent {
   failOptionsErrorIcon: IEdcPopoverOptions = {
     placement: 'bottom-start',
     customClass: 'my-popover',
-    dark: true,
     failBehavior: {
       icon: IconBehavior.ERROR,
       popover: PopoverBehavior.ERROR_SHOWN
