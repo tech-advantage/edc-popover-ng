@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HelpService } from './help.service';
 import { mockHelper } from '../utils/test-helpers';
 import { HelpConfigService } from './help-config.service';
-import { PopoverOptions } from 'edc-popover-js';
+import { PopoverOptions } from 'edc-popover-utils';
 import { Helper } from 'edc-client-js';
 import { IconPopoverConfig } from '../config/icon-popover-config';
 import { HelpPopoverService } from './help-popover.service';

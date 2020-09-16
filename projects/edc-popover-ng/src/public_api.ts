@@ -15,4 +15,4 @@ export * from './lib/config/popover-icon';
 export * from './lib/config/popover-configuration-handler';
 export * from './lib/translate/language-codes';
 
-export { Animation, AnimationType } from 'edc-popover-js';
+export { Animation, AnimationType } from 'edc-popover-utils';

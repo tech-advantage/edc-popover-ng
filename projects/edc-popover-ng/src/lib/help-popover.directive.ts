@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { Popover } from 'edc-popover-js';
+import { Popover } from 'edc-popover-utils';
 import { IconPopoverConfig } from './config/icon-popover-config';
 import { isFalse } from './utils/global.utils';
 

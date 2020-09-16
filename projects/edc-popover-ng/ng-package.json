@@ -6,7 +6,7 @@
     "entryFile": "src/public_api.ts",
     "umdModuleIds": {
       "edc-client-js": "edc-client-js",
-      "edc-popover-js": "edc-popover-js"
+      "edc-popover-utils": "edc-popover-utils"
     }
   },
   "whitelistedNonPeerDependencies": [

@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges, ViewEncapsulation } from '@
 import { HelpConfigService } from './services/help-config.service';
 import { IEdcPopoverOptions } from './config/edc-popover-options.interface';
 import { IconPopoverConfig } from './config/icon-popover-config';
-import { Popover } from 'edc-popover-js';
+import { Popover } from 'edc-popover-utils';
 
 @Component({
   selector: 'edc-help',

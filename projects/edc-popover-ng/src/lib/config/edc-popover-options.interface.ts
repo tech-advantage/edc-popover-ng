@@ -1,4 +1,4 @@
-import { IPopoverOptions } from 'edc-popover-js';
+import { IPopoverOptions } from 'edc-popover-utils';
 import { FailBehavior } from './fail-behavior';
 import { PopoverIcon } from './popover-icon';
 

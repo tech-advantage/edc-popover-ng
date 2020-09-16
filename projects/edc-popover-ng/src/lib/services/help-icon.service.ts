@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IEdcPopoverOptions } from '../config/edc-popover-options.interface';
-import { PopoverLabels } from 'edc-popover-js';
+import { PopoverLabels } from 'edc-popover-utils';
 import { PopoverIcon } from '../config/popover-icon';
 import {
   DARK_CLASS_NAME, DEFAULT_ICON,
