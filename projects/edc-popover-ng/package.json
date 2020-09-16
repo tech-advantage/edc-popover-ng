@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "edc-client-js": "3.1.3",
-    "edc-popover-js": "^1.1.0-beta-2",
+    "edc-popover-utils": "^1.0.0-beta-0",
     "es6-promise": "4.2.8",
     "tslib": "^2.0.0"
   },
@@ -31,7 +31,7 @@
       "entryFile": "./src/public_api.ts",
       "umdModuleIds": {
         "edc-client-js": "edc-client-js",
-        "edc-popover-js": "edc-popover-js"
+        "edc-popover-utils": "edc-popover-utils"
       }
     },
     "whitelistedNonPeerDependencies": [

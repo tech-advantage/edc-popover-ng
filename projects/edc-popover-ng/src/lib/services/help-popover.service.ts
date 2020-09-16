@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Article, Helper, Link, PopoverLabel } from 'edc-client-js';
 import { IconPopoverConfig } from '../config/icon-popover-config';
 import { ContentNotFoundError } from '../errors/content-not-found.error';
-import { PopoverContent } from 'edc-popover-js';
+import { PopoverContent } from 'edc-popover-utils';
 import { HelpService } from './help.service';
 import { EdcTranslationService } from './edc-translation.service';
 
