@@ -14,7 +14,7 @@ import {
 import { IconBehavior } from '../config/fail-behavior';
 import { IconConfig } from '../config/icon-config';
 import { copyDefinedProperties } from '../utils/global.utils';
-import { PopoverLabel } from 'edc-client-js/src/entities/popover-label';
+import { PopoverLabel } from 'edc-client-js';
 
 @Injectable()
 export class HelpIconService {
