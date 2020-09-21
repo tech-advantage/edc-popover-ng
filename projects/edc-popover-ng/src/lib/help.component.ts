@@ -9,7 +9,7 @@ import { Popover } from 'edc-popover-utils';
   styleUrls: ['./help.less', '../style.less'],
   template: `
     <span
-      class="fa help-icon"
+      class="edc-help-icon"
       [ngClass]="getIconClasses()"
       [ngStyle]="getIconStyle()"
       edcHelpPopover [config]="config"></span>

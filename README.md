@@ -16,7 +16,7 @@ Learn more at [https://www.easydoccontents.com](https://www.easydoccontents.com)
 Required dependencies:
 
 - [Angular](https://angular.io/) (>=v7 && <=v10)
-- [FontAwesome](https://www.npmjs.com/package/font-awesome) 4.7.0
+- [FontAwesome](https://www.npmjs.com/package/font-awesome) >= 4.7.0
 
 ## How to use
 
@@ -303,15 +303,3 @@ You can customize the popover with CSS classes as described below :
 
 When dark mode is enabled, an HTML attribute `data-theme` set to `edcDark` is applied on the `.tippy-box` div.
 
-## Tests
-
-### Unit
-
-You can test the project by running:
-```bash
-npm run test
-```
-or
-```bash
-yarn test
-```

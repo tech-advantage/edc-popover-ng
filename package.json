@@ -1,6 +1,6 @@
 {
   "name": "edc-popover-ng-app",
-  "version": "4.1.0-beta-1",
+  "version": "4.1.0-beta-2",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
