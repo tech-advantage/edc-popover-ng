@@ -4,5 +4,6 @@ import { PopoverIcon } from './popover-icon';
 
 export interface IEdcPopoverOptions extends IPopoverOptions {
   icon?: PopoverIcon;
+  dark?: boolean;
   failBehavior?: FailBehavior;
 }
