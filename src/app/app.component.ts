@@ -8,6 +8,7 @@ import {
   LANGUAGE_CODES,
   PopoverBehavior
 } from 'edc-popover-ng';
+import { PopoverPlacement } from 'edc-popover-utils';
 
 @Component({
   selector: 'edc-root',
@@ -112,7 +113,7 @@ export class AppComponent {
   popoverBehavior = PopoverBehavior;
 
   friendlyMessage: IEdcPopoverOptions = {
-    placement: 'bottom-start',
+    placement: PopoverPlacement.BOTTOM_START,
     customClass: 'my-popover',
     failBehavior: {
       icon: IconBehavior.SHOWN,
@@ -122,7 +123,7 @@ export class AppComponent {
   };
 
   failOptions2: IEdcPopoverOptions = {
-    placement: 'bottom-start',
+    placement: PopoverPlacement.BOTTOM_START,
     customClass: 'my-popover',
     dark: true,
     failBehavior: {
@@ -132,7 +133,7 @@ export class AppComponent {
   };
 
   failOptionsErrorIcon: IEdcPopoverOptions = {
-    placement: 'bottom-start',
+    placement: PopoverPlacement.BOTTOM_START,
     customClass: 'my-popover',
     dark: true,
     failBehavior: {
@@ -142,7 +143,7 @@ export class AppComponent {
   };
 
   failOptionsHidden: IEdcPopoverOptions = {
-    placement: 'bottom-start',
+    placement: PopoverPlacement.BOTTOM_START,
     failBehavior: {
       icon: IconBehavior.SHOWN,
       popover: PopoverBehavior.NO_POPOVER

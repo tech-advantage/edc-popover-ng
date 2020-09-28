@@ -301,8 +301,6 @@ You can customize the popover with CSS classes as described below :
 
 ![CSS Classes](./CSSClasses.png)
 
-When dark mode is enabled, an HTML attribute `data-theme` set to `edcDark` is applied on the `.tippy-box` div.
-
 ## Tests
 
 ### Unit
