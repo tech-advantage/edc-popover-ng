@@ -1,0 +1,211 @@
+{
+"id": "7",
+"fr": {
+"label": "Glossaire",
+"topics": [
+            {
+"id": "466",
+"label": "Contenu moléculaire",
+"type": "DOCUMENT",
+"url":"edc/html/fr/7/466.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "465",
+"label": "Persona",
+"type": "DOCUMENT",
+"url":"edc/html/fr/7/465.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "464",
+"label": "Produit",
+"type": "DOCUMENT",
+"url":"edc/html/fr/7/464.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "463",
+"label": "Label de prublication",
+"type": "DOCUMENT",
+"url":"edc/html/fr/7/463.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "462",
+"label": "Storehouse",
+"type": "DOCUMENT",
+"url":"edc/html/fr/7/462.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "458",
+"label": "Stratégie",
+"type": "DOCUMENT",
+"url":"edc/html/fr/7/458.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "460",
+"label": "Topology",
+"type": "DOCUMENT",
+"url":"edc/html/fr/7/460.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "461",
+"label": "Version",
+"type": "DOCUMENT",
+"url":"edc/html/fr/7/461.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "467",
+"label": "Contextualized help",
+"type": "DOCUMENT",
+"url":"edc/html/fr/7/467.html",
+"topics": [
+],
+"links": [
+]
+}
+
+    ]
+},
+"en": {
+"label": "Glossary",
+"topics": [
+            {
+"id": "466",
+"label": "Molecular content",
+"type": "DOCUMENT",
+"url":"edc/html/en/7/466.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "465",
+"label": "Persona",
+"type": "DOCUMENT",
+"url":"edc/html/en/7/465.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "464",
+"label": "Product",
+"type": "DOCUMENT",
+"url":"edc/html/en/7/464.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "463",
+"label": "Published label",
+"type": "DOCUMENT",
+"url":"edc/html/en/7/463.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "462",
+"label": "Storehouse",
+"type": "DOCUMENT",
+"url":"edc/html/en/7/462.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "458",
+"label": "Strategy",
+"type": "DOCUMENT",
+"url":"edc/html/en/7/458.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "460",
+"label": "Topology",
+"type": "DOCUMENT",
+"url":"edc/html/en/7/460.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "461",
+"label": "Version",
+"type": "DOCUMENT",
+"url":"edc/html/en/7/461.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+            {
+"id": "467",
+"label": "Contextualized help",
+"type": "DOCUMENT",
+"url":"edc/html/en/7/467.html",
+"topics": [
+],
+"links": [
+]
+}
+
+    ]
+}
+}

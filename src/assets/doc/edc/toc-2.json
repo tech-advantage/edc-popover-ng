@@ -1,0 +1,167 @@
+{
+"id": "2",
+"fr": {
+"label": "Comment faire ?",
+"topics": [
+            {
+"id": "493",
+"label": "Quelques fondamentaux",
+"type": "CHAPTER",
+"url":"edc/html/fr/2/493.html",
+"topics": [
+        {
+"id": "494",
+"label": "Créer une aide utilisateur",
+"type": "CHAPTER",
+"url":"edc/html/fr/2/494.html",
+"topics": [
+        {
+"id": "495",
+"label": "Creating a UI help brick",
+"type": "DOCUMENT",
+"url":"edc/html/fr/2/495.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+        {
+"id": "499",
+"label": "Créer un document",
+"type": "DOCUMENT",
+"url":"edc/html/fr/2/499.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+        {
+"id": "502",
+"label": "Writing using article types",
+"type": "DOCUMENT",
+"url":"edc/html/fr/2/502.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+        {
+"id": "504",
+"label": "Gérer des images",
+"type": "CHAPTER",
+"url":"edc/html/fr/2/504.html",
+"topics": [
+        {
+"id": "505",
+"label": "Uploading images",
+"type": "DOCUMENT",
+"url":"edc/html/fr/2/505.html",
+"topics": [
+],
+"links": [
+]
+}
+
+],
+"links": [
+]
+}
+
+],
+"links": [
+]
+}
+
+],
+"links": [
+]
+}
+
+    ]
+},
+"en": {
+"label": "How tos",
+"topics": [
+            {
+"id": "493",
+"label": "Getting started: EDC basics",
+"type": "CHAPTER",
+"url":"edc/html/en/2/493.html",
+"topics": [
+        {
+"id": "494",
+"label": "Creating user help from scratch",
+"type": "CHAPTER",
+"url":"edc/html/en/2/494.html",
+"topics": [
+        {
+"id": "495",
+"label": "Creating a UI help brick",
+"type": "DOCUMENT",
+"url":"edc/html/en/2/495.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+        {
+"id": "499",
+"label": "Creating a document",
+"type": "DOCUMENT",
+"url":"edc/html/en/2/499.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+        {
+"id": "502",
+"label": "Writing using article types",
+"type": "DOCUMENT",
+"url":"edc/html/en/2/502.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+        {
+"id": "504",
+"label": "Managing images",
+"type": "CHAPTER",
+"url":"edc/html/en/2/504.html",
+"topics": [
+        {
+"id": "505",
+"label": "Uploading images",
+"type": "DOCUMENT",
+"url":"edc/html/en/2/505.html",
+"topics": [
+],
+"links": [
+]
+}
+
+],
+"links": [
+]
+}
+
+],
+"links": [
+]
+}
+
+],
+"links": [
+]
+}
+
+    ]
+}
+}

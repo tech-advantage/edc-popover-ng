@@ -1,6 +1,6 @@
 {
   "popover": {
-    "helpPath": "/help",
+    "helpPath": "https://demo.easydoccontents.com/help",
     "docPath": "assets/doc",
     "pluginId": "edc",
     "options": {

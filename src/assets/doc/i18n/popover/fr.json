@@ -1,0 +1,12 @@
+{
+  "labels": {
+    "articles": "Plus d'info...",
+    "links": "Sujets associés",
+    "iconAlt": "Aide",
+    "comingSoon": "L'aide contextuelle arrive bientôt...",
+    "errorTitle": "Erreur"
+  },
+  "errors": {
+    "failedData": "Une erreur est survenue lors de l'analyse des données !\nVérifiez les clés fournies au composant"
+  }
+}

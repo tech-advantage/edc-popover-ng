@@ -1,0 +1,25 @@
+{
+    "label": "EDC",
+    "toc": [
+        {
+            "id": "2",
+            "file": "toc-2.json"
+        },
+        {
+            "id": "6",
+            "file": "toc-6.json"
+        },
+        {
+            "id": "4",
+            "file": "toc-4.json"
+        },
+        {
+            "id": "3",
+            "file": "toc-3.json"
+        },
+        {
+            "id": "7",
+            "file": "toc-7.json"
+        }
+    ]
+}

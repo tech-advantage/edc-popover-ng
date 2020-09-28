@@ -1,0 +1,79 @@
+{
+"id": "4",
+"fr": {
+"label": "Formation",
+"topics": [
+            {
+"id": "509",
+"label": "Writing for edc",
+"type": "CHAPTER",
+"url":"edc/html/fr/4/509.html",
+"topics": [
+        {
+"id": "510",
+"label": "What to write for contextualised help",
+"type": "DOCUMENT",
+"url":"edc/html/fr/4/510.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+        {
+"id": "514",
+"label": "Using simple language",
+"type": "DOCUMENT",
+"url":"edc/html/fr/4/514.html",
+"topics": [
+],
+"links": [
+]
+}
+
+],
+"links": [
+]
+}
+
+    ]
+},
+"en": {
+"label": "Training",
+"topics": [
+            {
+"id": "509",
+"label": "Writing for edc",
+"type": "CHAPTER",
+"url":"edc/html/en/4/509.html",
+"topics": [
+        {
+"id": "510",
+"label": "What to write for contextualised help",
+"type": "DOCUMENT",
+"url":"edc/html/en/4/510.html",
+"topics": [
+],
+"links": [
+]
+}
+,
+        {
+"id": "514",
+"label": "Using simple language",
+"type": "DOCUMENT",
+"url":"edc/html/en/4/514.html",
+"topics": [
+],
+"links": [
+]
+}
+
+],
+"links": [
+]
+}
+
+    ]
+}
+}
