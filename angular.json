@@ -30,9 +30,7 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": [],
-            "baseHref" : "/popover/",
-            "deployUrl": "/popover/"
+            "scripts": []
           },
           "configurations": {
             "production": {
