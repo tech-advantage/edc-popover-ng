@@ -3,7 +3,7 @@
 		"help.center": {
 			"fr": {
 				"description": "Tout ce dont vous avez besoin pour utiliser edc",
-				"url": "edc/html/fr/1/444/index.html",
+				"url": "",
 				"label": "edc : qu'est-ce que c'est",
 				"articles": [
 					{
@@ -29,7 +29,7 @@
 			},
 			"en": {
 				"description": "All you need about edc",
-				"url": "edc/html/en/1/444/index.html",
+				"url": "",
 				"label": "About edc",
 				"articles": [
 					{
@@ -52,130 +52,6 @@
 						"url": "edc/html/en/3/450.html"
 					}
 				]
-			}
-		},
-		"documentation_type": {
-			"fr": {
-				"description": "L'aide utilisateur apparaît dans les différentes panneaux de votre logiciel.",
-				"url": "edc/html/fr/1/454/index.html",
-				"label": "Types de documentation",
-				"articles": [
-					{
-						"id": "455",
-						"label": "En bref",
-						"url": "edc/html/fr/1/454/3.html"
-					},
-					{
-						"id": "456",
-						"label": "Utilisation",
-						"url": "edc/html/fr/1/454/4.html"
-					}
-				],
-				"links": [
-					{
-						"id": "483",
-						"label": "Documentation types",
-						"type": "DOCUMENT",
-						"url": "edc/html/fr/6/483.html"
-					}
-				]
-			},
-			"en": {
-				"description": "UI help appears in software windows. Other document types appear as links.",
-				"url": "edc/html/en/1/454/index.html",
-				"label": "Documentation Types",
-				"articles": [
-					{
-						"id": "455",
-						"label": "About this option or subject",
-						"url": "edc/html/en/1/454/3.html"
-					},
-					{
-						"id": "456",
-						"label": "How do I use it?",
-						"url": "edc/html/en/1/454/4.html"
-					}
-				],
-				"links": [
-					{
-						"id": "483",
-						"label": "Documentation types",
-						"type": "DOCUMENT",
-						"url": "edc/html/en/6/483.html"
-					}
-				]
-			}
-		}
-	},
-	"fr.techad.edc.editor": {
-		"parameters": {
-			"fr": {
-				"description": "Parameters coordinate development and publishing.",
-				"url": "edc/html/fr/1/491/index.html",
-				"label": "Parameters",
-				"articles": [
-					{
-						"id": "492",
-						"label": "En bref",
-						"url": "edc/html/fr/1/491/3.html"
-					}
-				],
-				"links": [
-					{
-						"id": "495",
-						"label": "Creating a UI help brick",
-						"type": "DOCUMENT",
-						"url": "edc/html/fr/2/495.html"
-					},
-					{
-						"id": "505",
-						"label": "Uploading images",
-						"type": "DOCUMENT",
-						"url": "edc/html/fr/2/505.html"
-					}
-				]
-			},
-			"en": {
-				"description": "Parameters coordinate development and publishing.",
-				"url": "edc/html/en/1/491/index.html",
-				"label": "Parameters",
-				"articles": [
-					{
-						"id": "492",
-						"label": "About this option or subject",
-						"url": "edc/html/en/1/491/3.html"
-					}
-				],
-				"links": [
-					{
-						"id": "495",
-						"label": "Creating a UI help brick",
-						"type": "DOCUMENT",
-						"url": "edc/html/en/2/495.html"
-					},
-					{
-						"id": "505",
-						"label": "Uploading images",
-						"type": "DOCUMENT",
-						"url": "edc/html/en/2/505.html"
-					}
-				]
-			}
-		},
-		"comments": {
-			"fr": {
-				"description": "",
-				"url": "edc/html/fr/1/535/index.html",
-				"label": "Comments",
-				"articles": [],
-				"links": []
-			},
-			"en": {
-				"description": "",
-				"url": "edc/html/en/1/535/index.html",
-				"label": "Comments",
-				"articles": [],
-				"links": []
 			}
 		}
 	}

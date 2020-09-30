@@ -29,7 +29,7 @@ import { PopoverPlacement } from 'edc-popover-utils';
               {{ language | uppercase }}
             </option>
           </select>
-          <edc-help [mainKey]="'fr.techad.edc'" [subKey]="'documentation_type'"
+          <edc-help [mainKey]="'fr.techad.edc'" [subKey]="'help.center'"
                     [lang]="lang"></edc-help>
         </div>
         <div>If content for the selected language is not available in the exported documentation, it will load default</div>
@@ -39,26 +39,26 @@ import { PopoverPlacement } from 'edc-popover-utils';
         <div class="error-group">
           <div>Icon from: URL</div>
           <edc-help [mainKey]="'fr.techad.edc'"
-                    [subKey]="'documentation_type'"
+                    [subKey]="'help.center'"
                     [lang]="lang"
                     [options]="{ icon: { url: 'assets/images/icon.png', height: 32 }, placement: 'bottom' }"></edc-help>
           <div>Custom class name:</div>
           <edc-help [mainKey]="'fr.techad.edc'"
-                    [subKey]="'documentation_type'"
+                    [subKey]="'help.center'"
                     [lang]="lang"
                     [options]="{ icon: { class: 'fa fa-book' }, placement: 'top' }"></edc-help>
         </div>
       </div>
       <div class="options-group dark-mode">
         <div>Dark mode</div>
-        <edc-help [mainKey]="'fr.techad.edc'" [subKey]="'documentation_type'"
+        <edc-help [mainKey]="'fr.techad.edc'" [subKey]="'help.center'"
                   [lang]="lang"
                   [options]="{ dark: true, placement: 'top' }"></edc-help>
       </div>
       <div class="options-group">
         <div>Open on hover, with some delay</div>
         <edc-help [mainKey]="'fr.techad.edc'"
-                  [subKey]="'documentation_type'"
+                  [subKey]="'help.center'"
                   [lang]="lang"
                   [options]="{ trigger: 'mouseenter', delay: [200, 500], displayTooltip: false }"></edc-help>
       </div>
@@ -70,7 +70,7 @@ import { PopoverPlacement } from 'edc-popover-utils';
             {{ animation | uppercase }}
           </option>
         </select>
-        <edc-help [mainKey]="'fr.techad.edc'" [subKey]="'documentation_type'"
+        <edc-help [mainKey]="'fr.techad.edc'" [subKey]="'help.center'"
                   [lang]="lang"
                   [options]="{ animation: animation, placement: 'right', trigger: 'mouseenter' }"></edc-help>
       </div>
