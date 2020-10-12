@@ -3,7 +3,7 @@
 		"help.center": {
 			"fr": {
 				"description": "Tout ce dont vous avez besoin pour utiliser edc",
-				"url": "edc/html/fr/1/444/index.html",
+				"url": "",
 				"label": "edc : qu'est-ce que c'est",
 				"articles": [
 					{
@@ -29,7 +29,7 @@
 			},
 			"en": {
 				"description": "All you need about edc",
-				"url": "edc/html/en/1/444/index.html",
+				"url": "",
 				"label": "About edc",
 				"articles": [
 					{
