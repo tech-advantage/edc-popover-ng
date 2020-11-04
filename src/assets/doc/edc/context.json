@@ -1,0 +1,58 @@
+{
+	"fr.techad.edc": {
+		"help.center": {
+			"fr": {
+				"description": "Tout ce dont vous avez besoin pour utiliser edc",
+				"url": "",
+				"label": "edc : qu'est-ce que c'est",
+				"articles": [
+					{
+						"id": "445",
+						"label": "En bref",
+						"url": "edc/html/fr/1/444/3.html"
+					}
+				],
+				"links": [
+					{
+						"id": "448",
+						"label": "Où puis-je trouver l'aide edc ?",
+						"type": "DOCUMENT",
+						"url": "edc/html/fr/3/448.html"
+					},
+					{
+						"id": "450",
+						"label": "How can I contact the edc team?",
+						"type": "DOCUMENT",
+						"url": "edc/html/fr/3/450.html"
+					}
+				]
+			},
+			"en": {
+				"description": "All you need about edc",
+				"url": "",
+				"label": "About edc",
+				"articles": [
+					{
+						"id": "445",
+						"label": "About this option or subject",
+						"url": "edc/html/en/1/444/3.html"
+					}
+				],
+				"links": [
+					{
+						"id": "448",
+						"label": "Where can I find the user help for edc?",
+						"type": "DOCUMENT",
+						"url": "edc/html/en/3/448.html"
+					},
+					{
+						"id": "450",
+						"label": "How can I contact the edc team?",
+						"type": "DOCUMENT",
+						"url": "edc/html/en/3/450.html"
+					}
+				]
+			}
+		}
+	}
+}

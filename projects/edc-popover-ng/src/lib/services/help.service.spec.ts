@@ -1,7 +1,7 @@
 import { HelpService } from './help.service';
-import { async, TestBed } from '@angular/core/testing';
-import { PopoverConfigurationHandler } from './config/popover-configuration-handler';
-import { mockService } from './utils/test-helpers';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+import { PopoverConfigurationHandler } from '../config/popover-configuration-handler';
+import { mockService } from '../utils/test-helpers';
 import { EdcClient } from 'edc-client-js';
 
 describe('Help Service Test', () => {
@@ -18,7 +18,7 @@ describe('Help Service Test', () => {
     TestBed.configureTestingModule({
       providers: [
         HelpService,
-        mockService(PopoverConfigurationHandler, ['getHelpPath', 'getDocPath', 'getPluginId', 'getIcon', 'isAppendToBody', 'getI18nPath'])
+        mockService(PopoverConfigurationHandler, ['getHelpPath', 'getDocPath', 'getPluginId', 'isAppendToBody', 'getI18nPath'])
       ]
     });
   });
@@ -36,18 +36,20 @@ describe('Help Service Test', () => {
 
   describe('getHelp', () => {
 
-    it('should use "edchelp" as plugin identifier if getHelper is called with no defined pluginId parameter', async(() => {
+    it('should use "edchelp" as plugin identifier if getHelper is called with no defined pluginId parameter', waitForAsync(() => {
       expect(popoverConfigurationHandler.getPluginId()).toEqual('edchelp');
 
-      helpService.getHelp('mainKey', 'subKey').then(() => {});
+      helpService.getHelp('mainKey', 'subKey').then(() => {
+      });
 
       expect(EdcClient.prototype.getHelper).toHaveBeenCalledWith('mainKey', 'subKey', 'edchelp', undefined);
     }));
 
-    it('should use "edchelp2" as plugin identifier', async(() => {
+    it('should use "edchelp2" as plugin identifier', waitForAsync(() => {
       expect(popoverConfigurationHandler.getPluginId()).toEqual('edchelp');
 
-      helpService.getHelp('mainKey', 'subKey', 'edchelp2').then(() => {});
+      helpService.getHelp('mainKey', 'subKey', 'edchelp2').then(() => {
+      });
 
       expect(EdcClient.prototype.getHelper).toHaveBeenCalledWith('mainKey', 'subKey', 'edchelp2', undefined);
     }));

@@ -1,6 +1,6 @@
 {
   "name": "edc-popover-ng",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/tech-advantage/edc-popover-ng"
@@ -10,25 +10,29 @@
     "url": "https://github.com/tech-advantage/edc-popover-ng/issues"
   },
   "dependencies": {
-    "edc-client-js": "3.1.2",
-    "edc-popover-js": "^1.0.1",
+    "edc-client-js": "3.1.3",
+    "edc-popover-utils": "^1.0.0",
     "es6-promise": "4.2.8",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.1"
   },
   "devDependencies": {
-    "typescript": "^3.5.3"
+    "typescript": ">=3.5.3"
   },
   "peerDependencies": {
     "@angular/common": ">=7",
     "@angular/core": ">=7",
-    "font-awesome": "4.7.0"
+    "font-awesome": "4-5"
   },
   "ngPackage": {
     "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
     "dest": "../../dist/edc-popover-ng",
     "deleteDestPath": false,
     "lib": {
-      "entryFile": "./src/public_api.ts"
+      "entryFile": "./src/public_api.ts",
+      "umdModuleIds": {
+        "edc-client-js": "edc-client-js",
+        "edc-popover-utils": "edc-popover-utils"
+      }
     },
     "whitelistedNonPeerDependencies": [
       "."

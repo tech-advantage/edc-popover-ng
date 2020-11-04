@@ -1,10 +1,13 @@
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HelpComponent } from './help.component';
-import { HelpService } from './help.service';
-import { EdcTranslationService } from './translate/edc-translation.service';
+import { HelpService } from './services/help.service';
+import { EdcTranslationService } from './services/edc-translation.service';
 import { HelpPopoverDirective } from './help-popover.directive';
-import { HelpConfigService } from './config/help-config.service';
+import { HelpConfigService } from './services/help-config.service';
+import { HelpIconService } from './services/help-icon.service';
+import { HelpErrorService } from './services/help-error.service';
+import { HelpPopoverService } from './services/help-popover.service';
 
 export interface HelpModuleConfig {
   configLoader: Provider;
@@ -21,7 +24,10 @@ export interface HelpModuleConfig {
   providers: [
     HelpService,
     EdcTranslationService,
-    HelpConfigService
+    HelpConfigService,
+    HelpIconService,
+    HelpErrorService,
+    HelpPopoverService
   ],
   exports: [
     HelpComponent

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PopoverConfigurationHandler } from 'projects/edc-popover-ng/src/lib/config/popover-configuration-handler';
 import { ConfigService } from 'src/config/config.service';
+import { IEdcPopoverOptions } from '../../projects/edc-popover-ng/src/lib/config/edc-popover-options.interface';
 
 @Injectable()
 export class PopoverConfigHandler implements PopoverConfigurationHandler {
@@ -19,12 +20,8 @@ export class PopoverConfigHandler implements PopoverConfigurationHandler {
     return this.configService.getConfiguration().popover.pluginId;
   }
 
-  getIcon() {
-    return this.configService.getConfiguration().popover.icon;
-  }
-
-  isAppendToBody(): boolean {
-    return this.configService.getConfiguration().popover.body;
+  getPopoverOptions(): IEdcPopoverOptions {
+    return this.configService.getConfiguration().popover.options;
   }
 
   getI18nPath(): string {

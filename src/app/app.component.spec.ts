@@ -16,7 +16,7 @@ describe('AppComponent', () => {
 
   let configService: ConfigService;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -39,7 +39,7 @@ describe('AppComponent', () => {
         AppComponent
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     configService = TestBed.inject<ConfigService>(ConfigService);
@@ -54,20 +54,20 @@ describe('AppComponent', () => {
     spyOn(configService, 'getConfiguration').and.returnValue({ popover: popoverConfig });
   });
 
-  it('should create the app', async(() => {
+  it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  }));
-  it(`should have as title 'edc-popover-ng-app'`, async(() => {
+  });
+  it(`should have as title 'edc-popover-ng-app'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('edc-popover-ng demo');
-  }));
-  it('should render title in a h1 tag', async(() => {
+  });
+  it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to edc-popover-ng demo!');
-  }));
+  });
 });

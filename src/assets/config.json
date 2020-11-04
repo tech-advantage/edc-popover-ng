@@ -1,9 +1,10 @@
 {
   "popover": {
-    "helpPath": "/help",
-    "docPath": "/doc",
-    "pluginId": "edchelp",
-    "icon": "fa-question-circle-o",
-    "body": true
+    "helpPath": "https://demo.easydoccontents.com/help",
+    "docPath": "assets/doc",
+    "pluginId": "edc",
+    "options": {
+      "delay": [50, 50]
+    }
   }
 }

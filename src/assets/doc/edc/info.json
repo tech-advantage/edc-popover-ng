@@ -1,0 +1,17 @@
+{
+"vendor": "EDC DEMO",
+"version": "2.0.0",
+"name": "Aide EDC Demo ",
+"titles": {
+    "fr": {
+    "title": "Aide EDC Demo "
+    },
+    "en": {
+    "title": "EDC Demo Help"
+    }},
+"identifier": "edc",
+"defaultLanguage": "en",
+"languages": [
+    "en",
+    "fr"]
+}
