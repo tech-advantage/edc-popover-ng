@@ -4,14 +4,14 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ConfigService {
-  private config: EdcConfiguration;
+  private config: EdcConfiguration | undefined;
 
   constructor(private http: HttpClient) {
   }
 
   load(url: string): Promise<EdcConfiguration> {
     return new Promise((resolve) => {
-      this.http.get(url).subscribe((config: EdcConfiguration) => {
+      this.http.get<EdcConfiguration>(url).subscribe((config: EdcConfiguration) => {
           this.config = config;
           resolve();
         });
@@ -19,7 +19,7 @@ export class ConfigService {
   }
 
   getConfiguration(): EdcConfiguration {
-    return this.config;
+    return this.config ?? new EdcConfiguration();
   }
 
 }

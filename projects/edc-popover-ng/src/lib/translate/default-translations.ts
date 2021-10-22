@@ -28,6 +28,6 @@ const LABELS_FR: PopoverLabel = {
   exportId: ''
 };
 
-export const DEFAULT_LABELS = new Map<string, PopoverLabel>()
+export const DEFAULT_LABELS: Map<string, PopoverLabel> = new Map<string, PopoverLabel>()
   .set('en', LABELS_EN)
   .set('fr', LABELS_FR);

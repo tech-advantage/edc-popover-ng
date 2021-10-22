@@ -12,14 +12,14 @@ describe('Help Popover service', () => {
 
   let helpPopoverService: HelpPopoverService;
   let helpServiceSpy: jasmine.SpyObj<HelpService>;
-  let edcTranslationServiceSpy: { getPopoverLabels: jasmine.Spy, setLang: jasmine.Spy, };
+  let edcTranslationServiceSpy: { getPopoverLabels: jasmine.Spy, setLang: jasmine.Spy, getLang: jasmine.Spy, };
 
   // Mock objects
   let helper: Helper;
 
   beforeEach(() => {
     const helpSpy = jasmine.createSpyObj('HelpService', ['getHelp', 'getContextUrl', 'getDocumentationUrl', 'getContainer']);
-    const translateSpy = jasmine.createSpyObj('EdcTranslationService', ['setLang', 'getPopoverLabels']);
+    const translateSpy = jasmine.createSpyObj('EdcTranslationService', ['getLang', 'setLang', 'getPopoverLabels']);
     TestBed.configureTestingModule({
       providers: [
         HelpPopoverService,
@@ -37,7 +37,7 @@ describe('Help Popover service', () => {
     helper = mockHelper();
   });
 
-  const initSpies = (helperToUse: Helper, labels: PopoverLabel = DEFAULT_LABELS.get(SYS_LANG)) => {
+  const initSpies = (helperToUse: Helper, labels: PopoverLabel | undefined = DEFAULT_LABELS.get(SYS_LANG)) => {
     helpServiceSpy.getHelp.and.returnValue(Promise.resolve(helperToUse));
     helpServiceSpy.getContextUrl
       .and.callFake((mainKey: string, subKey: string, languageCode: string, articleIndex: number) =>
@@ -52,6 +52,7 @@ describe('Help Popover service', () => {
     it('should add content', () => {
       // Given the helper is set with base properties
       initSpies(helper);
+      edcTranslationServiceSpy.getLang.and.returnValue('en');
 
       // When calling addContent
       const config: IconPopoverConfig = helpPopoverService.addContent(helper, 'myMainKey', 'mySubKey', 'en');
@@ -59,17 +60,17 @@ describe('Help Popover service', () => {
       // Then configuration and its main attributes should be defined
       expect(config).toBeDefined();
       expect(config.content).toBeDefined();
-      const { title, description, articles, links } = config.content;
+      const { title, description, articles, links } = config.content ?? {};
       expect(helpServiceSpy.getContextUrl).toHaveBeenCalledWith('myMainKey', 'mySubKey', 'en', 0, 'resolvedPluginId');
       expect(helpServiceSpy.getContextUrl).toHaveBeenCalledTimes(1);
       expect(title).toEqual('MyTitle');
       expect(description).toEqual('MyDescription');
-      expect(articles.length).toEqual(1);
+      expect(articles?.length).toEqual(1);
       expect(articles).toContain(mock(Article, {
         label: 'articleLabel1',
         url: `articleUrl1/myMainKey/mySubKey/en/0/`
       }));
-      expect(links.length).toEqual(1);
+      expect(links?.length).toEqual(1);
       expect(helpServiceSpy.getDocumentationUrl).toHaveBeenCalledWith(7);
       expect(helpServiceSpy.getDocumentationUrl).toHaveBeenCalledTimes(1);
       expect(links).toContain(mock(Link, { id: 7, label: 'linkLabel1', url: `linkUrl1/7/` }));
@@ -78,31 +79,31 @@ describe('Help Popover service', () => {
     // Description
     it('should return configuration if description is not defined', () => {
       // Given the helper is set with no description
-      helper.description = undefined;
+      helper.description = null;
       initSpies(helper);
 
       // When calling addContent
       const config: IconPopoverConfig = helpPopoverService.addContent(helper, 'mainKey', 'subKey', 'en');
 
       // Then configuration and its main attributes should be defined, except for description
-      const { title, description, articles, links } = config.content;
+      const { title, description, articles, links } = config.content ?? {};
       expect(title).toEqual('MyTitle');
       expect(description).toBeFalsy();
-      expect(articles.length).toEqual(1);
-      expect(links.length).toEqual(1);
+      expect(articles?.length).toEqual(1);
+      expect(links?.length).toEqual(1);
     });
     // Articles and links
-    it('should return configuration if articles and links are not defined', () => {
+    it('should return configuration if articles and links are empty', () => {
       // Given the helper is set with no articles and no links
-      helper.articles = undefined;
-      helper.links = undefined;
+      helper.articles = [];
+      helper.links = [];
       initSpies(helper);
 
       // When calling addContent
       const config: IconPopoverConfig = helpPopoverService.addContent(helper, 'mainKey', 'subKey', 'en');
 
       // Then configuration and its main attributes should be defined, expect for articles and links
-      const { title, description, articles, links } = config.content;
+      const { title, description, articles, links } = config.content ?? {};
       expect(title).toEqual('MyTitle');
       expect(description).toEqual('MyDescription');
       expect(articles).toEqual([]);
@@ -113,6 +114,7 @@ describe('Help Popover service', () => {
     it('should add content', () => {
       // Given we call the helper for content in fr language but the helper came back with 'ru' as the resolved language
       helper.language = 'ru';
+      edcTranslationServiceSpy.getLang.and.returnValue('ru');
       initSpies(helper);
 
       // When calling addContent

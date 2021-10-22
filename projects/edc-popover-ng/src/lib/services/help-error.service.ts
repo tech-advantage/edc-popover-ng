@@ -73,6 +73,9 @@ export class HelpErrorService {
    * @private
    */
   private buildErrorConfig(config: IconPopoverConfig): IconPopoverConfig {
+    if (!config.options) {
+      return config;
+    }
     const options: IEdcPopoverOptions = config.options;
     config.iconConfig = this.helpIconService.buildErrorIconConfig(options, config.labels);
 
@@ -93,10 +96,10 @@ export class HelpErrorService {
    * @param failBehavior the behavior options in case of error
    * @private
    */
-  private buildErrorContent(labels: PopoverLabel, failBehavior: FailBehavior): PopoverContent {
-    let content = new PopoverContent();
+  private buildErrorContent(labels: PopoverLabel | null, failBehavior: FailBehavior | null | undefined): PopoverContent | null {
+    let content: PopoverContent | null = new PopoverContent();
     // Icon behavior options - Hidden and Disabled don't need content
-    if (failBehavior.icon === IconBehavior.HIDDEN || failBehavior.icon === IconBehavior.DISABLED) {
+    if (!failBehavior || failBehavior.icon === IconBehavior.HIDDEN || failBehavior.icon === IconBehavior.DISABLED) {
       return null;
     }
     // Popover behavior
@@ -105,11 +108,11 @@ export class HelpErrorService {
         content = null;
         break;
       case PopoverBehavior.ERROR_SHOWN:
-        content.title = labels.errorTitle;
-        content.description = labels.errors.failedData;
+        content.title = labels?.errorTitle ?? '';
+        content.description = (labels?.errors && labels.errors.failedData) ? labels.errors.failedData : '';
         break;
       case PopoverBehavior.FRIENDLY_MSG:
-        content.description = labels.comingSoon;
+        content.description = labels?.comingSoon ?? '';
     }
     return content;
   }

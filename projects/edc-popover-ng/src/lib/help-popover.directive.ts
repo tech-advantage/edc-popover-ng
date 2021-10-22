@@ -6,9 +6,9 @@ import { isFalse } from './utils/global.utils';
 @Directive({ selector: '[edcHelpPopover]' })
 export class HelpPopoverDirective implements OnChanges, OnDestroy {
 
-  popover: Popover;
+  popover: Popover | null = null;
 
-  @Input() config: IconPopoverConfig;
+  @Input() config: IconPopoverConfig | undefined;
 
   constructor(private elementRef: ElementRef) {
   }

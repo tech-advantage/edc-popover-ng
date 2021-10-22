@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Article, Helper, Link, PopoverLabel } from 'edc-client-js';
+import { Helper, PopoverLabel } from 'edc-client-js';
 import { IconPopoverConfig } from '../config/icon-popover-config';
 import { ContentNotFoundError } from '../errors/content-not-found.error';
-import { PopoverContent } from 'edc-popover-utils';
+import { PopoverContent, PopoverItem } from 'edc-popover-utils';
 import { HelpService } from './help.service';
 import { EdcTranslationService } from './edc-translation.service';
+import { isNil } from '../utils/global.utils';
+import { SYS_LANG } from '../translate/language-codes';
 
 @Injectable()
 export class HelpPopoverService {
@@ -24,22 +26,22 @@ export class HelpPopoverService {
    * @param lang the lang to use
    * @private
    */
-  addContent(helper: Helper, mainKey: string, subKey: string, lang: string): IconPopoverConfig {
+  addContent(helper: Helper | null, mainKey: string, subKey: string, lang: string | undefined): IconPopoverConfig {
     const config = new IconPopoverConfig();
     if (!helper) {
       // The help client could not resolve any helper for the content, throw an error
-      throw new ContentNotFoundError(mainKey, subKey, lang);
+      throw new ContentNotFoundError(mainKey, subKey, lang ?? SYS_LANG);
     }
     // Retrieve the language that the helper resolved, from the requested and the current export state
     const { language: resolvedLanguage } = helper;
     // Resolved language might be different from the requested, if content was not available in that language
     // Keep the language service up to date with the finally used language
-    this.translationService.setLang(resolvedLanguage);
+    this.translationService.setLang(resolvedLanguage || undefined);
     // Extract and create the popover content
     const { label: title, description, articles, links } = helper;
-    config.content = new PopoverContent(title, description, articles, links);
+    config.content = new PopoverContent(title, description, articles || [], links || []);
     // Parse articles and links urls
-    this.parseUrls(config, mainKey, subKey, resolvedLanguage, helper.exportId);
+    this.parseUrls(config, mainKey, subKey, this.translationService.getLang(), helper.exportId || undefined);
     return config;
   }
 
@@ -51,7 +53,7 @@ export class HelpPopoverService {
    */
   addLabels(config: IconPopoverConfig, lang?: string): Promise<IconPopoverConfig> {
     return this.translationService.getPopoverLabels(lang)
-      .then((translations: PopoverLabel) => {
+      .then((translations: PopoverLabel | null) => {
         config.labels = translations;
         return config;
       });
@@ -74,8 +76,11 @@ export class HelpPopoverService {
     }
     const articles = config.content.articles || [];
     const links = config.content.links || [];
-    articles.forEach((article: Article, index: number) =>
-      article.url = this.helpService.getContextUrl(primaryKey, subKey, lang, index, pluginId));
-    links.forEach((link: Link) => link.url = this.helpService.getDocumentationUrl(link.id));
+    articles.forEach((article: PopoverItem, index: number) => {
+      article.url = this.helpService.getContextUrl(primaryKey, subKey, lang, index, pluginId);
+    });
+    links.forEach((link: PopoverItem) => {
+      link.url = isNil(link.id) ? null : this.helpService.getDocumentationUrl(link.id);
+    });
   }
 }

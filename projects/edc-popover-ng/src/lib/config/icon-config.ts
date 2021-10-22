@@ -13,10 +13,10 @@ import { SYS_LANG } from '../translate/language-codes';
  */
 export class IconConfig {
   icon: PopoverIcon;
-  iconTooltip = DEFAULT_LABELS.get(SYS_LANG).iconAlt;
+  iconTooltip = DEFAULT_LABELS && DEFAULT_LABELS.get(SYS_LANG)?.iconAlt;
   iconClasses: string[] = [];
-  imageStyle: Partial<CSSStyleDeclaration>;
-  errorClasses: IconClass[] = [];
+  imageStyle?: Partial<CSSStyleDeclaration> | null = null;
+  errorClasses?: IconClass[] = [];
 
   constructor() {
     this.icon = PopoverIcon.create();

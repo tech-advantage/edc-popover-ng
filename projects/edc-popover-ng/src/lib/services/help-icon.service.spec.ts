@@ -34,7 +34,7 @@ describe('Help icon service', () => {
   });
 
   beforeEach(() => {
-    labels = { ...DEFAULT_LABELS.get('en') };
+    labels = { ...DEFAULT_LABELS.get('en') } as PopoverLabel;
   });
 
   describe('getTooltip', () => {
@@ -79,8 +79,8 @@ describe('Help icon service', () => {
       expect(classes).toEqual(['class1', 'class2', IconClass.HIDDEN]);
     });
     it('should return error icon classes', () => {
-      // Given icon classes are not defined but some error classes are
-      iconConfig.iconClasses = undefined;
+      // Given icon classes are not provided but some error classes are
+      iconConfig.iconClasses = [];
       iconConfig.errorClasses = [IconClass.DISABLED];
 
       // When calling getIconClasses()
@@ -90,13 +90,12 @@ describe('Help icon service', () => {
       expect(classes).toEqual([IconClass.DISABLED]);
     });
     it('should return empty string or array', () => {
-      // Given icon classes are not defined
-      iconConfig.iconClasses = undefined;
-      iconConfig.errorClasses = undefined;
+      // Given icon classes were not provided
+      expect(iconConfig.iconClasses).toEqual([]);
+      expect(iconConfig.errorClasses).toEqual([]);
 
       // When calling getIconClasses() with undefined values
       expect(helpIconService.getIconClasses(undefined)).toEqual('');
-      expect(helpIconService.getIconClasses(null)).toEqual('');
       expect(helpIconService.getIconClasses(iconConfig)).toEqual([]);
     });
   });
@@ -183,7 +182,7 @@ describe('Help icon service', () => {
     it('should return the style if width and height are not defined', () => {
       // Given only the url is defined
       icon.url = 'imageUrl';
-      icon.height = undefined;
+      icon.height = null;
       icon.width = undefined;
 
       // When calling getIconImageStyle
@@ -291,7 +290,6 @@ describe('Help icon service', () => {
       const { icon } = options;
       icon.class = undefined;
       icon.width = 26;
-      icon.height = undefined;
       // When calling buildErrorIconConfig
       const iconConfig: IconConfig = helpIconService.buildErrorIconConfig(options, labels);
 
