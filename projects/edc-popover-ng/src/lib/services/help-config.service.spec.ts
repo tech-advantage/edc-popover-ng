@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import { Helper } from 'edc-client-js';
+import { PopoverOptions, PopoverPlacement } from 'edc-popover-utils';
 import { HelpService } from './help.service';
 import { mockHelper } from '../utils/test-helpers';
 import { HelpConfigService } from './help-config.service';
-import { PopoverOptions } from 'edc-popover-utils';
-import { Helper } from 'edc-client-js';
 import { IconPopoverConfig } from '../config/icon-popover-config';
 import { HelpPopoverService } from './help-popover.service';
 import { HelpIconService } from './help-icon.service';
@@ -20,10 +20,11 @@ describe('Test Help Config service', () => {
 
   // Mock objects
   let helper: Helper;
+  let iconPopoverConfig: IconPopoverConfig;
 
   beforeEach(() => {
     const helpSpy = jasmine.createSpyObj('HelpService', ['getHelp', 'getPopoverOptions']);
-    const helpIconSpy = jasmine.createSpyObj('HelpIconService', ['getIconClasses', 'getTooltip', 'buildIconClasses', 'getIconImageStyle']);
+    const helpIconSpy = jasmine.createSpyObj('HelpIconService', ['getIconClasses', 'getTooltip', 'buildIconClasses', 'getIconImageStyle', 'buildIconConfig']);
     const helpPopoverSpy = jasmine.createSpyObj('HelpPopoverService', ['addContent', 'addLabels']);
     const helpErrorSpy = jasmine.createSpyObj('HelpErrorService', ['handleHelpError']);
 
@@ -33,7 +34,7 @@ describe('Test Help Config service', () => {
         { provide: HelpService, useValue: helpSpy },
         { provide: HelpIconService, useValue: helpIconSpy },
         { provide: HelpPopoverService, useValue: helpPopoverSpy },
-        { provide: HelpErrorService, useValue: helpPopoverSpy },
+        { provide: HelpErrorService, useValue: helpErrorSpy },
       ]
     });
     // Inject both the service-to-test and its (spy) dependency
@@ -46,6 +47,7 @@ describe('Test Help Config service', () => {
 
   beforeEach(() => {
     helper = mockHelper();
+    iconPopoverConfig = iconPopoverConfig = new IconPopoverConfig();
   });
 
   beforeEach(() => {
@@ -55,11 +57,15 @@ describe('Test Help Config service', () => {
   describe('buildPopoverConfig', () => {
 
     it('should build the popover configuration', () => {
+      helpPopoverServiceSpy.addContent.and.returnValue(iconPopoverConfig);
+      helpPopoverServiceSpy.addLabels.and.returnValue(Promise.resolve(iconPopoverConfig));
+
       // Given we have the helper with common properties
 
       // When calling buildPopoverConfig
       helpConfigService.buildPopoverConfig('myMainKey', 'mySubKey', 'myPluginId', 'en')
         .then((config: IconPopoverConfig) => {
+          expect(config).toBeDefined();
         });
     });
 
@@ -67,17 +73,21 @@ describe('Test Help Config service', () => {
     it('should set the append to option to body and placement to bottom', () => {
       // Given set the append to option to null
       const options = new PopoverOptions();
-      options.appendTo = null;
+      expect(options.appendTo).toBeDefined();
+      const conf = new IconPopoverConfig();
+      helpPopoverServiceSpy.addContent.and.returnValue(conf);
       helpServiceSpy.getPopoverOptions.and.returnValue(options);
+      helpPopoverServiceSpy.addLabels.and.returnValue(Promise.resolve(conf));
 
       // When calling buildPopoverConfig requesting the content in french
       helpConfigService.buildPopoverConfig('myMainKey', 'mySubKey', 'myPluginId', 'en')
         .then((config: IconPopoverConfig) => {
+          expect(config.options).toBeDefined();
           // Then append to option should be set as parent, via the function returning the body element
-          expect(typeof config.options.appendTo).toEqual('function');
+          expect(config.options && typeof config.options.appendTo).toEqual('function');
           // Bottom should be set from default value
-          expect(config.options.placement).toEqual('bottom');
-          expect(config.options.customClass).toBeUndefined();
+          expect(config.options && config.options.placement).toEqual(PopoverPlacement.BOTTOM);
+          expect(config.options && config.options.customClass).toBeUndefined();
         });
     });
     it('should set the append to option to parent and placement to top', () => {
@@ -93,13 +103,42 @@ describe('Test Help Config service', () => {
         'en',
         new PopoverOptions())
         .then((config: IconPopoverConfig) => {
+          expect(config.options).toBeDefined();
           // Then append to option should be set as parent
-          expect(config.options.appendTo).toEqual('parent');
+          expect(config.options && config.options.appendTo).toEqual('parent');
           // Bottom should be set from default value
-          expect(config.options.placement).toEqual('top');
+          expect(config.options && config.options.placement).toEqual(PopoverPlacement.TOP);
           // Custom class should have been set to "my-custom-class"
-          expect(config.options.customClass).toEqual('my-custom-class');
+          expect(config.options && config.options.customClass).toEqual('my-custom-class');
         });
+    });
+
+    it('should reject the promise if main key is not defined', async () => {
+      try {
+        await helpConfigService.buildPopoverConfig(undefined,
+          'mySubKey',
+          'myPluginId',
+          'en',
+          new PopoverOptions());
+      } catch (err) {
+        expect(err).toEqual(HelpConfigService.KEYS_MISSING_ERROR_MESSAGE);
+        return;
+      }
+      throw new Error('Promise should not be resolved');
+    });
+
+    it('should reject the promise if sub key is not defined', async () => {
+      try {
+        await helpConfigService.buildPopoverConfig('myMainKey',
+          undefined,
+          'myPluginId',
+          'en',
+          new PopoverOptions());
+      } catch (err) {
+        expect(err).toEqual(HelpConfigService.KEYS_MISSING_ERROR_MESSAGE);
+        return;
+      }
+      throw new Error('Promise should not be resolved');
     });
 
   });

@@ -5,6 +5,7 @@ export function mockService(provide: any, methods: string[] = []): Provider {
   class MockService {
   }
 
+  // @ts-ignore
   methods.forEach(method => MockService.prototype[method] = () => {
   });
   return { provide: provide, useClass: MockService };

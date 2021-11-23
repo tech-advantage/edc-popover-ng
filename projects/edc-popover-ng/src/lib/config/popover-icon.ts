@@ -11,10 +11,10 @@ import { DEFAULT_ICON } from '../constants/style.constant';
  *
  */
 export class PopoverIcon {
-  class?: string;
-  url?: string;
-  height = 18;
-  width?;
+  class?: string | null | undefined;
+  url?: string | null | undefined;
+  height: number | null | undefined = 18;
+  width?: number | null | undefined;
   errorClass?: string[] = [];
 
   /**

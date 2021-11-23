@@ -14,5 +14,5 @@ import { PopoverLabel } from 'edc-client-js';
 export class IconPopoverConfig extends PopoverConfig {
   iconConfig: IconConfig = new IconConfig();
   disablePopover = false;
-  labels: PopoverLabel;
+  labels: PopoverLabel | null = null;
 }

@@ -3,6 +3,7 @@ import { HelpConfigService } from './services/help-config.service';
 import { IEdcPopoverOptions } from './config/edc-popover-options.interface';
 import { IconPopoverConfig } from './config/icon-popover-config';
 import { Popover } from 'edc-popover-utils';
+import { isNil } from './utils/global.utils';
 
 @Component({
   selector: 'edc-help',
@@ -18,14 +19,14 @@ import { Popover } from 'edc-popover-utils';
 })
 export class HelpComponent implements OnChanges {
 
-  config: IconPopoverConfig;
-  popover: Popover;
+  config: IconPopoverConfig | undefined;
+  popover: Popover | undefined;
 
-  @Input() pluginId: string;
-  @Input() mainKey: string;
-  @Input() subKey: string;
-  @Input() lang: string;
-  @Input() options: IEdcPopoverOptions;
+  @Input() pluginId: string | undefined;
+  @Input() mainKey: string | undefined;
+  @Input() subKey: string | undefined;
+  @Input() lang: string | undefined;
+  @Input() options: IEdcPopoverOptions | undefined;
 
   constructor(private readonly helpConfigService: HelpConfigService) {
   }
@@ -38,8 +39,11 @@ export class HelpComponent implements OnChanges {
     return this.helpConfigService.getIconClasses(this.config);
   }
 
-  getIconStyle(): Partial<CSSStyleDeclaration> {
-    return this.config && this.config.iconConfig && this.config.iconConfig.imageStyle;
+  getIconStyle(): Partial<CSSStyleDeclaration> | null {
+    if (isNil(this.config) || isNil(this.config.iconConfig)) {
+      return null;
+    }
+    return this.config.iconConfig.imageStyle ?? null;
   }
 
   private buildPopoverConfig(): void {

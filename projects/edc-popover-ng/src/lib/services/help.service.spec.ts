@@ -11,7 +11,7 @@ describe('Help Service Test', () => {
 
   // mock EdcClient
   beforeEach(() => {
-    spyOn(EdcClient.prototype, 'getHelper').and.returnValue(Promise.resolve());
+    spyOn(EdcClient.prototype, 'getHelper').and.returnValue(Promise.resolve(null));
   });
 
   beforeEach(() => {

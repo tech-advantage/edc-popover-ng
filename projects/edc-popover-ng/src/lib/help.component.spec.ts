@@ -97,21 +97,6 @@ describe('Help component', () => {
       expect(iconStyle).toEqual(style);
     });
 
-    it('should return falsy if iconConfig is not defined', () => {
-      // Given configuration icon style is not defined
-      const style: Partial<CSSStyleDeclaration> = {
-        background: 'url(http://myimage.png)'
-      };
-      config.iconConfig = undefined;
-      component.config = config;
-
-      // When calling getIconStyle
-      const iconStyle = component.getIconStyle();
-
-      // Then it should be the config style
-      expect(iconStyle).toBeFalsy();
-    });
-
   });
 
   describe('buildPopoverConfig', () => {
