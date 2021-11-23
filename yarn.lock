@@ -3505,19 +3505,19 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-edc-client-js@^3.2.0-beta-0:
-  version "3.2.0-beta-0"
-  resolved "https://registry.yarnpkg.com/edc-client-js/-/edc-client-js-3.2.0-beta-0.tgz#dc2073d48c7d6f12382784e9467ddc340f73feec"
-  integrity sha512-sHTh13IjCuXRT+eIqXF51p1QDeatt1Yy3S03BrG3vmTKeRmzCN3k82vFOxyabZ7wHXFqji35+s9Erv7DgsyM0Q==
+edc-client-js@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/edc-client-js/-/edc-client-js-3.2.0.tgz#a888fa938cc43fe8cbd870d39a40bd5caa09036e"
+  integrity sha512-47heYz1Ae6qShQajMgnV99Dso5D7q7O6T2lvkzeumkP7xIHrcLQ5+j1HU6WT1JEo6s9XXlHyk39tjcFIMGIVUw==
   dependencies:
     axios "0.21.4"
     es6-promise "4.2.8"
     lodash-es "4.17.21"
 
-edc-popover-utils@^1.1.0-beta-0:
-  version "1.1.0-beta-0"
-  resolved "https://registry.yarnpkg.com/edc-popover-utils/-/edc-popover-utils-1.1.0-beta-0.tgz#ce1049985aae891e87d930e8da2c4df446b7eb5a"
-  integrity sha512-6HsyaiCBjbosnsPIu/KNCyU7YLEW/CkB5DhL50evn3/ijMOrKQKk3taBqPKu3NZcZL7O+B+4LvbBWbLT3k34mw==
+edc-popover-utils@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/edc-popover-utils/-/edc-popover-utils-1.1.0.tgz#f4575b79e6cf004604fd55a304f11b7d03eddf8c"
+  integrity sha512-4SjL3hgE5NL0IgaIPRATUzmMPLW/oVUl8nLI00UZhXbrW4uQ2emWvn0b3PtJfpbFiggUfGefHBx2MIJzXdnITQ==
   dependencies:
     tippy.js "6.3.1"
 

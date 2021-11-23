@@ -20,6 +20,7 @@ describe('Test Help Config service', () => {
 
   // Mock objects
   let helper: Helper;
+  let iconPopoverConfig: IconPopoverConfig;
 
   beforeEach(() => {
     const helpSpy = jasmine.createSpyObj('HelpService', ['getHelp', 'getPopoverOptions']);
@@ -46,6 +47,7 @@ describe('Test Help Config service', () => {
 
   beforeEach(() => {
     helper = mockHelper();
+    iconPopoverConfig = iconPopoverConfig = new IconPopoverConfig();
   });
 
   beforeEach(() => {
@@ -55,6 +57,9 @@ describe('Test Help Config service', () => {
   describe('buildPopoverConfig', () => {
 
     it('should build the popover configuration', () => {
+      helpPopoverServiceSpy.addContent.and.returnValue(iconPopoverConfig);
+      helpPopoverServiceSpy.addLabels.and.returnValue(Promise.resolve(iconPopoverConfig));
+
       // Given we have the helper with common properties
 
       // When calling buildPopoverConfig
