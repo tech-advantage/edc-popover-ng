@@ -59,11 +59,12 @@ export class HelpErrorService {
    * Handles exceptions other than content exceptions
    *
    * @param options the options that were passed to the popover
+   * @param lang the lang to use for the labels
    * @private
    */
-  private handleOtherException(options: IEdcPopoverOptions): Promise<IconPopoverConfig> {
+  private handleOtherException(options: IEdcPopoverOptions, lang?: string): Promise<IconPopoverConfig> {
     // Use content exception handling as default for now
-    return this.handleContentException(options);
+    return this.handleContentException(options, lang);
   }
 
   /**

@@ -56,4 +56,4 @@ export const isFalse = (value: unknown): value is false => !isNil(value) && !val
 export const isObject = <T extends unknown>(obj: T | null | undefined): obj is T => typeof obj === 'object' && obj !== null;
 
 export const hasOwnProperty = <X extends unknown>(obj: X, prop: PropertyKey): prop is keyof X =>
-  Object.prototype.hasOwnProperty.call(obj, prop);
+  !!obj && Object.prototype.hasOwnProperty.call(obj, prop);
