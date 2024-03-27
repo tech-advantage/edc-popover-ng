@@ -1,6 +1,6 @@
 {
   "name": "edc-popover-ng",
-  "version": "5.1.1",
+  "version": "5.4.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/tech-advantage/edc-popover-ng"
@@ -28,11 +28,7 @@
     "dest": "../../dist/edc-popover-ng",
     "deleteDestPath": false,
     "lib": {
-      "entryFile": "./src/public_api.ts",
-      "umdModuleIds": {
-        "edc-client-js": "edc-client-js",
-        "edc-popover-utils": "edc-popover-utils"
-      }
+      "entryFile": "./src/public_api.ts"
     },
     "whitelistedNonPeerDependencies": [
       "."
