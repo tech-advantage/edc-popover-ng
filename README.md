@@ -24,7 +24,7 @@ Learn more at [https://www.easydoccontents.com](https://www.easydoccontents.com)
 
 Required dependencies:
 
-- [Angular](https://angular.io/) (v12)
+- [Angular](https://angular.io/) (v13)
 - [FontAwesome](https://www.npmjs.com/package/font-awesome) >= 4.7.0
 
 ## How to use
