@@ -11,11 +11,19 @@ edc is a simple yet powerful tool for agile-like documentation management.
 
 Learn more at [https://www.easydoccontents.com](https://www.easydoccontents.com).
 
+## Compatibility
+
+| Version | Angular  |
+| ------- | -------- |
+| 5.1.1   | v7 - v10 |
+| 5.2.0   | v11      |
+| 5.3.0   | v12      |
+
 ## Dependencies
 
 Required dependencies:
 
-- [Angular](https://angular.io/) (v11)
+- [Angular](https://angular.io/) (v12)
 - [FontAwesome](https://www.npmjs.com/package/font-awesome) >= 4.7.0
 
 ## How to use
