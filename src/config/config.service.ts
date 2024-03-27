@@ -13,7 +13,7 @@ export class ConfigService {
     return new Promise((resolve) => {
       this.http.get<EdcConfiguration>(url).subscribe((config: EdcConfiguration) => {
           this.config = config;
-          resolve();
+          resolve(config);
         });
     });
   }
