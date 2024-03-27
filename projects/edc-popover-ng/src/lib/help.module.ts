@@ -14,27 +14,24 @@ export interface HelpModuleConfig {
 }
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [
-    HelpComponent,
-    HelpPopoverDirective
-  ],
-  providers: [
-    HelpService,
-    EdcTranslationService,
-    HelpConfigService,
-    HelpIconService,
-    HelpErrorService,
-    HelpPopoverService
-  ],
-  exports: [
-    HelpComponent
-  ],
-  entryComponents: [
-    HelpComponent
-  ]
+    imports: [
+        CommonModule
+    ],
+    declarations: [
+        HelpComponent,
+        HelpPopoverDirective
+    ],
+    providers: [
+        HelpService,
+        EdcTranslationService,
+        HelpConfigService,
+        HelpIconService,
+        HelpErrorService,
+        HelpPopoverService
+    ],
+    exports: [
+        HelpComponent
+    ]
 })
 export class HelpModule {
   static forRoot(config: HelpModuleConfig): ModuleWithProviders<HelpModule> {
