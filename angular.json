@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "edc-popover-ng-app:build"
+            "buildTarget": "edc-popover-ng-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "edc-popover-ng-app:build:production"
+              "buildTarget": "edc-popover-ng-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "edc-popover-ng-app:build"
+            "buildTarget": "edc-popover-ng-app:build"
           }
         },
         "test": {
