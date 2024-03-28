@@ -20,12 +20,14 @@ Learn more at [https://www.easydoccontents.com](https://www.easydoccontents.com)
 | 5.3.0   | v12      |
 | 5.4.2   | v13      |
 | 5.5.0   | v14      |
+| 5.6.0   | v15      |
+| 5.7.0   | v16      |
 
 ## Dependencies
 
 Required dependencies:
 
-- [Angular](https://angular.io/) (v14)
+- [Angular](https://angular.io/) (v16)
 - [FontAwesome](https://www.npmjs.com/package/font-awesome) >= 4.7.0
 
 ## How to use
