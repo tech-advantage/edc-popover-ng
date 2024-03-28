@@ -21,7 +21,7 @@ export const isNil = (value: unknown): value is null | undefined => value === un
  * @param target the target object
  * @param src the object containing the source values
  */
-export const copyDefinedProperties = <T>(target: T | null, src: T | null | undefined): T | null => {
+export const copyDefinedProperties = <T extends Object>(target: T | null, src: T | null | undefined): T | null => {
   if (!isObject<T>(target)) {
     return null;
   }
