@@ -1,8 +1,13 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/edc-popover-ng",
-  "deleteDestPath": false,
+  "deleteDestPath": true,
   "lib": {
-    "entryFile": "src/public_api.ts"
-  }
+    "entryFile": "./src/public_api.ts"
+  },
+  "allowedNonPeerDependencies": [
+    "edc-client-js",
+    "edc-popover-utils",
+    "es6-promise"
+  ]
 }
