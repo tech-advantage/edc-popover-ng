@@ -1,6 +1,6 @@
 {
   "name": "edc-popover-ng",
-  "version": "5.4.1",
+  "version": "5.4.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/tech-advantage/edc-popover-ng"
@@ -10,7 +10,7 @@
     "url": "https://github.com/tech-advantage/edc-popover-ng/issues"
   },
   "dependencies": {
-    "edc-client-js": "3.3.0-beta-0",
+    "edc-client-js": "3.3.0",
     "edc-popover-utils": "^1.1.0",
     "es6-promise": "4.2.8",
     "tslib": "^2.3.1"
