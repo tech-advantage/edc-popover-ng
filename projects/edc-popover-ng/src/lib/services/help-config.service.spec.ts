@@ -93,17 +93,23 @@ describe('Test Help Config service', () => {
     it('should set the append to option to parent and placement to top', () => {
       // Given set the append to option to 'parent'
       const options = new PopoverOptions();
+      options.placement = PopoverPlacement.TOP;
       options.appendTo = 'parent';
+      options.customClass = 'my-custom-class';
+      const conf = new IconPopoverConfig();
+      conf.options = options;
       helpServiceSpy.getPopoverOptions.and.returnValue(options);
+      helpPopoverServiceSpy.addContent.and.returnValue(conf);
+      helpPopoverServiceSpy.addLabels.and.returnValue(Promise.resolve(conf));
 
       // When calling buildPopoverConfig requesting the content in french
       helpConfigService.buildPopoverConfig('myMainKey',
         'mySubKey',
         'myPluginId',
         'en',
-        new PopoverOptions())
+        options)
         .then((config: IconPopoverConfig) => {
-          expect(config.options).toBeDefined();
+          expect(config?.options).toBeDefined();
           // Then append to option should be set as parent
           expect(config.options && config.options.appendTo).toEqual('parent');
           // Bottom should be set from default value

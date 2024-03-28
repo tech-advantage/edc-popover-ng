@@ -11,7 +11,7 @@ export function mockService(provide: any, methods: string[] = []): Provider {
   return { provide: provide, useClass: MockService };
 }
 
-export function mock<T>(type: new(...args: any[]) => T, object: any = {}): T {
+export function mock<T extends Object>(type: new(...args: any[]) => T, object: any = {}): T {
   const entity: T = new type();
   Object.assign(entity, object);
   return entity;
