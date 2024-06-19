@@ -23,6 +23,7 @@ Learn more at [https://www.easydoccontents.com](https://www.easydoccontents.com)
 | 5.6.0   | v15      |
 | 5.7.0   | v16      |
 | 5.8.0   | v17      |
+| 5.9.0   | v18      |
 
 ## Dependencies
 

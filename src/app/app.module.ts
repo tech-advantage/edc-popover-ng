@@ -7,36 +7,34 @@ import { PopoverConfigurationHandler } from 'projects/edc-popover-ng/src/lib/con
 import { PopoverConfigHandler } from 'src/config/popover-config-handler';
 import { ConfigService } from 'src/config/config.service';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
 
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    HttpClientModule,
-    HelpModule.forRoot({
-      configLoader: {provide: PopoverConfigurationHandler, useClass: PopoverConfigHandler}
-    }),
-    FormsModule
-  ],
-  providers: [
-    ConfigService,
-    {
-      provide   : APP_INITIALIZER,
-      useFactory: ConfigLoader,
-      deps      : [ConfigService],
-      multi     : true
-    }
+@NgModule({ declarations: [
+        AppComponent
     ],
-  bootstrap: [AppComponent]
+    bootstrap: [AppComponent], 
+    imports: [
+        BrowserModule,
+        CommonModule,
+        HelpModule.forRoot({
+            configLoader: { provide: PopoverConfigurationHandler, useClass: PopoverConfigHandler }
+        }),
+        FormsModule
+    ],
+    providers: [
+        ConfigService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: ConfigLoader,
+            deps: [ConfigService],
+            multi: true
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ]
 })
 export class AppModule { }
-
 
 export function ConfigLoader(configService: ConfigService) {
   // Note: this factory need to return a function (that return a promise)

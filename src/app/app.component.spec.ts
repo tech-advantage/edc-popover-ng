@@ -4,7 +4,7 @@ import { HelpModule } from 'projects/edc-popover-ng/src/lib/help.module';
 import { PopoverConfigurationHandler } from 'projects/edc-popover-ng/src/lib/config/popover-configuration-handler';
 import { PopoverConfigHandler } from 'src/config/popover-config-handler';
 import { ConfigService } from 'src/config/config.service';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { APP_INITIALIZER } from '@angular/core';
 import { ConfigLoader } from 'src/app/app.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,27 +18,25 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        BrowserModule,
+    declarations: [
+        AppComponent
+    ],
+    imports: [BrowserModule,
         CommonModule,
-        HttpClientModule,
         HelpModule.forRoot({
-          configLoader: { provide: PopoverConfigurationHandler, useClass: PopoverConfigHandler }
-        }),
-      ],
-      providers: [
+            configLoader: { provide: PopoverConfigurationHandler, useClass: PopoverConfigHandler }
+        })],
+    providers: [
         ConfigService,
         {
-          provide: APP_INITIALIZER,
-          useFactory: ConfigLoader,
-          deps: [ConfigService],
-          multi: true
-        }
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+            provide: APP_INITIALIZER,
+            useFactory: ConfigLoader,
+            deps: [ConfigService],
+            multi: true
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {
